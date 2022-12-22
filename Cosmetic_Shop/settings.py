@@ -36,13 +36,8 @@ DJANGO_INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-PROJECT_INSTALLED_APPS = ['core',
-                          'costumer',
-                          'order',
-                          'product',
-                          'market',
-                          'shop',
-                          'users']
+PROJECT_INSTALLED_APPS = []
+
 INSTALLED_APPS = [] + DJANGO_INSTALLED_APPS + PROJECT_INSTALLED_APPS
 
 MIDDLEWARE = [
@@ -124,7 +119,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-# from users.models import User_custom
-# AUTH_USER_MODEL = 'User_custom'
