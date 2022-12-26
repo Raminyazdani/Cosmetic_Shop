@@ -36,7 +36,15 @@ DJANGO_INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-PROJECT_INSTALLED_APPS = []
+PROJECT_INSTALLED_APPS = [
+    'APIs',
+    'Core',
+    'Costumers',
+    'Markets',
+    'Products',
+    'Shop',
+    'Users'
+]
 
 INSTALLED_APPS = [] + DJANGO_INSTALLED_APPS + PROJECT_INSTALLED_APPS
 
@@ -113,9 +121,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
-
+STATIC_URL = 'statics/'
+TEMPLATES_URL = 'templates/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'statics/'
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'Users.User'
