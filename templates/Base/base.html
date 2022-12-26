@@ -1,0 +1,38 @@
+{% load static %}
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'Base/Bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'Base/BaseStyle.css' %}">
+    {% block Title %}
+        <title>Test_page</title>
+    {% endblock %}
+
+    {% block header_refrences %}
+
+    {% endblock %}
+
+</head>
+<body>
+{% include "Includes/header.html" %}
+{% block main %}
+
+    <main>
+
+
+{% endblock %}
+</main>
+<footer class="text-center text-lg-start text-white" >
+    {% include "Includes/footer.html" %}
+</footer>
+{% block footer_refrences %}
+
+{% endblock %}
+
+<script href="{% static 'Base/Bootstrap/js/bootstrap.bundle.js' %}"></script>
+</body>
+</html>
