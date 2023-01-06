@@ -1,66 +1,51 @@
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import AbstractUser, PermissionsMixin
-from django.db import models
 from django.core.validators import RegexValidator
+from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+
 from Core.models import CoreModel, CoreModelUniversal
-from .managers import CostumeBaseUserManager
-
-
+from Core.fields import ProjectField
+from Core.ProjectMixins.Users import Property, ModelRequiredProperties
 # Create your models here.
-class User(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin,ModelRequiredProperties.User):
     """
     User model for the system with phone number as the unique identifier and whether it is a costumer or market or both
     """
-    id = models.BigAutoField(primary_key=True, verbose_name=_('ID'), help_text=_('this is your primary id'),
-                             editable=False)
-    phone_number = models.CharField(max_length=15, unique=True, validators=[
-        RegexValidator(message="must be a phone number", regex='^(\+98|\+980|0098|00980|0)\d{10}$')],
-                                    verbose_name=_('Phone Number'),
-                                    help_text=_('enter a valid and unique phone number'), db_index=True)
+    id = ProjectField.CustomIdField(class_name="User")
+    phone_number = ProjectField.CustomPhoneNumberField(class_name="User")
 
-    is_costumer = models.BooleanField(default=False, verbose_name=_('Is Costumer'),
-                                      help_text=_('Do you want to have a Costumer Profile?'))
+    is_costumer = ProjectField.CustomIsCostumerField(class_name="User")
     # costumer_profile_id = models.ForeignKey('CostumerProfile', on_delete=models.SET_NULL, null=True, blank=True,
     #                                         verbose_name=_('Costumer Profile ID'), help_text=_('Costumer Profile ID'),
     #                                         db_index=True)
-    is_market = models.BooleanField(default=False, verbose_name=_('Is Market'),
-                                    help_text=_('Do you want to have a Market Profile?'))
+    is_market = ProjectField.CustomIsMarketField(class_name="User")
     # market_profile_id = models.ForeignKey('MarketProfile', on_delete=models.SET_NULL, null=True, blank=True,
     #                                       verbose_name=_('Market Profile ID'), help_text=_('Market Profile ID'),
     #                                       db_index=True)
-    is_staff = models.BooleanField(default=False, verbose_name=_('Is Staff'),
-                                   help_text=_('Do you want to have a Staff Permissions?'))
+    is_staff = ProjectField.CustomIsStaffField(class_name="User")
 
-    is_active = models.BooleanField(default=True, verbose_name=_('Is Active'), help_text=_('Is this user active?'))
+    is_active = ProjectField.CustomIsActiveField(class_name="User")
 
-    is_admin = models.BooleanField(default=False, verbose_name=_('Is Admin'),
-                                   help_text=_('Do you want to have a Admin Permissions?'))
-    is_superuser = models.BooleanField(default=False, verbose_name=_('Is Superuser'),
-                                       help_text=_('Do you want to have a Superuser Permissions?'))
-    is_verified = models.BooleanField(default=False, verbose_name=_('Is Verified'),
-                                      help_text=_('Is this user verified?'))
-    slug = models.SlugField(max_length=100, unique=True, verbose_name=_('Slug'), help_text=_('Slug Field'),
-                            editable=True, default=None, null=True, blank=True)
+    is_admin = ProjectField.CustomIsAdminField(class_name="User")
 
-    is_delete = models.BooleanField(default=False, verbose_name=_('Is Delete'), help_text=_('Is this user deleted?'))
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created At'), help_text=_('Created At'))
-    modified_at = models.DateTimeField(auto_now=True, verbose_name=_('Modified At'), help_text=_('Modified At'))
+    is_superuser = ProjectField.CustomIsSuperUserField(class_name="User")
+    is_verified = ProjectField.CustomIsVerifiedField(class_name= "User")
 
-    objects = CostumeBaseUserManager()
-    subset = CostumeBaseUserManager()
+    slug = ProjectField.CustomSlugField(class_name="User")
 
-    class Admin:
-        manager = CostumeBaseUserManager()
+    is_delete = ProjectField.CustomIsDeletedField(class_name="User")
+    created_at = ProjectField.CustomCreatedAtField(class_name="User")
+    modified_at = ProjectField.CustomModifiedAtField(class_name="User")
 
-    USERNAME_FIELD = 'phone_number'
-    REQUIRED_FIELDS = []
+    objects= Property.Manager.USER_OBJECT
+    subset = Property.Manager.USER_SUBSET
 
-    def get_absolute_url(self):
-        return reverse('User_detail', args=[str(self.slug)])
-        pass
+    USERNAME_FIELD = Property.UserNameField.USER
+    REQUIRED_FIELDS = Property.RequiredField.USER
+    SEARCH_FIELDS = Property.SearchFields.USER
 
-    class meta:
+    class Meta:
         verbose_name = _('User')
         verbose_name_plural = _('Users')
