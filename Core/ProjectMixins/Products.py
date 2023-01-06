@@ -110,7 +110,7 @@ class Methods:
                     if self.pk is None:
                         super().save(*args, **kwargs)
                     slug = self.parents_names + [slugify(self.name)]
-                    self.slug = "/".join(slug)
+                    self.slug = "/".join(slug).lower()
                     super().save(*args, **kwargs)
 
         class Base:
@@ -591,42 +591,36 @@ class Property:
     class RequiredField():
         """
         RequiredField Mixin
+        Product App Mixin
+
         """
 
-        class PRODUCTS:
-            """
-            Product App Mixin
-            """
-            PRODUCT = ['name', 'gender']
+        PRODUCT = ['name', 'gender']
 
-            BRAND = ['name']
+        BRAND = ['name']
 
-            CATEGORY = ['name']
+        CATEGORY = ['name']
 
-            TAG = ['name']
+        TAG = ['name']
 
-            COMMENT = ['product', 'author', 'title', 'body', 'rating']
+        COMMENT = ['product', 'author', 'title', 'body', 'rating']
 
     class SearchFields:
         """
         SearchFields Mixin
+        Product App Mixin
         """
+        PRODUCT = ['name', 'short_description', 'category__name', 'tag__name', 'brand__name']
 
-        class PRODUCTS:
-            """
-            Product App Mixin
-            """
-            PRODUCT = ['name', 'short_description', 'category__name', 'tag__name', 'brand__name']
+        BRAND = ['name', 'product__name', 'product__category__name', 'product__tag__name',
+                 'product__brand__name']
+        CATEGORY = ['name', 'product__name', 'product__category__name', 'product__tag__name',
+                    'product__brand__name', 'parent__name', 'parent__product__name']
 
-            BRAND = ['name', 'product__name', 'product__category__name', 'product__tag__name',
-                     'product__brand__name']
-            CATEGORY = ['name', 'product__name', 'product__category__name', 'product__tag__name',
-                        'product__brand__name', 'parent__name', 'parent__product__name']
+        TAG = ['name', 'product__name', 'product__category__name', 'product__tag__name', 'product__brand__name']
 
-            TAG = ['name', 'product__name', 'product__category__name', 'product__tag__name', 'product__brand__name']
-
-            COMMENT = ['title', 'body', 'author__username', 'product__name', 'product__category__name',
-                       'product__tag__name', 'product__brand__name']
+        COMMENT = ['title', 'body', 'author__username', 'product__name', 'product__category__name',
+                   'product__tag__name', 'product__brand__name']
 
 
 class ModelRequiredProperties:
@@ -634,154 +628,149 @@ class ModelRequiredProperties:
     ModelRequiredProperties Mixin
     """
 
-    class PRODUCTS:
+    class Product(
+        # METHODS
+        Methods.Save.Slug.Name, Methods.Save.Base.Product,  # save methods
+
+        # def str and get_absolute_url
+        Methods.Str.name, Methods.AbsoluteUrl.Slug,  # str and absolute url methods
+
+        # property Counts
+
+        # PROPERTIES
+        # COUNTS
+        Property.Foreign.Count.ForProduct.Tag,  # foreign count properties Tag
+        Property.Foreign.Count.ForProduct.Category,  # foreign count properties Category
+        Property.Foreign.Count.ForProduct.Comment,  # foreign count properties Comment
+        Property.Foreign.Count.ForProduct.Brand,  # foreign count properties Brand
+
+        # Property names
+        # NAMES
+        Property.Foreign.Names.ForProduct.Tag,  # foreign name properties Tag
+        Property.Foreign.Names.ForProduct.Category,  # foreign name properties Category
+        Property.Foreign.Names.ForProduct.Brand,  # foreign name properties Brand
+
+    ):
         """
-        Product App Mixin
+        Products.Product Mixin
         """
+        pass
 
-        class Product(
-            # METHODS
-            Methods.Save.Slug.Name, Methods.Save.Base.Product,  # save methods
+    class Brand(
+        # METHODS
+        Methods.Save.Slug.Name,  # save methods
 
-            # def str and get_absolute_url
-            Methods.Str.name, Methods.AbsoluteUrl.Slug,  # str and absolute url methods
+        # def str and get_absolute_url
+        Methods.Str.name, Methods.AbsoluteUrl.Slug,  # str and absolute url methods
 
-            # property Counts
+        # property Counts
 
-            # PROPERTIES
-            # COUNTS
-            Property.Foreign.Count.ForProduct.Tag,  # foreign count properties Tag
-            Property.Foreign.Count.ForProduct.Category,  # foreign count properties Category
-            Property.Foreign.Count.ForProduct.Comment,  # foreign count properties Comment
-            Property.Foreign.Count.ForProduct.Brand,  # foreign count properties Brand
+        # PROPERTIES
+        # COUNTS
+        Property.Foreign.Count.ForOther.Tag,  # foreign count properties Tag
+        Property.Foreign.Count.ForOther.Category,  # foreign count properties Category
+        Property.Foreign.Count.ForOther.Comment,  # foreign count properties Comment
+        Property.Foreign.Count.ForOther.Product,  # foreign count properties Products
+        # NAMES
+        Property.Foreign.Names.ForOther.Tag,  # foreign name properties Tag
+        Property.Foreign.Names.ForOther.Category,  # foreign name properties Category
+        Property.Foreign.Names.ForOther.Product,  # foreign name properties Products
+    ):
+        """
+        Products.Brand Mixin
+        """
+        pass
 
-            # Property names
-            # NAMES
-            Property.Foreign.Names.ForProduct.Tag,  # foreign name properties Tag
-            Property.Foreign.Names.ForProduct.Category,  # foreign name properties Category
-            Property.Foreign.Names.ForProduct.Brand,  # foreign name properties Brand
+    class Category(
+        # METHODS
+        Methods.Save.Slug.Category,  # save methods
 
-        ):
-            """
-            Products.Product Mixin
-            """
-            pass
+        # def str and get_absolute_url
+        Methods.Str.name, Methods.AbsoluteUrl.Slug,  # str and absolute url methods
 
-        class Brand(
-            # METHODS
-            Methods.Save.Slug.Name,  # save methods
+        # property Counts
 
-            # def str and get_absolute_url
-            Methods.Str.name, Methods.AbsoluteUrl.Slug,  # str and absolute url methods
+        # PROPERTIES
+        # COUNTS
+        Property.Foreign.Count.ForOther.Tag,  # foreign count properties Tag
+        Property.Foreign.Count.ForOther.Brand,  # foreign count properties Brand
+        Property.Foreign.Count.ForOther.Comment,  # foreign count properties Comment
+        Property.Foreign.Count.ForOther.Product,  # foreign count properties Products
+        # NAMES
+        Property.Foreign.Names.ForOther.Tag,  # foreign name properties Tag
+        Property.Foreign.Names.ForOther.Brand,  # foreign name properties Brand
+        Property.Foreign.Names.ForOther.Product,  # foreign name properties Products
+        Property.Foreign.Names.ForCategory.Parent,  # foreign name properties Parent
+    ):
+        """
+        Products.Category Mixin
+        """
+        pass
 
-            # property Counts
+    class Tag(
+        # METHODS
+        Methods.Save.Slug.Name,  # save methods
 
-            # PROPERTIES
-            # COUNTS
-            Property.Foreign.Count.ForOther.Tag,  # foreign count properties Tag
-            Property.Foreign.Count.ForOther.Category,  # foreign count properties Category
-            Property.Foreign.Count.ForOther.Comment,  # foreign count properties Comment
-            Property.Foreign.Count.ForOther.Product,  # foreign count properties Products
-            # NAMES
-            Property.Foreign.Names.ForOther.Tag,  # foreign name properties Tag
-            Property.Foreign.Names.ForOther.Category,  # foreign name properties Category
-            Property.Foreign.Names.ForOther.Product,  # foreign name properties Products
-        ):
-            """
-            Products.Brand Mixin
-            """
-            pass
+        # def str and get_absolute_url
+        Methods.Str.name, Methods.AbsoluteUrl.Slug,  # str and absolute url methods
 
-        class Category(
-            # METHODS
-            Methods.Save.Slug.Category,  # save methods
+        # property Counts
 
-            # def str and get_absolute_url
-            Methods.Str.name, Methods.AbsoluteUrl.Slug,  # str and absolute url methods
+        # PROPERTIES
+        # COUNTS
+        Property.Foreign.Count.ForOther.Brand,  # foreign count properties Brand
+        Property.Foreign.Count.ForOther.Category,  # foreign count properties Category
+        Property.Foreign.Count.ForOther.Comment,  # foreign count properties Comment
+        Property.Foreign.Count.ForOther.Product,  # foreign count properties Products
+        # NAMES
+        Property.Foreign.Names.ForOther.Brand,  # foreign name properties Brand
+        Property.Foreign.Names.ForOther.Category,  # foreign name properties Category
+        Property.Foreign.Names.ForOther.Product,  # foreign name properties Products
+    ):
+        """
+        Products.Tag Mixin
+        """
+        pass
 
-            # property Counts
+    class Comment(
+        # METHODS
+        Methods.Save.Slug.Id,  # save methods
 
-            # PROPERTIES
-            # COUNTS
-            Property.Foreign.Count.ForOther.Tag,  # foreign count properties Tag
-            Property.Foreign.Count.ForOther.Brand,  # foreign count properties Brand
-            Property.Foreign.Count.ForOther.Comment,  # foreign count properties Comment
-            Property.Foreign.Count.ForOther.Product,  # foreign count properties Products
-            # NAMES
-            Property.Foreign.Names.ForOther.Tag,  # foreign name properties Tag
-            Property.Foreign.Names.ForOther.Brand,  # foreign name properties Brand
-            Property.Foreign.Names.ForOther.Product,  # foreign name properties Products
-            Property.Foreign.Names.ForCategory.Parent,  # foreign name properties Parent
-        ):
-            """
-            Products.Category Mixin
-            """
-            pass
+        # def str and get_absolute_url
+        Methods.Str.title, Methods.AbsoluteUrl.Slug,  # str and absolute url methods
 
-        class Tag(
-            # METHODS
-            Methods.Save.Slug.Name,  # save methods
+        # property Counts
 
-            # def str and get_absolute_url
-            Methods.Str.name, Methods.AbsoluteUrl.Slug,  # str and absolute url methods
+        # PROPERTIES
+        # COUNTS
+        Property.Foreign.Count.ForComment.Tag,  # foreign count properties Tag
+        Property.Foreign.Count.ForComment.Category,  # foreign count properties Category
+        Property.Foreign.Count.ForComment.Brand,  # foreign count properties Brand
+        # NAMES
+        Property.Foreign.Names.ForComment.Tag,  # foreign name properties Tag
+        Property.Foreign.Names.ForComment.Category,  # foreign name properties Category
+        Property.Foreign.Names.ForComment.Product,  # foreign name properties Products
+        Property.Foreign.Names.ForComment.Brand,  # foreign name properties Brand
+    ):
+        """
+        Products.Comment Mixin
+        """
+        pass
 
-            # property Counts
+    class ProductTag():
+        """
+        Products.ProductTag Mixin
+        """
+        pass
 
-            # PROPERTIES
-            # COUNTS
-            Property.Foreign.Count.ForOther.Brand,  # foreign count properties Brand
-            Property.Foreign.Count.ForOther.Category,  # foreign count properties Category
-            Property.Foreign.Count.ForOther.Comment,  # foreign count properties Comment
-            Property.Foreign.Count.ForOther.Product,  # foreign count properties Products
-            # NAMES
-            Property.Foreign.Names.ForOther.Brand,  # foreign name properties Brand
-            Property.Foreign.Names.ForOther.Category,  # foreign name properties Category
-            Property.Foreign.Names.ForOther.Product,  # foreign name properties Products
-        ):
-            """
-            Products.Tag Mixin
-            """
-            pass
+    class ProductCategory():
+        """
+        Products.ProductCategory Mixin
+        """
+        pass
 
-        class Comment(
-            # METHODS
-            Methods.Save.Slug.Id,  # save methods
-
-            # def str and get_absolute_url
-            Methods.Str.title, Methods.AbsoluteUrl.Slug,  # str and absolute url methods
-
-            # property Counts
-
-            # PROPERTIES
-            # COUNTS
-            Property.Foreign.Count.ForComment.Tag,  # foreign count properties Tag
-            Property.Foreign.Count.ForComment.Category,  # foreign count properties Category
-            Property.Foreign.Count.ForComment.Brand,  # foreign count properties Brand
-            # NAMES
-            Property.Foreign.Names.ForComment.Tag,  # foreign name properties Tag
-            Property.Foreign.Names.ForComment.Category,  # foreign name properties Category
-            Property.Foreign.Names.ForComment.Product,  # foreign name properties Products
-            Property.Foreign.Names.ForComment.Brand,  # foreign name properties Brand
-        ):
-            """
-            Products.Comment Mixin
-            """
-            pass
-
-        class ProductTag():
-            """
-            Products.ProductTag Mixin
-            """
-            pass
-
-        class ProductCategory():
-            """
-            Products.ProductCategory Mixin
-            """
-            pass
-
-        class ProductBrand():
-            """
-            Products.ProductBrand Mixin
-            """
-            pass
+    class ProductBrand():
+        """
+        Products.ProductBrand Mixin
+        """
+        pass
