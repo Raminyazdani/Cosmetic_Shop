@@ -226,7 +226,7 @@ class CategoryAdmin(BaseAdminSlug):
 
         ("Profiling", {
             'classes': ('extrapretty',),
-            'fields': (('name', 'slug',),)
+            'fields': (('name', 'parent',),"slug",)
 
         }),
         ("Extras", {
