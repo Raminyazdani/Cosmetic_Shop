@@ -1,24 +1,37 @@
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
-
-# Create your models here.
+import Core.fields.BoleanFields
+import Core.fields.DateFields
+import Core.fields.IdFields
 from Core.managers import BaseManager
+from Core.fields import ProjectFields
+from django.db import models
 
 
 class CoreModel(models.Model):
+    """
+    Core Model
+
+    """
+    id = ProjectFields.CustomIdField()
+
     class Meta:
         abstract = True
-
 
 
 class CoreModelUniversal(CoreModel):
+    """
+    Core Model Universal with universal fields and managers
+    """
+    is_delete = ProjectFields.CustomIsDeletedField()
+    created_at = ProjectFields.CustomCreatedAtField()
+    modified_at = ProjectFields.CustomModifiedAtField()
 
-    is_delete = models.BooleanField(default=False, verbose_name=_('Is Delete'), help_text=_('Is this user deleted?'))
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created At'), help_text=_('Created At'))
-    modified_at = models.DateTimeField(auto_now=True, verbose_name=_('Modified At'), help_text=_('Modified At'))
+    objects = BaseManager()
+    subset = BaseManager()
 
     class Meta:
         abstract = True
+
 
 

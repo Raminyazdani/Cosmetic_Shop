@@ -1,21 +1,24 @@
 from django.contrib import admin
+
+from Core.ProjectMixins.Users import AdminProperty
+from Core.admin import BaseAdminSlugUser
 from .models import User
-from Core.admin import BaseAdmin
 
 # Register your models here.
 
 
 @admin.register(User)
-class UserAdmin(BaseAdmin):
-    list_display = ['id', 'phone_number', 'is_staff', 'is_superuser', 'is_admin', 'is_verified', 'is_delete',
-                    'is_market', 'is_costumer', 'is_active', 'created_at']
-    list_filter = ['is_staff', 'is_superuser', 'is_active', 'is_costumer', 'is_market', "is_delete", "is_verified",
-                   "is_active"]
-    search_fields = ['phone_number']
-    ordering = ['phone_number']
-    filter_horizontal = []
-    fieldsets = []
-    add_fieldsets = []
-    readonly_fields = ['created_at', 'modified_at']
-    list_per_page = 25
-    list_max_show_all = 100
+class UserAdmin(BaseAdminSlugUser):
+    model = User
+    list_display = AdminProperty.User.list_display
+    list_filter = AdminProperty.User.list_filter
+    list_editable = AdminProperty.User.list_editable
+    search_fields = AdminProperty.User.search_fields
+    ordering = AdminProperty.User.ordering
+    filter_horizontal = AdminProperty.User.filter_horizontal
+    fieldsets = AdminProperty.User.fieldsets
+    add_fieldsets = AdminProperty.User.add_fieldsets
+    readonly_fields = AdminProperty.User.readonly_fields
+    list_per_page = AdminProperty.User.list_per_page
+    list_max_show_all = AdminProperty.User.list_max_show_all
+    prepopulated_fields = AdminProperty.User.prepopulated_fields

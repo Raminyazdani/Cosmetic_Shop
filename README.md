@@ -15,8 +15,11 @@ This is my first django project from zero to hero . wish me luck ...
     1. Product
     2. Brand
     3. Category
-    4. ProductCategory
-    5. Comments
+    4. Comments
+    5. Tags
+    6. ProductCategory
+    7. ProductTag
+    8. ProductBrand
 
 * ### Shop
     1. Address

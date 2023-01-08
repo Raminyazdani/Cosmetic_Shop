@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class BaseManager(models.Manager):
     """
     base manager for all models in project
@@ -11,7 +10,7 @@ class BaseManager(models.Manager):
         return all objects that is not deleted
         :return:
         """
-        return super().get_queryset().filter(is_delete=False)
+        return super().get_queryset()
 
     def get_all(self):
         """
@@ -48,4 +47,3 @@ class BaseManager(models.Manager):
         """
         return super().get_queryset().delete()
 
-    
