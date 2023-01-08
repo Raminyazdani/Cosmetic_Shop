@@ -3,8 +3,7 @@ from django.utils.text import slugify
 from django.utils.functional import cached_property
 from Users.managers import CostumBaseUserManager
 
-
-class Methods :
+class ModelMethod :
     """
     Methods Mixin
     """
@@ -104,7 +103,7 @@ class Methods :
                 """
                 return reverse('product_detail' , kwargs = {'slug' : self.slug})
 
-class Property :
+class ModelProperty :
     """
     Property Mixin
     """
@@ -188,10 +187,10 @@ class ModelRequiredProperties :
 
     class User(
             # METHODS
-            Methods.Save.Slug.Name , Methods.Save.Base.User ,  # save methods
+            ModelMethod.Save.Slug.Name , ModelMethod.Save.Base.User ,  # save methods
 
             # def str and get_absolute_url
-            Methods.Str.phone_number , Methods.AbsoluteUrl.Slug ,  # str and absolute url methods
+            ModelMethod.Str.phone_number , ModelMethod.AbsoluteUrl.Slug ,  # str and absolute url methods
 
             # PROPERTIES
 
@@ -202,3 +201,30 @@ class ModelRequiredProperties :
         Users.User Model Mixin
         """
         pass
+
+class AdminProperty():
+    class User:
+        list_display = ['id', 'phone_number', 'is_costumer', 'is_market', 'is_staff', 'is_active', 'is_admin', 'is_superuser', 'is_verified', 'slug', 'is_delete', 'created_at', 'modified_at']
+        list_filter = ['is_costumer', 'is_market', 'is_staff', 'is_active', 'is_admin', 'is_superuser', 'is_verified', 'is_delete', 'created_at']
+        list_editable = ['is_costumer', 'is_market', 'is_staff', 'is_active', 'is_admin', 'is_superuser', 'is_verified', 'is_delete']
+
+        search_fields = ['phone_number']
+        ordering = ['phone_number']
+        filter_horizontal = []
+        fieldsets = (("Profiling", {
+            'fields': (('phone_number', 'slug'), ('is_costumer', 'is_market')),
+            'classes': ('extrapretty')
+            }), ("Conditions", {
+            'fields': (('is_staff', 'is_active', 'is_admin', 'is_superuser', 'is_verified', 'is_delete'),),
+            'classes': ('extrapretty')
+            }), ("Time", {
+            'fields': (('created_at', 'modified_at'),),
+            'classes': ('extrapretty')
+            }))
+        add_fieldsets = []
+        readonly_fields = ['created_at', 'modified_at']
+        list_per_page = 25
+        list_max_show_all = 100
+        prepopulated_fields = {
+            "slug": ("phone_number",)
+            }

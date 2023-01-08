@@ -34,8 +34,18 @@ class BaseAdminSlug(BaseAdmin):
     def get_readonly_fields(self, request, obj=None):
         if obj:
             self.prepopulated_fields = {}
-            return ['slug'] + self.readonly_fields
+            return ['slug'] + list(self.readonly_fields)
         return self.readonly_fields
+
+    class Media:
+        js = ("/statics/Base/Admin_statics/Admin_slug.js", "/statics/Base/Admin_statics/jquery.js")
+
+class BaseAdminInlineRender(BaseAdmin):
+
+    def render_change_form(self, request, *args, **kwargs):
+        self.request = request
+        self.response = super().render_change_form(request, *args, **kwargs)
+        return self.response
 
     class Media:
         js = ("/statics/Base/Admin_statics/Admin_slug.js", "/statics/Base/Admin_statics/jquery.js")
