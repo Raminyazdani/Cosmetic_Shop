@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.template.loader import get_template
 
 from Core.ProjectMixins.Products import AdminProperty
-from Core.admin import BaseAdminSlug, CustomInlineAdmin, CustomInlineAdminOneToMany
+from Core.admin import BaseAdminSlug, CategoryAdminSlug, CustomInlineAdmin, CustomInlineAdminOneToMany
 from .models import *
 
 class InlineMethods:
@@ -93,7 +93,7 @@ class BrandAdmin(BaseAdminSlug):
     product_inline = inlines[0].product_inline
 
 @admin.register(Category)
-class CategoryAdmin(BaseAdminSlug):
+class CategoryAdmin(CategoryAdminSlug):
     model = Category
     search_fields = model.SEARCH_FIELDS
     list_display = AdminProperty.Category.list_display
@@ -132,7 +132,7 @@ class TagAdmin(BaseAdminSlug):
     product_inline = inlines[0].product_inline
 
 @admin.register(Comment)
-class CommentAdmin(BaseAdminSlug):
+class CommentAdmin(CategoryAdmin):
     model = Comment
     search_fields = model.SEARCH_FIELDS
     list_display =AdminProperty.Comment.list_display
