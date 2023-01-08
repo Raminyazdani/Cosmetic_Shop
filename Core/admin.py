@@ -15,6 +15,8 @@ def Restore_delete(modeladmin, request, queryset):
 
 
 class BaseAdmin(admin.ModelAdmin):
+    class Meta:
+        abstract=True
     actions = [soft_delete, Restore_delete]
 
     def get_queryset(self, request):
@@ -30,6 +32,8 @@ class BaseAdmin(admin.ModelAdmin):
 
 
 class BaseAdminSlug(BaseAdmin):
+    class Meta:
+        abstract=True
 
     def get_readonly_fields(self, request, obj=None):
         if obj:
@@ -40,7 +44,25 @@ class BaseAdminSlug(BaseAdmin):
     class Media:
         js = ("/statics/Base/Admin_statics/Admin_slug.js", "/statics/Base/Admin_statics/jquery.js")
 
+
+class CategoryAdminSlug(BaseAdmin):
+    class Meta:
+        abstract=True
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            self.prepopulated_fields = {}
+            return ['slug'] + list(self.readonly_fields)
+        return self.readonly_fields
+
+    class Media:
+        js = ("/statics/Base/Admin_statics/string_to_slug.js","/statics/Base/Admin_statics/Admin_category_slug.js", "/statics/Base/Admin_statics/jquery.js")
+
+
+
 class BaseAdminInlineRender(BaseAdmin):
+    class Meta:
+        abstract=True
 
     def render_change_form(self, request, *args, **kwargs):
         self.request = request
@@ -52,17 +74,23 @@ class BaseAdminInlineRender(BaseAdmin):
 
 
 class BaseAdminSlugUser(BaseAdminSlug):
+    class Meta:
+        abstract=True
     class Media:
         js = ("/statics/Base/Admin_statics/Admin_user_slug.js", "/statics/Base/Admin_statics/jquery.js")
 
 
 class BaseFormSetInlineNoDelete(models.BaseInlineFormSet):
+    class Meta:
+        abstract=True
     def __init__(self, *args, **kwargs):
         super(BaseFormSetInlineNoDelete, self).__init__(*args, **kwargs)
         self.can_delete = False
 
 
 class CustomInlineAdmin(admin.TabularInline):
+    class Meta:
+        abstract=True
     classes = ('collapse',)
 
     def get_extra(self, request, obj=None, **kwargs):
@@ -71,10 +99,14 @@ class CustomInlineAdmin(admin.TabularInline):
 
 
 class CustomInlineAdminOneToMany(CustomInlineAdmin):
+    class Meta:
+        abstract=True
     formset = BaseFormSetInlineNoDelete
 
 
 class CustomStackedAdmin(admin.StackedInline):
+    class Meta:
+        abstract=True
     classes = ('collapse',)
 
     def get_extra(self, request, obj=None, **kwargs):
