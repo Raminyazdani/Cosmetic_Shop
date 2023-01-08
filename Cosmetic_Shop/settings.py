@@ -38,13 +38,12 @@ DJANGO_INSTALLED_APPS = [
 ]
 PROJECT_INSTALLED_APPS = [
     'APIs',
-    'Core',
     'Costumers',
     'Markets',
     'Products',
     'Shop',
-    'Users'
-]
+    'Users',
+    'Core', ]
 
 INSTALLED_APPS = [] + DJANGO_INSTALLED_APPS + PROJECT_INSTALLED_APPS
 
