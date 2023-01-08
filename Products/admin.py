@@ -1,377 +1,152 @@
 from django.contrib import admin
 from django.template.loader import get_template
 
-from Core.admin import BaseAdminSlug, CustomInlineAdminOneToMany, CustomInlineAdmin
+from Core.ProjectMixins.Products import AdminProperty
+from Core.admin import BaseAdminSlug, CustomInlineAdmin, CustomInlineAdminOneToMany
 from .models import *
 
+class InlineMethods:
+
+    def open(self, *args, **kwargs):
+        context = getattr(self.response, 'context_data', None) or {}
+        inline = context['inline_admin_formset'] = context['inline_admin_formsets'].pop()
+        return get_template(inline.opts.template).render(context, self.request)
 
 class Inlines:
     class TagInlineAdmin(CustomInlineAdmin):
         model = Product.tag.through
+        tag_inline = InlineMethods.open
 
     class CategoryInlineAdmin(CustomInlineAdmin):
         model = Product.category.through
+        category_inline = InlineMethods.open
 
     class CommentInlineAdmin(CustomInlineAdminOneToMany):
         model = Comment
         readonly_fields = []
-        prepopulated_fields = {'slug': ('id',)}
+        prepopulated_fields = {
+            'slug': ('id',)
+            }
+        comment_inline = InlineMethods.open
 
     class BrandInlineAdmin(CustomInlineAdmin):
         model = Product.brand.through
+        brand_inline = InlineMethods.open
 
     class ProductInline:
         class Brand(CustomInlineAdmin):
             model = Product.brand.through
+            product_inline = InlineMethods.open
+
         class Category(CustomInlineAdmin):
             model = Product.category.through
+            product_inline = InlineMethods.open
+
         class Tag(CustomInlineAdmin):
             model = Product.tag.through
+            product_inline = InlineMethods.open
 
+        class Comment(CustomInlineAdmin):
+            model = Product
+            product_inline = InlineMethods.open
 
 @admin.register(Product)
-class ProductAdmin(BaseAdminSlug):
+class ProductAdmin(AdminProperty.Product):
     model = Product
-
-    list_display = ('id', 'name', 'gender',
-                    'price', 'is_available', 'is_delete',
-                    'comment_count', 'tag_count', 'category_count', 'brand_count', 'modified_at')
-    list_filter = ['gender', 'is_available', 'is_delete', 'tag', 'category', 'brand']
-    list_editable = ('price', 'is_available', 'is_delete', 'gender')
     search_fields = Product.SEARCH_FIELDS
-    ordering = ['name']
-    inlines = (
-        Inlines.TagInlineAdmin, Inlines.CategoryInlineAdmin, Inlines.BrandInlineAdmin, Inlines.CommentInlineAdmin)
-    filter_horizontal = ["tag", "category", "brand"]
+    list_display = AdminProperty.Product.list_display
+    list_filter = AdminProperty.Product.list_filter
+    list_editable = AdminProperty.Product.list_editable
+    ordering = AdminProperty.Product.ordering
+    filter_horizontal = AdminProperty.Product.filter_horizontal
+    fieldsets = AdminProperty.Product.fieldsets
+    add_fieldsets = AdminProperty.Product.add_fieldsets
+    prepopulated_fields = AdminProperty.Product.prepopulated_fields
+    readonly_fields = AdminProperty.Product.readonly_fields
+    list_per_page = AdminProperty.Product.list_per_page
+    list_max_show_all = AdminProperty.Product.list_max_show_all
+    search_help_text = AdminProperty.Product.search_help_text
 
-    fieldsets = (
+    inlines = (Inlines.TagInlineAdmin, Inlines.CategoryInlineAdmin, Inlines.BrandInlineAdmin, Inlines.CommentInlineAdmin)
+    tag_inline, category_inline, brand_inline, comment_inline = inlines[0].tag_inline, inlines[1].category_inline, inlines[2].brand_inline, inlines[3].comment_inline,
 
-        ("Profiling", {
-            'classes': ('extrapretty',),
-            'fields': (('name', 'slug',), ('price', 'gender'), 'short_description', 'description',)
-
-        }),
-        ("Extras", {
-            'fields': (
-                'tag_inline', 'category_inline', 'brand_inline', 'comment_inline'),
-            'classes': ('collapse', 'extrapretty',),
-        }),
-
-        ("conditions", {
-            'fields': (('is_available', 'is_delete'),),
-            'classes': ('wide',)
-        }),
-        ("time", {
-            'fields': (('created_at', 'modified_at'),),
-            'classes': ('wide',)
-        }),
-    )
-
-    add_fieldsets = []
-    prepopulated_fields = {'slug': ('name',), }
-
-    readonly_fields = ['created_at', 'modified_at', 'brand_inline', 'tag_inline', 'category_inline', 'comment_inline']
-    list_per_page = 25
-    list_max_show_all = 100
-    search_help_text = ""
-
-    def tag_inline(self, *args, **kwargs):
-        context = getattr(self.response, 'context_data', None) or {}
-        inline = context['inline_admin_formset'] = context['inline_admin_formsets'].pop(0)
-        return get_template(inline.opts.template).render(context, self.request)
-
-    def category_inline(self, *args, **kwargs):
-        context = getattr(self.response, 'context_data', None) or {}
-        inline = context['inline_admin_formset'] = context['inline_admin_formsets'].pop(0)
-        return get_template(inline.opts.template).render(context, self.request)
-
-    def brand_inline(self, *args, **kwargs):
-        context = getattr(self.response, 'context_data', None) or {}
-        inline = context['inline_admin_formset'] = context['inline_admin_formsets'].pop(0)
-        return get_template(inline.opts.template).render(context, self.request)
-
-    def comment_inline(self, *args, **kwargs):
-        context = getattr(self.response, 'context_data', None) or {}
-        inline = context['inline_admin_formset'] = context['inline_admin_formsets'].pop(0)
-        return get_template(inline.opts.template).render(context, self.request)
-
-    def render_change_form(self, request, *args, **kwargs):
-        self.request = request
-        self.response = super().render_change_form(request, *args, **kwargs)
-        return self.response
-
-    #### custom query set
-    # def get_queryset(self, request):
-    #     # use our manager, rather than the default one
-    #
-    #     qs = super().get_queryset(request)
-    #     qs = qs.annotate(comment_count=Count('comment'))
-    #     qs = qs.annotate(tag_count=Count('tag'))
-    #     qs = qs.annotate(brand_count=Count('brand'))
-    #     qs = qs.annotate(category_count=Count('category'))
-    #     return qs
-
-    ### costum query set
-    # def get_queryset(self, request):
-    #     # use our manager, rather than the default one
-    #
-    #     qs = super().get_queryset(request)
-    #     return qs
-
-    # @staticmethod
-    # def return_on_failure(value):
-    #     def decorate(f):
-    #         def applicator(*args, **kwargs):
-    #             try:
-    #                 return f(*args, **kwargs)
-    #             except:
-    #                 return value
-    #
-    #         return applicator
-    #
-    #     return decorate
-
-    # def get_sortable_by(self, request):
-    #     print(self.get_list_display(request))
-    #     return {*self.get_list_display(request)}
-
-    # def comments_count(self, inst):
-    #     return inst.comment_count
-    #
-    # def tags_count(self, inst):
-    #     return inst.tag_count
-    #
-    # def brands_count(self, inst):
-    #     return inst.brand_count
-    #
-    # def categorys_count(self, inst):
-    #     return inst.category_count
-    #
-    # comments_count.admin_order_field = 'comment_count'
-    # tags_count.admin_order_field = 'tag_count'
-    # categorys_count.admin_order_field = 'category_count'
-    # brands_count.admin_order_field = 'brand_count'
-
+#### custom query set  # def get_queryset(self, request):  #     # use our manager, rather than the default one  #  #     qs = super().get_queryset(request)  #     qs = qs.annotate(comment_count=Count('comment'))  #     qs = qs.annotate(tag_count=Count('tag'))  #     qs = qs.annotate(brand_count=Count('brand'))  #     qs = qs.annotate(category_count=Count('category'))  #     return qs
 
 @admin.register(Brand)
 class BrandAdmin(BaseAdminSlug):
     model = Brand
-    list_display = ['name', 'is_delete', 'is_available', 'product_count', 'comment_count', "tag_count",
-                    'category_count', 'modified_at']
-    list_filter = ['is_delete', 'is_available', 'product__tag', 'product__category']
-    list_editable = ['is_delete', 'is_available']
-    search_fields = Brand.SEARCH_FIELDS
-    ordering = ['name']
-    filter_horizontal = ["product"]
+    search_fields = model.SEARCH_FIELDS
+    list_display = AdminProperty.Brand.list_display
+    list_filter = AdminProperty.Brand.list_filter
+    list_editable = AdminProperty.Brand.list_editable
+    ordering = AdminProperty.Brand.ordering
+    filter_horizontal = AdminProperty.Brand.filter_horizontal
+    fieldsets = AdminProperty.Brand.fieldsets
+    add_fieldsets = AdminProperty.Brand.add_fieldsets
+    prepopulated_fields = AdminProperty.Brand.prepopulated_fields
+    readonly_fields = AdminProperty.Brand.readonly_fields
+    list_per_page = AdminProperty.Brand.list_per_page
+    list_max_show_all = AdminProperty.Brand.list_max_show_all
+    search_help_text = AdminProperty.Brand.search_help_text
 
-    inlines = (Inlines.ProductInline.Brand,)
-    fieldsets = (
-
-        ("Profiling", {
-            'classes': ('extrapretty',),
-            'fields': (('name', 'slug',),)
-
-        }),
-        ("Extras", {
-            'fields': (
-                ('product_inline',),
-            ),
-
-            'classes': ('collapse', 'extrapretty',),
-        }),
-        ("conditions", {
-            'fields': (('is_available', 'is_delete'),),
-            'classes': ('wide',)
-        }),
-        ("time", {
-            'fields': (('created_at', 'modified_at'),),
-            'classes': ('wide',)
-        }),
-    )
-
-    add_fieldsets = []
-    prepopulated_fields = {'slug': ('name',), }
-
-    readonly_fields = ['created_at', 'modified_at', 'product_inline']
-    list_per_page = 25
-    list_max_show_all = 100
-    search_help_text = ""
-
-    def product_inline(self, *args, **kwargs):
-        context = getattr(self.response, 'context_data', None) or {}
-        inline = context['inline_admin_formset'] = context['inline_admin_formsets'].pop()
-        return get_template(inline.opts.template).render(context, self.request)
-
-    def render_change_form(self, request, *args, **kwargs):
-        self.request = request
-        self.response = super().render_change_form(request, *args, **kwargs)
-        return self.response
-
-    # product_count.admin_order_field = 'product_count'
-
+    inlines = [Inlines.ProductInline.Brand, ]
+    product_inline = inlines[0].product_inline
 
 @admin.register(Category)
 class CategoryAdmin(BaseAdminSlug):
     model = Category
-    list_display = ['name', 'parent', 'is_delete', 'brand_count', 'product_count', 'comment_count', "tag_count",
-                    'modified_at','slug']
-    list_filter = ['is_delete', 'product__tag','parent','product__brand']
-    list_editable = ['is_delete']
-    search_fields = Category.SEARCH_FIELDS
-    ordering = ['name']
-    filter_horizontal = ["product"]
-
+    search_fields = model.SEARCH_FIELDS
+    list_display = AdminProperty.Category.list_display
+    list_filter = AdminProperty.Category.list_filter
+    list_editable = AdminProperty.Category.list_editable
+    ordering = AdminProperty.Category.ordering
+    filter_horizontal = AdminProperty.Category.filter_horizontal
+    fieldsets = AdminProperty.Category.fieldsets
+    add_fieldsets = AdminProperty.Category.add_fieldsets
+    prepopulated_fields = AdminProperty.Category.prepopulated_fields
+    readonly_fields = AdminProperty.Category.readonly_fields
+    list_per_page = AdminProperty.Category.list_per_page
+    list_max_show_all = AdminProperty.Category.list_max_show_all
+    search_help_text = AdminProperty.Category.search_help_text
     inlines = (Inlines.ProductInline.Category,)
-    fieldsets = (
+    product_inline = inlines[0].product_inline
 
-        ("Profiling", {
-            'classes': ('extrapretty',),
-            'fields': (('name', 'parent',),"slug",)
-
-        }),
-        ("Extras", {
-            'fields': (
-                ('product_inline',),
-            ),
-
-            'classes': ('collapse', 'extrapretty',),
-        }),
-        ("conditions", {
-            'fields': (('is_delete'),),
-            'classes': ('wide',)
-        }),
-        ("time", {
-            'fields': (('created_at', 'modified_at'),),
-            'classes': ('wide',)
-        }),
-    )
-
-    add_fieldsets = []
-    prepopulated_fields = {'slug': ('name',), }
-
-    readonly_fields = ['created_at', 'modified_at', 'product_inline']
-    list_per_page = 25
-    list_max_show_all = 100
-    search_help_text = ""
-
-    def product_inline(self, *args, **kwargs):
-        context = getattr(self.response, 'context_data', None) or {}
-        inline = context['inline_admin_formset'] = context['inline_admin_formsets'].pop()
-        return get_template(inline.opts.template).render(context, self.request)
-
-    def render_change_form(self, request, *args, **kwargs):
-        self.request = request
-        self.response = super().render_change_form(request, *args, **kwargs)
-        return self.response
-
-    # product_count.admin_order_field = 'product_count'
 @admin.register(Tag)
 class TagAdmin(BaseAdminSlug):
     model = Tag
-    list_display = ['name', 'is_delete', 'brand_count', 'product_count', 'comment_count', "category_count",
-                    'modified_at']
-    list_filter = ['is_delete', 'product__brand','product__category']
-    list_editable = ['is_delete']
-    search_fields = Tag.SEARCH_FIELDS
-    ordering = ['name']
-    filter_horizontal = ["product"]
-
+    search_fields = model.SEARCH_FIELDS
+    list_display =AdminProperty.Tag.list_display
+    list_filter =AdminProperty.Tag.list_filter
+    list_editable =AdminProperty.Tag.list_editable
+    ordering =AdminProperty.Tag.ordering
+    filter_horizontal =AdminProperty.Tag.filter_horizontal
+    fieldsets =AdminProperty.Tag.fieldsets
+    add_fieldsets =AdminProperty.Tag.search_fields
+    prepopulated_fields =AdminProperty.Tag.prepopulated_fields
+    readonly_fields =AdminProperty.Tag.readonly_fields
+    list_per_page =AdminProperty.Tag.list_per_page
+    list_max_show_all =AdminProperty.Tag.list_max_show_all
+    search_help_text =AdminProperty.Tag.search_help_text
+    
     inlines = (Inlines.ProductInline.Tag,)
-    fieldsets = (
-
-        ("Profiling", {
-            'classes': ('extrapretty',),
-            'fields': (('name', 'slug',),)
-
-        }),
-        ("Extras", {
-            'fields': (
-                ('product_inline',),
-            ),
-
-            'classes': ('collapse', 'extrapretty',),
-        }),
-        ("conditions", {
-            'fields': (('is_delete'),),
-            'classes': ('wide',)
-        }),
-        ("time", {
-            'fields': (('created_at', 'modified_at'),),
-            'classes': ('wide',)
-        }),
-    )
-
-    add_fieldsets = []
-    prepopulated_fields = {'slug': ('name',), }
-
-    readonly_fields = ['created_at', 'modified_at', 'product_inline']
-    list_per_page = 25
-    list_max_show_all = 100
-    search_help_text = ""
-
-    def product_inline(self, *args, **kwargs):
-        context = getattr(self.response, 'context_data', None) or {}
-        inline = context['inline_admin_formset'] = context['inline_admin_formsets'].pop()
-        return get_template(inline.opts.template).render(context, self.request)
-
-    def render_change_form(self, request, *args, **kwargs):
-        self.request = request
-        self.response = super().render_change_form(request, *args, **kwargs)
-        return self.response
-
-    # product_count.admin_order_field = 'product_count'
+    product_inline = inlines[0].product_inline
 
 @admin.register(Comment)
 class CommentAdmin(BaseAdminSlug):
     model = Comment
-    list_display = ['author', 'rating','product', 'title','is_delete','is_active', 'modified_at','tag_names','category_names','brand_names']
-    list_filter = ['is_delete', 'product__brand','product__category','product__tag']
-    list_editable = ['is_delete','rating','is_active']
-    search_fields = Comment.SEARCH_FIELDS
-    ordering = ['product']
-    filter_horizontal = []
-
-    fieldsets = (
-
-        ("Profiling", {
-            'classes': ('extrapretty',),
-            'fields': (('name', 'slug',),)
-
-        }),
-        ("Extras", {
-            'fields': (
-                ('product_inline',),
-            ),
-
-            'classes': ('collapse', 'extrapretty',),
-        }),
-        ("conditions", {
-            'fields': (('is_delete'),),
-            'classes': ('wide',)
-        }),
-        ("time", {
-            'fields': (('created_at', 'modified_at'),),
-            'classes': ('wide',)
-        }),
-    )
-
-    add_fieldsets = []
-    prepopulated_fields = {'slug': ('id',), }
-
-    readonly_fields = ['created_at', 'modified_at', 'product_inline']
-    list_per_page = 25
-    list_max_show_all = 100
-    search_help_text = ""
-
-    def product_inline(self, *args, **kwargs):
-        context = getattr(self.response, 'context_data', None) or {}
-        inline = context['inline_admin_formset'] = context['inline_admin_formsets'].pop()
-        return get_template(inline.opts.template).render(context, self.request)
-
-    def render_change_form(self, request, *args, **kwargs):
-        self.request = request
-        self.response = super().render_change_form(request, *args, **kwargs)
-        return self.response
-
-    # product_count.admin_order_field = 'product_count'
-
+    search_fields = model.SEARCH_FIELDS
+    list_display =AdminProperty.Comment.list_display
+    list_filter =AdminProperty.Comment.list_filter
+    list_editable =AdminProperty.Comment.list_editable
+    ordering =AdminProperty.Comment.ordering
+    filter_horizontal =AdminProperty.Comment.filter_horizontal
+    fieldsets =AdminProperty.Comment.fieldsets
+    add_fieldsets =AdminProperty.Comment.add_fieldsets
+    prepopulated_fields =AdminProperty.Comment.prepopulated_fields
+    readonly_fields =AdminProperty.Comment.readonly_fields
+    list_per_page =AdminProperty.Comment.list_per_page
+    list_max_show_all =AdminProperty.Comment.list_max_show_all
+    search_help_text =AdminProperty.Comment.search_help_text
+    
+    inlines = (Inlines.ProductInline.Comment,)
+    product_inline = inlines[0].product_inline
