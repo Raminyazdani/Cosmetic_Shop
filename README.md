@@ -30,6 +30,8 @@ This is my first django project from zero to hero . wish me luck ...
     6. Order
     7. Payment
     8. Wallet
+    9. shipment
+    10. contact_us
 
 * ### Costumers
     1. ProfileCostumer
