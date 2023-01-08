@@ -1,9 +1,10 @@
 from django.urls import reverse
-from django.utils.text import slugify
 from django.utils.functional import cached_property
+from django.utils.text import slugify
 
+from Core.admin import BaseAdminInlineRender, BaseAdminSlug
 
-class Methods:
+class ModelMethod:
     """
     Methods Mixin
     """
@@ -22,7 +23,6 @@ class Methods:
                 """
                 Return name field
                 :return:  name field
-
                 """
                 return self.name
 
@@ -68,7 +68,6 @@ class Methods:
                 def save(self, *args, **kwargs):
                     """
                     Save slug field with name field
-
                     :param args:
                     :param kwargs:
                     :return:
@@ -147,7 +146,7 @@ class Methods:
                         if self.pk is None:
                             super().save(*args, **kwargs)
                         categories = self.category.all()
-                        categories_id = [x for x in categories.values_list('id', flat=True)]
+                        categories_id = [x for x in categories.values_list('id', flat = True)]
                         for category in categories:
                             category_temp = category
                             while category_temp.parent:
@@ -173,10 +172,11 @@ class Methods:
                 Return absolute url
                 :return:
                 """
-                return reverse('product_detail', kwargs={'slug': self.slug})
+                return reverse('product_detail', kwargs = {
+                    'slug': self.slug
+                    })
 
-
-class Property:
+class ModelProperty:
     """
     Property Mixin
     """
@@ -208,6 +208,7 @@ class Property:
                         :return:
                         """
                         return self.product.tag.count()
+
                 class Category:
                     """
                     Count Mixin for category
@@ -220,6 +221,7 @@ class Property:
                         :return:
                         """
                         return self.product.category.count()
+
                 class Brand:
                     """
                     Count Mixin for brand
@@ -232,7 +234,6 @@ class Property:
                         :return:
                         """
                         return self.product.brand.count()
-
 
             class ForOther:
                 """
@@ -592,17 +593,11 @@ class Property:
         """
         RequiredField Mixin
         Product App Mixin
-
         """
-
         PRODUCT = ['name', 'gender']
-
         BRAND = ['name']
-
         CATEGORY = ['name']
-
         TAG = ['name']
-
         COMMENT = ['product', 'author', 'title', 'body', 'rating']
 
     class SearchFields:
@@ -611,147 +606,118 @@ class Property:
         Product App Mixin
         """
         PRODUCT = ['name', 'short_description', 'category__name', 'tag__name', 'brand__name']
-
-        BRAND = ['name', 'product__name', 'product__category__name', 'product__tag__name',
-                 'product__brand__name']
-        CATEGORY = ['name', 'product__name', 'product__category__name', 'product__tag__name',
-                    'product__brand__name', 'parent__name', 'parent__product__name']
-
+        BRAND = ['name', 'product__name', 'product__category__name', 'product__tag__name', 'product__brand__name']
+        CATEGORY = ['name', 'product__name', 'product__category__name', 'product__tag__name', 'product__brand__name', 'parent__name', 'parent__product__name']
         TAG = ['name', 'product__name', 'product__category__name', 'product__tag__name', 'product__brand__name']
-
-        COMMENT = ['title', 'body', 'author__username', 'product__name', 'product__category__name',
-                   'product__tag__name', 'product__brand__name']
-
+        COMMENT = ['title', 'body', 'author__username', 'product__name', 'product__category__name', 'product__tag__name', 'product__brand__name']
 
 class ModelRequiredProperties:
     """
     ModelRequiredProperties Mixin
     """
 
-    class Product(
-        # METHODS
-        Methods.Save.Slug.Name, Methods.Save.Base.Product,  # save methods
-
-        # def str and get_absolute_url
-        Methods.Str.name, Methods.AbsoluteUrl.Slug,  # str and absolute url methods
-
-        # property Counts
-
-        # PROPERTIES
-        # COUNTS
-        Property.Foreign.Count.ForProduct.Tag,  # foreign count properties Tag
-        Property.Foreign.Count.ForProduct.Category,  # foreign count properties Category
-        Property.Foreign.Count.ForProduct.Comment,  # foreign count properties Comment
-        Property.Foreign.Count.ForProduct.Brand,  # foreign count properties Brand
-
-        # Property names
-        # NAMES
-        Property.Foreign.Names.ForProduct.Tag,  # foreign name properties Tag
-        Property.Foreign.Names.ForProduct.Category,  # foreign name properties Category
-        Property.Foreign.Names.ForProduct.Brand,  # foreign name properties Brand
-
-    ):
+    class Product(  # METHODS
+            ModelMethod.Save.Slug.Name, ModelMethod.Save.Base.Product,  # save methods
+            # def str and get_absolute_url
+            ModelMethod.Str.name, ModelMethod.AbsoluteUrl.Slug,  # str and absolute url methods
+            # property Counts
+            # PROPERTIES
+            # COUNTS
+            ModelProperty.Foreign.Count.ForProduct.Tag,  # foreign count properties Tag
+            ModelProperty.Foreign.Count.ForProduct.Category,  # foreign count properties Category
+            ModelProperty.Foreign.Count.ForProduct.Comment,  # foreign count properties Comment
+            ModelProperty.Foreign.Count.ForProduct.Brand,  # foreign count properties Brand
+            # Property names
+            # NAMES
+            ModelProperty.Foreign.Names.ForProduct.Tag,  # foreign name properties Tag
+            ModelProperty.Foreign.Names.ForProduct.Category,  # foreign name properties Category
+            ModelProperty.Foreign.Names.ForProduct.Brand,  # foreign name properties Brand
+            ):
         """
         Products.Product Mixin
         """
         pass
 
-    class Brand(
-        # METHODS
-        Methods.Save.Slug.Name,  # save methods
-
-        # def str and get_absolute_url
-        Methods.Str.name, Methods.AbsoluteUrl.Slug,  # str and absolute url methods
-
-        # property Counts
-
-        # PROPERTIES
-        # COUNTS
-        Property.Foreign.Count.ForOther.Tag,  # foreign count properties Tag
-        Property.Foreign.Count.ForOther.Category,  # foreign count properties Category
-        Property.Foreign.Count.ForOther.Comment,  # foreign count properties Comment
-        Property.Foreign.Count.ForOther.Product,  # foreign count properties Products
-        # NAMES
-        Property.Foreign.Names.ForOther.Tag,  # foreign name properties Tag
-        Property.Foreign.Names.ForOther.Category,  # foreign name properties Category
-        Property.Foreign.Names.ForOther.Product,  # foreign name properties Products
-    ):
+    class Brand(  # METHODS
+            ModelMethod.Save.Slug.Name,  # save methods
+            # def str and get_absolute_url
+            ModelMethod.Str.name, ModelMethod.AbsoluteUrl.Slug,  # str and absolute url methods
+            # property Counts
+            # PROPERTIES
+            # COUNTS
+            ModelProperty.Foreign.Count.ForOther.Tag,  # foreign count properties Tag
+            ModelProperty.Foreign.Count.ForOther.Category,  # foreign count properties Category
+            ModelProperty.Foreign.Count.ForOther.Comment,  # foreign count properties Comment
+            ModelProperty.Foreign.Count.ForOther.Product,  # foreign count properties Products
+            # NAMES
+            ModelProperty.Foreign.Names.ForOther.Tag,  # foreign name properties Tag
+            ModelProperty.Foreign.Names.ForOther.Category,  # foreign name properties Category
+            ModelProperty.Foreign.Names.ForOther.Product,  # foreign name properties Products
+            ):
         """
         Products.Brand Mixin
         """
         pass
 
-    class Category(
-        # METHODS
-        Methods.Save.Slug.Category,  # save methods
-
-        # def str and get_absolute_url
-        Methods.Str.name, Methods.AbsoluteUrl.Slug,  # str and absolute url methods
-
-        # property Counts
-
-        # PROPERTIES
-        # COUNTS
-        Property.Foreign.Count.ForOther.Tag,  # foreign count properties Tag
-        Property.Foreign.Count.ForOther.Brand,  # foreign count properties Brand
-        Property.Foreign.Count.ForOther.Comment,  # foreign count properties Comment
-        Property.Foreign.Count.ForOther.Product,  # foreign count properties Products
-        # NAMES
-        Property.Foreign.Names.ForOther.Tag,  # foreign name properties Tag
-        Property.Foreign.Names.ForOther.Brand,  # foreign name properties Brand
-        Property.Foreign.Names.ForOther.Product,  # foreign name properties Products
-        Property.Foreign.Names.ForCategory.Parent,  # foreign name properties Parent
-    ):
+    class Category(  # METHODS
+            ModelMethod.Save.Slug.Category,  # save methods
+            # def str and get_absolute_url
+            ModelMethod.Str.name, ModelMethod.AbsoluteUrl.Slug,  # str and absolute url methods
+            # property Counts
+            # PROPERTIES
+            # COUNTS
+            ModelProperty.Foreign.Count.ForOther.Tag,  # foreign count properties Tag
+            ModelProperty.Foreign.Count.ForOther.Brand,  # foreign count properties Brand
+            ModelProperty.Foreign.Count.ForOther.Comment,  # foreign count properties Comment
+            ModelProperty.Foreign.Count.ForOther.Product,  # foreign count properties Products
+            # NAMES
+            ModelProperty.Foreign.Names.ForOther.Tag,  # foreign name properties Tag
+            ModelProperty.Foreign.Names.ForOther.Brand,  # foreign name properties Brand
+            ModelProperty.Foreign.Names.ForOther.Product,  # foreign name properties Products
+            ModelProperty.Foreign.Names.ForCategory.Parent,  # foreign name properties Parent
+            ):
         """
         Products.Category Mixin
         """
         pass
 
-    class Tag(
-        # METHODS
-        Methods.Save.Slug.Name,  # save methods
-
-        # def str and get_absolute_url
-        Methods.Str.name, Methods.AbsoluteUrl.Slug,  # str and absolute url methods
-
-        # property Counts
-
-        # PROPERTIES
-        # COUNTS
-        Property.Foreign.Count.ForOther.Brand,  # foreign count properties Brand
-        Property.Foreign.Count.ForOther.Category,  # foreign count properties Category
-        Property.Foreign.Count.ForOther.Comment,  # foreign count properties Comment
-        Property.Foreign.Count.ForOther.Product,  # foreign count properties Products
-        # NAMES
-        Property.Foreign.Names.ForOther.Brand,  # foreign name properties Brand
-        Property.Foreign.Names.ForOther.Category,  # foreign name properties Category
-        Property.Foreign.Names.ForOther.Product,  # foreign name properties Products
-    ):
+    class Tag(  # METHODS
+            ModelMethod.Save.Slug.Name,  # save methods
+            # def str and get_absolute_url
+            ModelMethod.Str.name, ModelMethod.AbsoluteUrl.Slug,  # str and absolute url methods
+            # property Counts
+            # PROPERTIES
+            # COUNTS
+            ModelProperty.Foreign.Count.ForOther.Brand,  # foreign count properties Brand
+            ModelProperty.Foreign.Count.ForOther.Category,  # foreign count properties Category
+            ModelProperty.Foreign.Count.ForOther.Comment,  # foreign count properties Comment
+            ModelProperty.Foreign.Count.ForOther.Product,  # foreign count properties Products
+            # NAMES
+            ModelProperty.Foreign.Names.ForOther.Brand,  # foreign name properties Brand
+            ModelProperty.Foreign.Names.ForOther.Category,  # foreign name properties Category
+            ModelProperty.Foreign.Names.ForOther.Product,  # foreign name properties Products
+            ):
         """
         Products.Tag Mixin
         """
         pass
 
-    class Comment(
-        # METHODS
-        Methods.Save.Slug.Id,  # save methods
-
-        # def str and get_absolute_url
-        Methods.Str.title, Methods.AbsoluteUrl.Slug,  # str and absolute url methods
-
-        # property Counts
-
-        # PROPERTIES
-        # COUNTS
-        Property.Foreign.Count.ForComment.Tag,  # foreign count properties Tag
-        Property.Foreign.Count.ForComment.Category,  # foreign count properties Category
-        Property.Foreign.Count.ForComment.Brand,  # foreign count properties Brand
-        # NAMES
-        Property.Foreign.Names.ForComment.Tag,  # foreign name properties Tag
-        Property.Foreign.Names.ForComment.Category,  # foreign name properties Category
-        Property.Foreign.Names.ForComment.Product,  # foreign name properties Products
-        Property.Foreign.Names.ForComment.Brand,  # foreign name properties Brand
-    ):
+    class Comment(  # METHODS
+            ModelMethod.Save.Slug.Id,  # save methods
+            # def str and get_absolute_url
+            ModelMethod.Str.title, ModelMethod.AbsoluteUrl.Slug,  # str and absolute url methods
+            # property Counts
+            # PROPERTIES
+            # COUNTS
+            ModelProperty.Foreign.Count.ForComment.Tag,  # foreign count properties Tag
+            ModelProperty.Foreign.Count.ForComment.Category,  # foreign count properties Category
+            ModelProperty.Foreign.Count.ForComment.Brand,  # foreign count properties Brand
+            # NAMES
+            ModelProperty.Foreign.Names.ForComment.Tag,  # foreign name properties Tag
+            ModelProperty.Foreign.Names.ForComment.Category,  # foreign name properties Category
+            ModelProperty.Foreign.Names.ForComment.Product,  # foreign name properties Products
+            ModelProperty.Foreign.Names.ForComment.Brand,  # foreign name properties Brand
+            ):
         """
         Products.Comment Mixin
         """
@@ -774,3 +740,144 @@ class ModelRequiredProperties:
         Products.ProductBrand Mixin
         """
         pass
+
+class AdminProperty():
+    class Product(BaseAdminInlineRender, BaseAdminSlug):
+        list_display = ('id', 'name', 'gender', 'price', 'is_available', 'is_delete', 'comment_count', 'tag_count', 'category_count', 'brand_count', 'modified_at')
+        list_filter = ['gender', 'is_available', 'is_delete', 'tag', 'category', 'brand']
+        list_editable = ('price', 'is_available', 'is_delete', 'gender')
+        ordering = ['name']
+        filter_horizontal = ["tag", "category", "brand"]
+        fieldsets = (("Profiling", {
+            'classes': ('extrapretty',),
+            'fields': (('name', 'slug',), ('price', 'gender'), 'short_description', 'description',)
+            }), ("Extras", {
+            'fields': ('tag_inline', 'category_inline', 'brand_inline', 'comment_inline'),
+            'classes': ('collapse', 'extrapretty',),
+            }), ("conditions", {
+            'fields': (('is_available', 'is_delete'),),
+            'classes': ('wide',)
+            }), ("time", {
+            'fields': (('created_at', 'modified_at'),),
+            'classes': ('wide',)
+            }),)
+        add_fieldsets = []
+        prepopulated_fields = {
+            'slug': ('name',),
+            }
+        readonly_fields = ['created_at', 'modified_at', 'brand_inline', 'tag_inline', 'category_inline', 'comment_inline']
+        list_per_page = 25
+        list_max_show_all = 100
+        search_help_text = ""
+
+    class Brand(BaseAdminInlineRender, BaseAdminSlug):
+        list_display = ['name', 'is_delete', 'is_available', 'product_count', 'comment_count', "tag_count", 'category_count', 'modified_at']
+        list_filter = ['is_delete', 'is_available', 'product__tag', 'product__category']
+        list_editable = ['is_delete', 'is_available']
+        ordering = ['name']
+        filter_horizontal = ["product"]
+        fieldsets = (("Profiling", {
+            'classes': ('extrapretty',),
+            'fields': (('name', 'slug',),)
+            }), ("Extras", {
+            'fields': (('product_inline',),),
+            'classes': ('collapse', 'extrapretty',),
+            }), ("conditions", {
+            'fields': (('is_available', 'is_delete'),),
+            'classes': ('wide',)
+            }), ("time", {
+            'fields': (('created_at', 'modified_at'),),
+            'classes': ('wide',)
+            }),)
+        add_fieldsets = []
+        prepopulated_fields = {
+            'slug': ('name',),
+            }
+        readonly_fields = ['created_at', 'modified_at', 'product_inline']
+        list_per_page = 25
+        list_max_show_all = 100
+        search_help_text = ""
+
+    class Category(BaseAdminInlineRender, BaseAdminSlug):
+        list_display = ['name', 'parent', 'is_delete', 'brand_count', 'product_count', 'comment_count', "tag_count", 'modified_at', 'slug']
+        list_filter = ['is_delete', 'product__tag', 'parent', 'product__brand']
+        list_editable = ['is_delete']
+        ordering = ['name']
+        filter_horizontal = ["product"]
+        fieldsets = (("Profiling", {
+            'classes': ('extrapretty',),
+            'fields': (('name', 'parent',), "slug",)
+            }), ("Extras", {
+            'fields': (('product_inline',),),
+            'classes': ('collapse', 'extrapretty',),
+            }), ("conditions", {
+            'fields': (('is_delete'),),
+            'classes': ('wide',)
+            }), ("time", {
+            'fields': (('created_at', 'modified_at'),),
+            'classes': ('wide',)
+            }),)
+        add_fieldsets = []
+        prepopulated_fields = {
+            'slug': ('name',),
+            }
+        readonly_fields = ['created_at', 'modified_at', 'product_inline']
+        list_per_page = 25
+        list_max_show_all = 100
+        search_help_text = ""
+
+    class Tag(BaseAdminInlineRender, BaseAdminSlug):
+        list_display = ['name', 'is_delete', 'brand_count', 'product_count', 'comment_count', "category_count", 'modified_at']
+        list_filter = ['is_delete', 'product__brand', 'product__category']
+        list_editable = ['is_delete']
+        ordering = ['name']
+        filter_horizontal = ["product"]
+        fieldsets = (("Profiling", {
+            'classes': ('extrapretty',),
+            'fields': (('name', 'slug',),)
+            }), ("Extras", {
+            'fields': (('product_inline',),),
+            'classes': ('collapse', 'extrapretty',),
+            }), ("conditions", {
+            'fields': (('is_delete'),),
+            'classes': ('wide',)
+            }), ("time", {
+            'fields': (('created_at', 'modified_at'),),
+            'classes': ('wide',)
+            }),)
+        add_fieldsets = []
+        prepopulated_fields = {
+            'slug': ('name',),
+            }
+        readonly_fields = ['created_at', 'modified_at', 'product_inline']
+        list_per_page = 25
+        list_max_show_all = 100
+        search_help_text = ""
+
+    class Comment(BaseAdminInlineRender, BaseAdminSlug):
+        list_display = ['author', 'rating', 'product', 'title', 'is_delete', 'is_active', 'modified_at', 'tag_names', 'category_names', 'brand_names']
+        list_filter = ['is_delete', 'product__brand', 'product__category', 'product__tag']
+        list_editable = ['is_delete', 'rating', 'is_active']
+        ordering = ['product']
+        filter_horizontal = []
+        fieldsets = (("Profiling", {
+            'classes': ('extrapretty',),
+            'fields': (('author', "rating", "slug"), "title", "body")
+            }), ("Extras", {
+            'fields': (('product_inline',),),
+            'classes': ('collapse', 'extrapretty',),
+            }), ("conditions", {
+            'fields': (('is_delete'),),
+            'classes': ('wide',)
+            }), ("time", {
+            'fields': (('created_at', 'modified_at'),),
+            'classes': ('wide',)
+            }),)
+        add_fieldsets = []
+        prepopulated_fields = {
+            'slug': ('id',),
+            }
+        readonly_fields = ['created_at', 'modified_at', 'product_inline']
+        list_per_page = 25
+        list_max_show_all = 100
+        search_help_text = ""
