@@ -57,15 +57,13 @@ class CustomStringMaker:
             #       "app_name_model_destination":   "Category",             "Product"
             #       "through_fields":               [None, "category_id"]   ["product_id",None]
             #       "through":                      "ProductCategory",      "ProductCategory"
-
-
             if through_fields is None:
-                return class_name.capitalize()+app_model_name.capitalize()
+                raise ValidationError("need through fields . it cant be none")
             else:
                 if through_fields[0] is None:
-                    return class_name.capitalize()+app_model_name.capitalize()
+                    return app_model_name+"."+class_name.capitalize()[:-1]+app_model_name.capitalize()
                 elif through_fields[1] is None:
-                    return app_model_name.capitalize()+class_name.capitalize()
+                    return app_model_name+"."+app_model_name.capitalize()[:-1]+class_name.capitalize()
 
 
 
@@ -73,11 +71,6 @@ class CustomStringMaker:
         def through_fields_gen(class_name,app_model_name,through_fields=None):
             #        "through_fields": ["product_id", None],
             if through_fields is None:
-                result = [class_name.lower(), app_model_name.lower()]
+                return (class_name.lower()+"_id", app_model_name.lower()+"_id")
             else:
-                if through_fields[0] is None:
-
-                    result  = [class_name.lower()+"_id",through_fields[1]]
-                elif through_fields[1] is None:
-                    result  = [class_name.lower()+"_id",through_fields[0],]
-            return result
+                return (class_name.lower()+"_id",app_model_name.lower()+"_id")

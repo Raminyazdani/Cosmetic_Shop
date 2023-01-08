@@ -3,7 +3,31 @@ from django.utils.translation import gettext_lazy as _
 from Core.fields.DefaultFields import CustomDefaultField
 from Core.utils.ProjectUtils import CustomValidators
 
+class AbstractCharField(CustomDefaultField.CharField):
+    class Meta:
+        abstract=True
+    class_custom_default_attrs = {
+        "class_name": "Model", # in this
+        "field_name": "ABCCharField", # in this
+        "blank": True, # in super
+        "db_index": False, # in super
+        "max_length": 30, # in super
+        "null": True, # in super
+        "unique": False, # in super
+        "validators": None, # in this # optional
+        # has help text in __init__ # in this # optional
+        }
+
+    def __init__(self, *args, **kwargs):
+        for key, value in AbstractCharField.class_custom_default_attrs.items():
+            kwargs[key] = kwargs.get(key, value)
+        kwargs["help_text"] = kwargs.get("help_text", _(f" ... of this {kwargs['class_name']} record"))
+
+        super().__init__(*args, **kwargs)
+
 class CustomNameField(CustomDefaultField.CharField):
+    class Meta:
+        abstract=True
     """
     Custom Name Field as CharField default
             # "class_name": "Model",
@@ -32,6 +56,8 @@ class CustomNameField(CustomDefaultField.CharField):
         super().__init__(*args, **kwargs)
 
 class CustomTitleField(CustomDefaultField.CharField):
+    class Meta:
+        abstract=True
     """
     Custom Title Field as CharField default
             # "class_name": "Model",
@@ -59,6 +85,8 @@ class CustomTitleField(CustomDefaultField.CharField):
         super().__init__(*args, **kwargs)
 
 class CustomShortDescriptionField(CustomDefaultField.CharField):
+    class Meta:
+        abstract=True
     """
     Custom Short Description Field as CharField default
             # "class_name": "Model",
@@ -85,6 +113,8 @@ class CustomShortDescriptionField(CustomDefaultField.CharField):
         super().__init__(*args, **kwargs)
 
 class CustomPhoneNumberField(CustomDefaultField.CharField):
+    class Meta:
+        abstract=True
     """
     Custom Phone Number Field as CharField
             # "class_name": "Model",

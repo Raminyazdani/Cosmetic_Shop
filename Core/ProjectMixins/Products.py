@@ -5,16 +5,22 @@ from django.utils.text import slugify
 from Core.admin import BaseAdminInlineRender, BaseAdminSlug
 
 class ModelMethod:
+    class Meta:
+        abstract=True
     """
     Methods Mixin
     """
 
     class Str:
+        class Meta:
+            abstract=True
         """
         Str Mixin
         """
 
         class name:
+            class Meta:
+                abstract=True
             """
             Str Mixin for name field
             """
@@ -27,6 +33,8 @@ class ModelMethod:
                 return self.name
 
         class id:
+            class Meta:
+                abstract=True
             """
             Str Mixin for id field
             """
@@ -39,6 +47,8 @@ class ModelMethod:
                 return self.id
 
         class title:
+            class Meta:
+                abstract=True
             """
             Str Mixin for title field
             """
@@ -51,16 +61,22 @@ class ModelMethod:
                 return self.title
 
     class Save:
+        class Meta:
+            abstract=True
         """
         Save Mixin
         """
 
         class Slug:
+            class Meta:
+                abstract=True
             """
             Slug Mixin
             """
 
             class Name:
+                class Meta:
+                    abstract=True
                 """
                 Slug Mixin for name field
                 """
@@ -77,6 +93,8 @@ class ModelMethod:
                     super().save(*args, **kwargs)
 
             class Id:
+                class Meta:
+                    abstract=True
                 """
                 Slug Mixin for id field
                 """
@@ -93,6 +111,8 @@ class ModelMethod:
                     super().save(*args, **kwargs)
 
             class Category:
+                class Meta:
+                    abstract=True
                 """
                 Slug Mixin for category field
                 """
@@ -113,11 +133,15 @@ class ModelMethod:
                     super().save(*args, **kwargs)
 
         class Base:
+            class Meta:
+                abstract=True
             """
             Base Mixin
             """
 
             class Product:
+                class Meta:
+                    abstract=True
                 """
                 Product Mixin
                 """
@@ -132,6 +156,8 @@ class ModelMethod:
                     super().save(*args, **kwargs)
 
                 class WithCategoryParents:
+                    class Meta:
+                        abstract=True
                     """
                     Product Mixin with category parents saving
                     """
@@ -158,11 +184,15 @@ class ModelMethod:
                         super().save(*args, **kwargs)
 
     class AbsoluteUrl:
+        class Meta:
+            abstract=True
         """
         AbsoluteUrl Mixin
         """
 
         class Slug:
+            class Meta:
+                abstract=True
             """
             Slug Mixin
             """
@@ -177,26 +207,36 @@ class ModelMethod:
                     })
 
 class ModelProperty:
+    class Meta:
+        abstract=True
     """
     Property Mixin
     """
 
     class Foreign:
+        class Meta:
+            abstract=True
         """
         Foreign Mixin
         """
 
         class Count:
+            class Meta:
+                abstract=True
             """
             Count Mixin
             """
 
             class ForComment:
+                class Meta:
+                    abstract=True
                 """
                 Count Mixin for comments
                 """
 
                 class Tag:
+                    class Meta:
+                        abstract=True
                     """
                     Count Mixin for tag
                     """
@@ -210,6 +250,8 @@ class ModelProperty:
                         return self.product.tag.count()
 
                 class Category:
+                    class Meta:
+                        abstract=True
                     """
                     Count Mixin for category
                     """
@@ -223,6 +265,8 @@ class ModelProperty:
                         return self.product.category.count()
 
                 class Brand:
+                    class Meta:
+                        abstract=True
                     """
                     Count Mixin for brand
                     """
@@ -236,11 +280,15 @@ class ModelProperty:
                         return self.product.brand.count()
 
             class ForOther:
+                class Meta:
+                    abstract=True
                 """
                 ForOther Mixin
                 """
 
                 class Product:
+                    class Meta:
+                        abstract=True
                     """
                     Product Mixin
                     """
@@ -254,6 +302,8 @@ class ModelProperty:
                         return self.product.count()
 
                 class Comment:
+                    class Meta:
+                        abstract=True
                     """
                     Comment Mixin
                     """
@@ -267,6 +317,8 @@ class ModelProperty:
                         return sum([product.comment_count for product in self.product.all()])
 
                 class Tag:
+                    class Meta:
+                        abstract=True
                     """
                     Tag Mixin
                     """
@@ -280,6 +332,8 @@ class ModelProperty:
                         return len(list(set([product.tag for product in self.product.all()])))
 
                 class Category:
+                    class Meta:
+                        abstract=True
                     """
                     Category Mixin
                     """
@@ -298,6 +352,8 @@ class ModelProperty:
                         return len(set(list_cat))
 
                 class Brand:
+                    class Meta:
+                        abstract=True
                     """
                     Brand Mixin
                     """
@@ -311,11 +367,15 @@ class ModelProperty:
                         return len(list(set([product.brand for product in self.product.all()])))
 
             class ForProduct:
+                class Meta:
+                    abstract=True
                 """
                 ForProduct Mixin
                 """
 
                 class Comment:
+                    class Meta:
+                        abstract=True
                     """
                     Comment Mixin
                     """
@@ -329,6 +389,8 @@ class ModelProperty:
                         return self.comment_product.count()
 
                 class Tag:
+                    class Meta:
+                        abstract=True
                     """
                     Tag Mixin
                     """
@@ -342,6 +404,8 @@ class ModelProperty:
                         return self.tag.count()
 
                 class Category:
+                    class Meta:
+                        abstract=True
                     """
                     Category Mixin
                     """
@@ -355,6 +419,8 @@ class ModelProperty:
                         return self.category.count()
 
                 class Brand:
+                    class Meta:
+                        abstract=True
                     """
                     Brand Mixin
                     """
@@ -368,16 +434,22 @@ class ModelProperty:
                         return self.brand.count()
 
         class Names:
+            class Meta:
+                abstract=True
             """
             Names Mixin
             """
 
             class ForOther:
+                class Meta:
+                    abstract=True
                 """
                 ForOther Mixin
                 """
 
                 class Product:
+                    class Meta:
+                        abstract=True
                     """
                     Product Mixin
                     """
@@ -391,6 +463,8 @@ class ModelProperty:
                         return [product.name for product in self.product.all()]
 
                 class Tag:
+                    class Meta:
+                        abstract=True
                     """
                     Tag Mixin
                     """
@@ -411,6 +485,8 @@ class ModelProperty:
                         return []
 
                 class Category:
+                    class Meta:
+                        abstract=True
                     """
                     Category Mixin
                     """
@@ -431,6 +507,8 @@ class ModelProperty:
                         return []
 
                 class Brand:
+                    class Meta:
+                        abstract=True
                     """
                     Brand Mixin
                     """
@@ -451,11 +529,15 @@ class ModelProperty:
                         return []
 
             class ForProduct:
+                class Meta:
+                    abstract=True
                 """
                 ForProduct Mixin
                 """
 
                 class Brand:
+                    class Meta:
+                        abstract=True
                     """
                     Brand Mixin
                     """
@@ -469,6 +551,8 @@ class ModelProperty:
                         return [brand.name for brand in self.brand.all()]
 
                 class Category:
+                    class Meta:
+                        abstract=True
                     """
                     Category Mixin
                     """
@@ -482,6 +566,8 @@ class ModelProperty:
                         return [category.name for category in self.category.all()]
 
                 class Tag:
+                    class Meta:
+                        abstract=True
                     """
                     Tag Mixin
                     """
@@ -495,11 +581,15 @@ class ModelProperty:
                         return [tag.name for tag in self.tag.all()]
 
             class ForComment:
+                class Meta:
+                    abstract=True
                 """
                 ForComment Mixin
                 """
 
                 class Tag:
+                    class Meta:
+                        abstract=True
                     """
                     Tag Mixin
                     """
@@ -513,6 +603,8 @@ class ModelProperty:
                         return self.product.tag_name
 
                 class Category:
+                    class Meta:
+                        abstract=True
                     """
                     Category Mixin
                     """
@@ -526,6 +618,8 @@ class ModelProperty:
                         return self.product.category_name
 
                 class Brand:
+                    class Meta:
+                        abstract=True
                     """
                     Brand Mixin
                     """
@@ -539,6 +633,8 @@ class ModelProperty:
                         return self.product.brand_name
 
                 class Product:
+                    class Meta:
+                        abstract=True
                     """
                     Product Mixin
                     """
@@ -552,6 +648,8 @@ class ModelProperty:
                         return self.product
 
                 class User:
+                    class Meta:
+                        abstract=True
                     """
                     User Mixin
                     """
@@ -565,11 +663,15 @@ class ModelProperty:
                         return self.user.username
 
             class ForCategory:
+                class Meta:
+                    abstract=True
                 """
                 ForCategory Mixin
                 """
 
                 class Parent:
+                    class Meta:
+                        abstract=True
                     """
                     Parent Mixin
                     """
@@ -590,6 +692,8 @@ class ModelProperty:
                         return []
 
     class RequiredField():
+        class Meta:
+            abstract=True
         """
         RequiredField Mixin
         Product App Mixin
@@ -601,6 +705,8 @@ class ModelProperty:
         COMMENT = ['product', 'author', 'title', 'body', 'rating']
 
     class SearchFields:
+        class Meta:
+            abstract=True
         """
         SearchFields Mixin
         Product App Mixin
@@ -612,6 +718,8 @@ class ModelProperty:
         COMMENT = ['title', 'body', 'author__username', 'product__name', 'product__category__name', 'product__tag__name', 'product__brand__name']
 
 class ModelRequiredProperties:
+    class Meta:
+        abstract=True
     """
     ModelRequiredProperties Mixin
     """
@@ -724,25 +832,35 @@ class ModelRequiredProperties:
         pass
 
     class ProductTag():
+        class Meta:
+            abstract=True
         """
         Products.ProductTag Mixin
         """
         pass
 
     class ProductCategory():
+        class Meta:
+            abstract=True
         """
         Products.ProductCategory Mixin
         """
         pass
 
     class ProductBrand():
+        class Meta:
+            abstract=True
         """
         Products.ProductBrand Mixin
         """
         pass
 
 class AdminProperty():
+    class Meta:
+        abstract=True
     class Product(BaseAdminInlineRender, BaseAdminSlug):
+        class Meta:
+            abstract=True
         list_display = ('id', 'name', 'gender', 'price', 'is_available', 'is_delete', 'comment_count', 'tag_count', 'category_count', 'brand_count', 'modified_at')
         list_filter = ['gender', 'is_available', 'is_delete', 'tag', 'category', 'brand']
         list_editable = ('price', 'is_available', 'is_delete', 'gender')
@@ -771,6 +889,8 @@ class AdminProperty():
         search_help_text = ""
 
     class Brand(BaseAdminInlineRender, BaseAdminSlug):
+        class Meta:
+            abstract=True
         list_display = ['name', 'is_delete', 'is_available', 'product_count', 'comment_count', "tag_count", 'category_count', 'modified_at']
         list_filter = ['is_delete', 'is_available', 'product__tag', 'product__category']
         list_editable = ['is_delete', 'is_available']
@@ -799,6 +919,8 @@ class AdminProperty():
         search_help_text = ""
 
     class Category(BaseAdminInlineRender, BaseAdminSlug):
+        class Meta:
+            abstract=True
         list_display = ['name', 'parent', 'is_delete', 'brand_count', 'product_count', 'comment_count', "tag_count", 'modified_at', 'slug']
         list_filter = ['is_delete', 'product__tag', 'parent', 'product__brand']
         list_editable = ['is_delete']
@@ -827,6 +949,8 @@ class AdminProperty():
         search_help_text = ""
 
     class Tag(BaseAdminInlineRender, BaseAdminSlug):
+        class Meta:
+            abstract=True
         list_display = ['name', 'is_delete', 'brand_count', 'product_count', 'comment_count', "category_count", 'modified_at']
         list_filter = ['is_delete', 'product__brand', 'product__category']
         list_editable = ['is_delete']
@@ -855,6 +979,8 @@ class AdminProperty():
         search_help_text = ""
 
     class Comment(BaseAdminInlineRender, BaseAdminSlug):
+        class Meta:
+            abstract=True
         list_display = ['author', 'rating', 'product', 'title', 'is_delete', 'is_active', 'modified_at', 'tag_names', 'category_names', 'brand_names']
         list_filter = ['is_delete', 'product__brand', 'product__category', 'product__tag']
         list_editable = ['is_delete', 'rating', 'is_active']

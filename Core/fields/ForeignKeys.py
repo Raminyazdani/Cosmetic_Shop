@@ -1,6 +1,54 @@
+from django.db import models
+
 from Core.fields.DefaultFields import CustomDefaultField
 
+class AbstractForeignKey(CustomDefaultField.ForeignKey):
+    class Meta:
+        abstract=True
+    class_custom_default_attrs = {
+        "class_name": "Model", # in this # required
+        "field_name": "ABCForeignKey", # in this # required
+        "app_name_destination": "...", # in this # required
+        "app_name_model_destination": "...", # in this # required
+        "blank": True, # in super
+        "db_index": True, # in super
+        "null": True, # in super
+        "on_delete": models.SET_NULL, # in super
+        # "related_name": CustomStringMaker.ForeignKey.related_name_gen, #generative
+        # "to": CustomStringMaker.ForeignKey.to_gen,                 #generative
+        # "validators":None,,
+        }
+
+    def __init__(self, *args, **kwargs):
+        for key, value in AbstractForeignKey.class_custom_default_attrs.items():
+            kwargs[key] = kwargs.get(key, value)
+        super().__init__(*args, **kwargs)
+
+class AbstractSelfForeignKey(CustomDefaultField.ForeignKey):
+    class Meta:
+        abstract=True
+    class_custom_default_attrs = {
+        "class_name": "Model",  # in this # required
+        "field_name": "ABCForeignKeySelf", # in this # required
+        "app_name_destination": "...", # in this # required
+        "app_name_model_destination": "...", # in this # required
+        "blank": True, # in super
+        "db_index": True, # in super
+        "null": True, # in super
+        "on_delete": models.SET_NULL, # in super
+        "related_name": "...", # in this # required
+        "to": "self", # in this # required
+        }
+
+    def __init__(self, *args, **kwargs):
+        for key, value in AbstractSelfForeignKey.class_custom_default_attrs.items():
+            kwargs[key] = kwargs.get(key, value)
+
+        super().__init__(*args, **kwargs)
+
 class CustomCommentFieldForeignKey(CustomDefaultField.ForeignKey):
+    class Meta:
+        abstract=True
     """
     Custom Comment Field as ForeignKey
             "class_name": "Model",
@@ -31,6 +79,8 @@ class CustomCommentFieldForeignKey(CustomDefaultField.ForeignKey):
         super().__init__(*args, **kwargs)
 
 class CustomCategoryParentFieldForeignKey(CustomDefaultField.ForeignKey):
+    class Meta:
+        abstract=True
     """
     Custom Category Parent Field as ForeignKey
             "class_name": "Model",
@@ -65,6 +115,8 @@ class CustomCategoryParentFieldForeignKey(CustomDefaultField.ForeignKey):
         super().__init__(*args, **kwargs)
 
 class CustomUserFieldForeignKey(CustomDefaultField.ForeignKey):
+    class Meta:
+        abstract=True
     """
     Custom User Field as ForeignKey
             "class_name": "Model",
@@ -97,6 +149,8 @@ class CustomUserFieldForeignKey(CustomDefaultField.ForeignKey):
         super().__init__(*args, **kwargs)
 
 class CustomProductFieldForeignKey(CustomDefaultField.ForeignKey):
+    class Meta:
+        abstract=True
     """
     Custom Product Field as ForeignKey
             "class_name": "Model",
@@ -128,6 +182,8 @@ class CustomProductFieldForeignKey(CustomDefaultField.ForeignKey):
         super().__init__(*args, **kwargs)
 
 class CustomCategoryFieldForeignKey(CustomDefaultField.ForeignKey):
+    class Meta:
+        abstract=True
     """
     Custom Category Field as ForeignKey
             "class_name": "Model",
@@ -159,6 +215,8 @@ class CustomCategoryFieldForeignKey(CustomDefaultField.ForeignKey):
         super().__init__(*args, **kwargs)
 
 class CustomTagFieldForeignKey(CustomDefaultField.ForeignKey):
+    class Meta:
+        abstract=True
     """
     Custom Tag Field as ForeignKey
             "class_name": "Model",
@@ -190,6 +248,8 @@ class CustomTagFieldForeignKey(CustomDefaultField.ForeignKey):
         super().__init__(*args, **kwargs)
 
 class CustomBrandFieldForeignKey(CustomDefaultField.ForeignKey):
+    class Meta:
+        abstract=True
     """
     Custom Brand Field as ForeignKey
             "class_name": "Model",
