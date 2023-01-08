@@ -1,0 +1,5 @@
+"blank"
+"db_index"
+"max_length"
+"null"
+"unique"
