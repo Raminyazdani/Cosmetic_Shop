@@ -2,7 +2,7 @@ from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.text import slugify
 
-from Core.admin import BaseAdminInlineRender, BaseAdminSlug
+from Core.admin import BaseAdminInlineRender, BaseAdminSlug, CategoryAdminSlug
 
 class ModelMethod:
     class Meta:
@@ -688,7 +688,7 @@ class ModelProperty:
                             parent_list.append(cat.parent.name)
                             cat = cat.parent
                         if len(parent_list) > 0:
-                            return parent_list
+                            return parent_list[::-1]
                         return []
 
     class RequiredField():
@@ -918,7 +918,7 @@ class AdminProperty():
         list_max_show_all = 100
         search_help_text = ""
 
-    class Category(BaseAdminInlineRender, BaseAdminSlug):
+    class Category(BaseAdminInlineRender, CategoryAdminSlug):
         class Meta:
             abstract=True
         list_display = ['name', 'parent', 'is_delete', 'brand_count', 'product_count', 'comment_count', "tag_count", 'modified_at', 'slug']
@@ -947,6 +947,7 @@ class AdminProperty():
         list_per_page = 25
         list_max_show_all = 100
         search_help_text = ""
+
 
     class Tag(BaseAdminInlineRender, BaseAdminSlug):
         class Meta:

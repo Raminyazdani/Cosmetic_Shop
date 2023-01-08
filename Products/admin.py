@@ -1,9 +1,26 @@
+from django import forms
 from django.contrib import admin
+from django.forms import TextInput
 from django.template.loader import get_template
 
 from Core.ProjectMixins.Products import AdminProperty
 from Core.admin import BaseAdminSlug, CategoryAdminSlug, CustomInlineAdmin, CustomInlineAdminOneToMany
 from .models import *
+
+class CategoryParentForm:
+    class ParentChoiceField(forms.ModelChoiceField):
+
+        def label_from_instance(self, obj):
+            return f"Name : {obj.name} --- Slug :{obj.slug}"
+
+class CategoryParentMethods:
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "parent":
+            return CategoryParentForm.ParentChoiceField(Category.objects.all())
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+
 
 class InlineMethods:
 
@@ -35,15 +52,15 @@ class Inlines:
 
     class ProductInline:
         class Brand(CustomInlineAdmin):
-            model = Product.brand.through
+            model = Brand.product.through
             product_inline = InlineMethods.open
 
         class Category(CustomInlineAdmin):
-            model = Product.category.through
+            model = Category.product.through
             product_inline = InlineMethods.open
 
         class Tag(CustomInlineAdmin):
-            model = Product.tag.through
+            model = Tag.product.through
             product_inline = InlineMethods.open
 
         class Comment(CustomInlineAdmin):
@@ -73,7 +90,7 @@ class ProductAdmin(AdminProperty.Product):
 #### custom query set  # def get_queryset(self, request):  #     # use our manager, rather than the default one  #  #     qs = super().get_queryset(request)  #     qs = qs.annotate(comment_count=Count('comment'))  #     qs = qs.annotate(tag_count=Count('tag'))  #     qs = qs.annotate(brand_count=Count('brand'))  #     qs = qs.annotate(category_count=Count('category'))  #     return qs
 
 @admin.register(Brand)
-class BrandAdmin(BaseAdminSlug):
+class BrandAdmin(AdminProperty.Brand):
     model = Brand
     search_fields = model.SEARCH_FIELDS
     list_display = AdminProperty.Brand.list_display
@@ -89,11 +106,12 @@ class BrandAdmin(BaseAdminSlug):
     list_max_show_all = AdminProperty.Brand.list_max_show_all
     search_help_text = AdminProperty.Brand.search_help_text
 
-    inlines = [Inlines.ProductInline.Brand, ]
+    inlines = (Inlines.ProductInline.Brand, )
     product_inline = inlines[0].product_inline
 
+
 @admin.register(Category)
-class CategoryAdmin(CategoryAdminSlug):
+class CategoryAdmin(CategoryParentMethods,AdminProperty.Category):
     model = Category
     search_fields = model.SEARCH_FIELDS
     list_display = AdminProperty.Category.list_display
@@ -111,8 +129,9 @@ class CategoryAdmin(CategoryAdminSlug):
     inlines = (Inlines.ProductInline.Category,)
     product_inline = inlines[0].product_inline
 
+
 @admin.register(Tag)
-class TagAdmin(BaseAdminSlug):
+class TagAdmin(AdminProperty.Tag):
     model = Tag
     search_fields = model.SEARCH_FIELDS
     list_display =AdminProperty.Tag.list_display
@@ -132,7 +151,7 @@ class TagAdmin(BaseAdminSlug):
     product_inline = inlines[0].product_inline
 
 @admin.register(Comment)
-class CommentAdmin(CategoryAdmin):
+class CommentAdmin(AdminProperty.Comment):
     model = Comment
     search_fields = model.SEARCH_FIELDS
     list_display =AdminProperty.Comment.list_display

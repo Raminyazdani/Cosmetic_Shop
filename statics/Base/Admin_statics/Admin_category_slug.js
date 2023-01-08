@@ -1,3 +1,10 @@
+
+
+function get_slug(str) {
+   const re_slice = /Slug :.*/g;
+   var new_string = re_slice.exec(str);
+    return new_string[0].slice(6)
+}
 window.onload = function () {
     var input_var = document.querySelectorAll('div.form-row.field-name>div>input')[0];
     var output_var = document.querySelectorAll('div.form-row.field-slug>div>div.readonly')[0];
@@ -20,14 +27,21 @@ window.onload = function () {
 
     if (input_var && output_var) {
         input_var.addEventListener("input", function () {
-            output_var.innerHTML = parent_var.text() + "/" + string_to_slug(this.value);
+            parent_var = $("#id_parent option:selected")
+            if (parent_var.text() == "---------") {
+                output_var.innerHTML = string_to_slug(this.value);
+            }
+            else {
+                output_var.innerHTML = get_slug(parent_var.text()) + "/" + string_to_slug(this.value);
+
+            }
         })
         parent_var_select.addEventListener("change", function () {
             parent_var = $("#id_parent option:selected")
             if (parent_var.text() == "---------") {
                 output_var.innerHTML = string_to_slug(input_var.value);
             } else {
-                output_var.innerHTML = parent_var.text() + "/" + string_to_slug(input_var.value);
+                output_var.innerHTML = get_slug(parent_var.text()) + "/" + string_to_slug(input_var.value);
             }
         })
 
