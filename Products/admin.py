@@ -1,15 +1,14 @@
 from django import forms
 from django.contrib import admin
-from django.forms import TextInput
 from django.template.loader import get_template
 
-from Core.ProjectMixins.Products import AdminProperty
-from Core.admin import BaseAdminSlug, CategoryAdminSlug, CustomInlineAdmin, CustomInlineAdminOneToMany
+from Core.ProjectMixins.Apps.Products_Mixins import AdminProperty
+import Core.ProjectMixins.Base.AbsoluteUrl
+from Core.admin import CustomInlineAdmin, CustomInlineAdminOneToMany
 from .models import *
 
 class CategoryParentForm:
     class ParentChoiceField(forms.ModelChoiceField):
-
         def label_from_instance(self, obj):
             return f"Name : {obj.name} --- Slug :{obj.slug}"
 
@@ -111,7 +110,7 @@ class BrandAdmin(AdminProperty.Brand):
 
 
 @admin.register(Category)
-class CategoryAdmin(CategoryParentMethods,AdminProperty.Category):
+class CategoryAdmin(CategoryParentMethods, AdminProperty.Category):
     model = Category
     search_fields = model.SEARCH_FIELDS
     list_display = AdminProperty.Category.list_display
@@ -134,18 +133,18 @@ class CategoryAdmin(CategoryParentMethods,AdminProperty.Category):
 class TagAdmin(AdminProperty.Tag):
     model = Tag
     search_fields = model.SEARCH_FIELDS
-    list_display =AdminProperty.Tag.list_display
-    list_filter =AdminProperty.Tag.list_filter
-    list_editable =AdminProperty.Tag.list_editable
-    ordering =AdminProperty.Tag.ordering
-    filter_horizontal =AdminProperty.Tag.filter_horizontal
-    fieldsets =AdminProperty.Tag.fieldsets
-    add_fieldsets =AdminProperty.Tag.search_fields
-    prepopulated_fields =AdminProperty.Tag.prepopulated_fields
-    readonly_fields =AdminProperty.Tag.readonly_fields
-    list_per_page =AdminProperty.Tag.list_per_page
-    list_max_show_all =AdminProperty.Tag.list_max_show_all
-    search_help_text =AdminProperty.Tag.search_help_text
+    list_display = AdminProperty.Tag.list_display
+    list_filter = AdminProperty.Tag.list_filter
+    list_editable = AdminProperty.Tag.list_editable
+    ordering = AdminProperty.Tag.ordering
+    filter_horizontal = AdminProperty.Tag.filter_horizontal
+    fieldsets = AdminProperty.Tag.fieldsets
+    add_fieldsets = AdminProperty.Tag.search_fields
+    prepopulated_fields = AdminProperty.Tag.prepopulated_fields
+    readonly_fields = AdminProperty.Tag.readonly_fields
+    list_per_page = AdminProperty.Tag.list_per_page
+    list_max_show_all = AdminProperty.Tag.list_max_show_all
+    search_help_text = AdminProperty.Tag.search_help_text
     
     inlines = (Inlines.ProductInline.Tag,)
     product_inline = inlines[0].product_inline
@@ -154,18 +153,18 @@ class TagAdmin(AdminProperty.Tag):
 class CommentAdmin(AdminProperty.Comment):
     model = Comment
     search_fields = model.SEARCH_FIELDS
-    list_display =AdminProperty.Comment.list_display
-    list_filter =AdminProperty.Comment.list_filter
-    list_editable =AdminProperty.Comment.list_editable
-    ordering =AdminProperty.Comment.ordering
-    filter_horizontal =AdminProperty.Comment.filter_horizontal
-    fieldsets =AdminProperty.Comment.fieldsets
-    add_fieldsets =AdminProperty.Comment.add_fieldsets
-    prepopulated_fields =AdminProperty.Comment.prepopulated_fields
-    readonly_fields =AdminProperty.Comment.readonly_fields
-    list_per_page =AdminProperty.Comment.list_per_page
-    list_max_show_all =AdminProperty.Comment.list_max_show_all
-    search_help_text =AdminProperty.Comment.search_help_text
+    list_display = AdminProperty.Comment.list_display
+    list_filter = AdminProperty.Comment.list_filter
+    list_editable = AdminProperty.Comment.list_editable
+    ordering = AdminProperty.Comment.ordering
+    filter_horizontal = AdminProperty.Comment.filter_horizontal
+    fieldsets = AdminProperty.Comment.fieldsets
+    add_fieldsets = AdminProperty.Comment.add_fieldsets
+    prepopulated_fields = AdminProperty.Comment.prepopulated_fields
+    readonly_fields = AdminProperty.Comment.readonly_fields
+    list_per_page = AdminProperty.Comment.list_per_page
+    list_max_show_all = AdminProperty.Comment.list_max_show_all
+    search_help_text = AdminProperty.Comment.search_help_text
     
     inlines = (Inlines.ProductInline.Comment,)
     product_inline = inlines[0].product_inline

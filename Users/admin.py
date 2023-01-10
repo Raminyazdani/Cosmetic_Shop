@@ -1,14 +1,13 @@
 from django.contrib import admin
 
-from Core.ProjectMixins.Users import AdminProperty
-from Core.admin import BaseAdminSlugUser
+from Core.ProjectMixins.Apps.Users_Mixins import AdminProperty
 from .models import User
 
 # Register your models here.
 
 
 @admin.register(User)
-class UserAdmin(BaseAdminSlugUser):
+class UserAdmin(AdminProperty.User):
     model = User
     list_display = AdminProperty.User.list_display
     list_filter = AdminProperty.User.list_filter

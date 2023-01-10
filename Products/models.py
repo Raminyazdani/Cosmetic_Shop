@@ -1,14 +1,15 @@
 from django.utils.translation import gettext_lazy as _
 
-# Core import
-from Core.ProjectMixins.Products import ModelProperty, ModelRequiredProperties
-from Core.fields import ProjectFields
-from Core.models import CoreModel, CoreModelUniversal
-
+from Core.ProjectMixins.Apps.Products_Mixins import ModelRequiredProperties
 # Create your models here.
+from Core.fields import ProjectFields
 
+# Core import
+# Create your models here.
+from Core.fields import ProjectFields
+from Core.models import CoreModelUniversal
 
-class Product(ModelRequiredProperties.Product, CoreModelUniversal):
+class Product(ModelRequiredProperties.ProductMixin,CoreModelUniversal ):
     """
     Product Model
     """
@@ -30,37 +31,42 @@ class Product(ModelRequiredProperties.Product, CoreModelUniversal):
     gender = ProjectFields.CustomGenderField(class_name = "Product")
 
     # required options
-    REQUIRED_FIELDS = ModelProperty.RequiredField.PRODUCT
-    SEARCH_FIELDS = ModelProperty.SearchFields.PRODUCT
 
     class Meta:
         verbose_name = _('Product')
         verbose_name_plural = _('Products')  # save methods are implemented in ProjectMixins  # save slug field populated by name field and implemented in ProjectMixins  # save Base Product implemented in ProjectMixins  # Properties are implemented in ProjectMixins including :  #   tag_count ,tag_names , category_count , brand_count , tag_names , category_names , brand_names , comment_count
 
-class Category(ModelRequiredProperties.Category, CoreModelUniversal):
+class Category(ModelRequiredProperties.CategoryMixin,CoreModelUniversal):
     """
     Category Model
     """
     # """ Fields   """
     name = ProjectFields.CustomNameField(class_name = "Category")
-    parent = ProjectFields.CustomCategoryParentFieldForeignKey(class_name = "Category")
+    parent = ProjectFields.CustomCategoryParentFieldForeignKey(class_name = "Category",default=None, null=True, blank=True)
     product = ProjectFields.CustomProductFieldManyToMany(class_name = "Category")
 
     # slug field populated by name field of parent and self
     slug = ProjectFields.CustomSlugField(class_name = "Category")
     description = ProjectFields.CustomDescriptionField(class_name = "Category")
 
+    REQUIRED_FIELDS = ['name']
     # GalleryField
     #   gallery = ProjectField.CustomGalleryField("Product")
     # required options
+<<<<<<< Updated upstream
     REQUIRED_FIELDS = ModelProperty.RequiredField.CATEGORY
     SEARCH_FIELDS = ModelProperty.SearchFields.CATEGORY
 
     class Meta :
+=======
+    class Meta:
+>>>>>>> Stashed changes
         verbose_name = _('Category')
         verbose_name_plural = _('Categories')  # save methods are implemented in ProjectMixins  # save slug field populated by name field and implemented in ProjectMixins  # Properties are implemented in ProjectMixins including :  #   tag_count  , product_count , brand_count , comment_count ,  tag_names , parent_names , product_names , brand_names
+    def save(self: object, *args, **kwargs):
 
-class Brand(ModelRequiredProperties.Brand, CoreModelUniversal):
+        super().save(*args, **kwargs)
+class Brand(ModelRequiredProperties.BrandMixin,CoreModelUniversal):
     """
     Brand Model
     """
@@ -76,14 +82,12 @@ class Brand(ModelRequiredProperties.Brand, CoreModelUniversal):
     # GalleryField
     #   gallery = ProjectField.CustomGalleryField("Product")
     # required options
-    REQUIRED_FIELDS = ModelProperty.RequiredField.BRAND
-    SEARCH_FIELDS = ModelProperty.SearchFields.BRAND
 
     class Meta:
         verbose_name = _('Brand')
         verbose_name_plural = _('Brands')  # save methods are implemented in ProjectMixins  # save slug field populated by name field and implemented in ProjectMixins  # save Base Brand implemented in ProjectMixins  # Properties are implemented in ProjectMixins including :  #   tag_count , category_count , product_count , tag_names , category_names , product_names
 
-class Tag(ModelRequiredProperties.Tag, CoreModelUniversal):
+class Tag(ModelRequiredProperties.TagMixin,CoreModelUniversal):
     """
     Tag Model
     """
@@ -95,14 +99,12 @@ class Tag(ModelRequiredProperties.Tag, CoreModelUniversal):
     # GalleryField
     #   gallery = ProjectField.CustomGalleryField("Product")
     # required options
-    REQUIRED_FIELDS = ModelProperty.RequiredField.TAG
-    SEARCH_FIELDS = ModelProperty.SearchFields.TAG
 
     class Meta:
         verbose_name = _('Tag')
         verbose_name_plural = _('Tags')  # save methods are implemented in ProjectMixins  # save slug field populated by name field and implemented in ProjectMixins  # Properties are implemented in ProjectMixins including :  #   product_count , product_names , category_count , category_names , brand_count , brand_names , comment_count
 
-class Comment(ModelRequiredProperties.Comment, CoreModelUniversal):
+class Comment(ModelRequiredProperties.CommentMixin,CoreModelUniversal):
     """
     Comment Model
     """
@@ -120,14 +122,12 @@ class Comment(ModelRequiredProperties.Comment, CoreModelUniversal):
     slug = ProjectFields.CustomSlugField(class_name = "Comment")
 
     # required options
-    SEARCH_FIELDS = ModelProperty.SearchFields.COMMENT
-    REQUIRED_FIELDS = ModelProperty.RequiredField.COMMENT
 
     class Meta:
         verbose_name = _('Comment')
         verbose_name_plural = _('Comments')  # save methods are implemented in ProjectMixins  # save slug field populated by id field and implemented in ProjectMixins  # Properties are implemented in ProjectMixins including :
 
-class ProductTag(CoreModel):
+class ProductTag(ModelRequiredProperties.ProductTagMixin,CoreModelUniversal):
     """
     ProductTag Model as a many to many relationship between Product and Tag
     """
@@ -139,7 +139,7 @@ class ProductTag(CoreModel):
         verbose_name = _('Product Tag')
         verbose_name_plural = _('Products and Tags')
 
-class ProductCategory(CoreModel):
+class ProductCategory(ModelRequiredProperties.ProductCategoryMixin,CoreModelUniversal):
     """
     ProductCategory Model as a many to many relationship between Product and Category
     """
@@ -151,7 +151,7 @@ class ProductCategory(CoreModel):
         verbose_name = _('Product Category')
         verbose_name_plural = _('Products and Categories')
 
-class ProductBrand(CoreModel):
+class ProductBrand(ModelRequiredProperties.ProductBrandMixin,CoreModelUniversal):
     """
     ProductBrand Model as a many to many relationship between Product and Brand
     """

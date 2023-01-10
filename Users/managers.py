@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from Core.managers import BaseManager
 
 
-class CostumBaseUserManager(BaseUserManager, BaseManager):
+class CustomBaseUserManager(BaseUserManager, BaseManager):
     use_in_migrations = True
 
     def save_user(self, phone_number, password, **extra_fields):

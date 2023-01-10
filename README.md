@@ -28,10 +28,11 @@ This is my first django project from zero to hero . wish me luck ...
     4. Gallery
     5. Image
     6. Order
-    7. Payment
-    8. Wallet
-    9. shipment
-    10. contact_us
+    7. OrderItem
+    8. Payment
+    9. Wallet
+    10. shipment
+    11. contact_us
 
 * ### Costumers
     1. ProfileCostumer

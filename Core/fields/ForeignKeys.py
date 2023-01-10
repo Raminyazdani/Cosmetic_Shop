@@ -4,16 +4,17 @@ from Core.fields.DefaultFields import CustomDefaultField
 
 class AbstractForeignKey(CustomDefaultField.ForeignKey):
     class Meta:
-        abstract=True
+        abstract = True
+
     class_custom_default_attrs = {
-        "class_name": "Model", # in this # required
-        "field_name": "ABCForeignKey", # in this # required
-        "app_name_destination": "...", # in this # required
-        "app_name_model_destination": "...", # in this # required
-        "blank": True, # in super
-        "db_index": True, # in super
-        "null": True, # in super
-        "on_delete": models.SET_NULL, # in super
+        "class_name": "Model",  # in this # required
+        "field_name": "ABCForeignKey",  # in this # required
+        "app_name_destination": "...",  # in this # required
+        "app_name_model_destination": "...",  # in this # required
+        "blank": True,  # in super
+        "db_index": True,  # in super
+        "null": True,  # in super
+        "on_delete": models.SET_NULL,  # in super
         # "related_name": CustomStringMaker.ForeignKey.related_name_gen, #generative
         # "to": CustomStringMaker.ForeignKey.to_gen,                 #generative
         # "validators":None,,
@@ -26,18 +27,19 @@ class AbstractForeignKey(CustomDefaultField.ForeignKey):
 
 class AbstractSelfForeignKey(CustomDefaultField.ForeignKey):
     class Meta:
-        abstract=True
+        abstract = True
+
     class_custom_default_attrs = {
         "class_name": "Model",  # in this # required
-        "field_name": "ABCForeignKeySelf", # in this # required
-        "app_name_destination": "...", # in this # required
-        "app_name_model_destination": "...", # in this # required
-        "blank": True, # in super
-        "db_index": True, # in super
-        "null": True, # in super
-        "on_delete": models.SET_NULL, # in super
-        "related_name": "...", # in this # required
-        "to": "self", # in this # required
+        "field_name": "ABCForeignKeySelf",  # in this # required
+        "app_name_destination": "...",  # in this # required
+        "app_name_model_destination": "...",  # in this # required
+        "blank": True,  # in super
+        "db_index": True,  # in super
+        "null": True,  # in super
+        "on_delete": models.SET_NULL,  # in super
+        "related_name": "...",  # in this # required
+        "to": "self",  # in this # required
         }
 
     def __init__(self, *args, **kwargs):
@@ -48,7 +50,8 @@ class AbstractSelfForeignKey(CustomDefaultField.ForeignKey):
 
 class CustomCommentFieldForeignKey(CustomDefaultField.ForeignKey):
     class Meta:
-        abstract=True
+        abstract = True
+
     """
     Custom Comment Field as ForeignKey
             "class_name": "Model",
@@ -80,7 +83,8 @@ class CustomCommentFieldForeignKey(CustomDefaultField.ForeignKey):
 
 class CustomCategoryParentFieldForeignKey(CustomDefaultField.ForeignKey):
     class Meta:
-        abstract=True
+        abstract = True
+
     """
     Custom Category Parent Field as ForeignKey
             "class_name": "Model",
@@ -90,7 +94,7 @@ class CustomCategoryParentFieldForeignKey(CustomDefaultField.ForeignKey):
             "null": True,
             "on_delete": models.SET_NULL,
             "related_name": CustomStringMaker.ForeignKey.related_name, autogenerate
-            "to": CustomStringMaker.ForeignKey.to,autogenerate
+            "to": CustomStringMaker.ForeignKey.to  autogenerate
             # "validators":None,
     """
 
@@ -100,7 +104,9 @@ class CustomCategoryParentFieldForeignKey(CustomDefaultField.ForeignKey):
         "app_name_destination": "Products",
         "app_name_model_destination": "Category",
         "to": "self",
-        "related_name": "category_parent",
+        'default':None,
+        'db_index':False,
+        "related_name": "child",
         }
 
     def __init__(self, *args, **kwargs):
@@ -116,7 +122,8 @@ class CustomCategoryParentFieldForeignKey(CustomDefaultField.ForeignKey):
 
 class CustomUserFieldForeignKey(CustomDefaultField.ForeignKey):
     class Meta:
-        abstract=True
+        abstract = True
+
     """
     Custom User Field as ForeignKey
             "class_name": "Model",
@@ -150,7 +157,8 @@ class CustomUserFieldForeignKey(CustomDefaultField.ForeignKey):
 
 class CustomProductFieldForeignKey(CustomDefaultField.ForeignKey):
     class Meta:
-        abstract=True
+        abstract = True
+
     """
     Custom Product Field as ForeignKey
             "class_name": "Model",
@@ -183,7 +191,8 @@ class CustomProductFieldForeignKey(CustomDefaultField.ForeignKey):
 
 class CustomCategoryFieldForeignKey(CustomDefaultField.ForeignKey):
     class Meta:
-        abstract=True
+        abstract = True
+
     """
     Custom Category Field as ForeignKey
             "class_name": "Model",
@@ -216,7 +225,8 @@ class CustomCategoryFieldForeignKey(CustomDefaultField.ForeignKey):
 
 class CustomTagFieldForeignKey(CustomDefaultField.ForeignKey):
     class Meta:
-        abstract=True
+        abstract = True
+
     """
     Custom Tag Field as ForeignKey
             "class_name": "Model",
@@ -249,7 +259,8 @@ class CustomTagFieldForeignKey(CustomDefaultField.ForeignKey):
 
 class CustomBrandFieldForeignKey(CustomDefaultField.ForeignKey):
     class Meta:
-        abstract=True
+        abstract = True
+
     """
     Custom Brand Field as ForeignKey
             "class_name": "Model",
