@@ -54,6 +54,7 @@ class Category:
         """
         # product   tag     brand       category        comment     onetoone    manytomany      foreignkey
         return GetNameSpaceProperty.name(self, "category")
+
 class Parent:
     class Meta:
         abstract = True
@@ -79,8 +80,14 @@ class Parent:
         :return:
         """
         # product   tag     brand       category        comment     onetoone    manytomany      foreignkey
-        return GetNameSpaceProperty.name(self, "parent")
-
+        parent_list = []
+        cat = self
+        while cat.parent:
+            parent_list.append(cat.parent.name)
+            cat = cat.parent
+        if len(parent_list) > 0:
+            return parent_list
+        return []
 
 class Comment:
     class Meta:

@@ -42,7 +42,7 @@ class Category(ModelRequiredProperties.CategoryMixin,CoreModelUniversal):
     """
     # """ Fields   """
     name = ProjectFields.CustomNameField(class_name = "Category")
-    parent = ProjectFields.CustomCategoryParentFieldForeignKey(class_name = "Category",default=None, null=True, blank=True)
+    parent = ProjectFields.CustomCategoryParentFieldForeignKey(class_name = "Category")
     product = ProjectFields.CustomProductFieldManyToMany(class_name = "Category")
 
     # slug field populated by name field of parent and self
@@ -53,14 +53,9 @@ class Category(ModelRequiredProperties.CategoryMixin,CoreModelUniversal):
     # GalleryField
     #   gallery = ProjectField.CustomGalleryField("Product")
     # required options
-<<<<<<< Updated upstream
-    REQUIRED_FIELDS = ModelProperty.RequiredField.CATEGORY
-    SEARCH_FIELDS = ModelProperty.SearchFields.CATEGORY
 
-    class Meta :
-=======
+
     class Meta:
->>>>>>> Stashed changes
         verbose_name = _('Category')
         verbose_name_plural = _('Categories')  # save methods are implemented in ProjectMixins  # save slug field populated by name field and implemented in ProjectMixins  # Properties are implemented in ProjectMixins including :  #   tag_count  , product_count , brand_count , comment_count ,  tag_names , parent_names , product_names , brand_names
     def save(self: object, *args, **kwargs):

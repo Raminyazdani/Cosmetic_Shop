@@ -16,9 +16,8 @@ class CategoryParentMethods:
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "parent":
-            return CategoryParentForm.ParentChoiceField(Category.objects.all())
+            return CategoryParentForm.ParentChoiceField(Category.objects.all(),required=False)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
-
 
 
 class InlineMethods:

@@ -34,7 +34,10 @@ class Brand(BaseAdminInlineRender, BaseAdminSlug):
 class Category(BaseAdminInlineRender, CategoryAdminSlug):
 
     list_display = ['id','name', 'parent', 'is_delete', 'brand_count', 'product_count', 'comment_count', "tag_count", 'modified_at', 'slug']
+    # list_display = ['id','name', 'is_delete', 'brand_count', 'product_count', 'comment_count', "tag_count", 'modified_at', 'slug']
     list_filter = ['is_delete', 'product__tag', 'parent', 'product__brand']
+    # list_filter = ['is_delete', 'product__tag', 'product__brand']
+
     list_editable = ['is_delete']
     ordering = ['name']
     filter_horizontal = ["product"]

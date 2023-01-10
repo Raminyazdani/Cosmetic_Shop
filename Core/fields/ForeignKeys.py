@@ -105,7 +105,7 @@ class CustomCategoryParentFieldForeignKey(CustomDefaultField.ForeignKey):
         "app_name_model_destination": "Category",
         "to": "self",
         'default':None,
-        'db_index':False,
+        'db_index':True,
         "related_name": "child",
         }
 

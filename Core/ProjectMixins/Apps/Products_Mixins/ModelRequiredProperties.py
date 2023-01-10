@@ -71,7 +71,7 @@ class CommentMixin(  # METHODS
 
 class CategoryMixin(
         # METHODS
-        Base.Save.SaveParent,  # save methods
+        Base.Save.SaveName,Base.Save.SaveCategory,Base.Save.SaveParent,  # save methods
         # def str and get_absolute_url
         Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
