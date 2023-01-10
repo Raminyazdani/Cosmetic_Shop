@@ -56,7 +56,7 @@ class Category(ModelRequiredProperties.Category, CoreModelUniversal):
     REQUIRED_FIELDS = ModelProperty.RequiredField.CATEGORY
     SEARCH_FIELDS = ModelProperty.SearchFields.CATEGORY
 
-    class Meta:
+    class Meta :
         verbose_name = _('Category')
         verbose_name_plural = _('Categories')  # save methods are implemented in ProjectMixins  # save slug field populated by name field and implemented in ProjectMixins  # Properties are implemented in ProjectMixins including :  #   tag_count  , product_count , brand_count , comment_count ,  tag_names , parent_names , product_names , brand_names
 
