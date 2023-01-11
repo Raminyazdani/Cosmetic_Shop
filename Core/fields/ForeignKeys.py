@@ -105,11 +105,7 @@ class CustomCategoryParentFieldForeignKey(CustomDefaultField.ForeignKey):
         "app_name_model_destination": "Category",
         "to": "self",
         'default':None,
-<<<<<<< Updated upstream
-        'db_index':True,
-=======
         'db_index':False,
->>>>>>> Stashed changes
         "related_name": "child",
         }
 

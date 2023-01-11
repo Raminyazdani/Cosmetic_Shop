@@ -68,11 +68,7 @@ class CustomStringMaker:
 class GetNameSpaceProperty:
 
     @staticmethod
-<<<<<<< Updated upstream
-    def name(self: object, teststring,scopeparent):
-=======
     def name(self: object, teststring):
->>>>>>> Stashed changes
         if teststring == "parent":
             parent_list = []
             parent = self.parent
@@ -93,32 +89,19 @@ class GetNameSpaceProperty:
                     try:
                         temp = []
                         try:
-<<<<<<< Updated upstream
-                            items = self.__getattribute__(scopeparent).all()
-                        except:
-                            items = self.__getattribute__(scopeparent+"s").all()
-
-                        for item in items:
-                            temp += item.__getattribute__(teststring + "_name")
-=======
                             products = self.product.all()
                         except:
                             products = self.products.all()
 
                         for product in products:
                             temp += product.__getattribute__(teststring + "_name")
->>>>>>> Stashed changes
                         temp = list(set(temp))
                         return temp
                     except:
                         return []
 
     @staticmethod
-<<<<<<< Updated upstream
-    def count(self: object, teststring,scopeparent):
-=======
     def count(self: object, teststring):
->>>>>>> Stashed changes
         try:
             return self.__getattribute__(teststring).count()
         except:
@@ -128,38 +111,16 @@ class GetNameSpaceProperty:
                 try:
                     temp = []
                     try:
-<<<<<<< Updated upstream
-                        items = self.__getattribute__(scopeparent).all()
-                    except:
-                        items = self.__getattribute__(scopeparent+"s").all()
-
-                    for item in items:
-                        temp += item.__getattribute__(teststring + "_name")
-=======
                         products = self.product.all()
                     except:
                         products = self.products.all()
 
                     for product in products:
                         temp += product.__getattribute__(teststring + "_name")
->>>>>>> Stashed changes
                     temp = len(set(temp))
                     return temp
                 except:
                     return 0
-<<<<<<< Updated upstream
-    @staticmethod
-    def parent(self:object,teststring):
-        parent_list = []
-        item = self
-        while item.parent:
-            parent_list.append(item.__getattribute__(teststring).name)
-            item = item.parent
-        if len(parent_list) > 0:
-            return parent_list
-        return []
-=======
->>>>>>> Stashed changes
 
     @staticmethod
     def abs_url_slug(self: object, teststring):
