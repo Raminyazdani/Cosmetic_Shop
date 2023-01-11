@@ -47,7 +47,7 @@ class CustomStringMaker:
             #       "field_name":                   "Category",             "Product #
             #       "app_name_destination":         "AdminProperty",             "AdminProperty"
             #       "app_name_model_destination":   "Category",             "Product"
-            #       "through_fields":               [None, "category_id"]   ["product_id",None]
+            #       "through_fields":               [None, "itemegory_id"]   ["product_id",None]
             #       "through":                      "ProductCategory",      "ProductCategory"
             if through_fields is None:
                 raise ValidationError("need through fields . it cant be none")
@@ -68,7 +68,7 @@ class CustomStringMaker:
 class GetNameSpaceProperty:
 
     @staticmethod
-    def name(self: object, teststring):
+    def name(self: object, teststring,scopeparent):
         if teststring == "parent":
             parent_list = []
             parent = self.parent
@@ -89,19 +89,19 @@ class GetNameSpaceProperty:
                     try:
                         temp = []
                         try:
-                            products = self.product.all()
+                            items = self.__getattribute__(scopeparent).all()
                         except:
-                            products = self.products.all()
+                            items = self.__getattribute__(scopeparent+"s").all()
 
-                        for product in products:
-                            temp += product.__getattribute__(teststring + "_name")
+                        for item in items:
+                            temp += item.__getattribute__(teststring + "_name")
                         temp = list(set(temp))
                         return temp
                     except:
                         return []
 
     @staticmethod
-    def count(self: object, teststring):
+    def count(self: object, teststring,scopeparent):
         try:
             return self.__getattribute__(teststring).count()
         except:
@@ -111,16 +111,26 @@ class GetNameSpaceProperty:
                 try:
                     temp = []
                     try:
-                        products = self.product.all()
+                        items = self.__getattribute__(scopeparent).all()
                     except:
-                        products = self.products.all()
+                        items = self.__getattribute__(scopeparent+"s").all()
 
-                    for product in products:
-                        temp += product.__getattribute__(teststring + "_name")
+                    for item in items:
+                        temp += item.__getattribute__(teststring + "_name")
                     temp = len(set(temp))
                     return temp
                 except:
                     return 0
+    @staticmethod
+    def parent(self:object,teststring):
+        parent_list = []
+        item = self
+        while item.parent:
+            parent_list.append(item.__getattribute__(teststring).name)
+            item = item.parent
+        if len(parent_list) > 0:
+            return parent_list
+        return []
 
     @staticmethod
     def abs_url_slug(self: object, teststring):
