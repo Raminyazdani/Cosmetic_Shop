@@ -1,0 +1,10 @@
+
+
+#MODEL_NAME
+
+class REQUIREDFIELDS:
+
+    MODEL_NAME = []
+
+class SEARCHFIELDS:
+    MODEL_NAME = []

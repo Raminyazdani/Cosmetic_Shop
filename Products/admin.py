@@ -1,9 +1,24 @@
+from django import forms
 from django.contrib import admin
 from django.template.loader import get_template
 
-from Core.ProjectMixins.Products import AdminProperty
-from Core.admin import BaseAdminSlug, CustomInlineAdmin, CustomInlineAdminOneToMany
+from Core.ProjectMixins.Apps.Products_Mixins import AdminProperty
+import Core.ProjectMixins.Base.AbsoluteUrl
+from Core.admin import CustomInlineAdmin, CustomInlineAdminOneToMany
 from .models import *
+
+class CategoryParentForm:
+    class ParentChoiceField(forms.ModelChoiceField):
+        def label_from_instance(self, obj):
+            return f"Name : {obj.name} --- Slug :{obj.slug}"
+
+class CategoryParentMethods:
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "parent":
+            return CategoryParentForm.ParentChoiceField(Category.objects.all(),required=False)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
 
 class InlineMethods:
 
@@ -35,15 +50,15 @@ class Inlines:
 
     class ProductInline:
         class Brand(CustomInlineAdmin):
-            model = Product.brand.through
+            model = Brand.product.through
             product_inline = InlineMethods.open
 
         class Category(CustomInlineAdmin):
-            model = Product.category.through
+            model = Category.product.through
             product_inline = InlineMethods.open
 
         class Tag(CustomInlineAdmin):
-            model = Product.tag.through
+            model = Tag.product.through
             product_inline = InlineMethods.open
 
         class Comment(CustomInlineAdmin):
@@ -73,7 +88,7 @@ class ProductAdmin(AdminProperty.Product):
 #### custom query set  # def get_queryset(self, request):  #     # use our manager, rather than the default one  #  #     qs = super().get_queryset(request)  #     qs = qs.annotate(comment_count=Count('comment'))  #     qs = qs.annotate(tag_count=Count('tag'))  #     qs = qs.annotate(brand_count=Count('brand'))  #     qs = qs.annotate(category_count=Count('category'))  #     return qs
 
 @admin.register(Brand)
-class BrandAdmin(BaseAdminSlug):
+class BrandAdmin(AdminProperty.Brand):
     model = Brand
     search_fields = model.SEARCH_FIELDS
     list_display = AdminProperty.Brand.list_display
@@ -89,11 +104,12 @@ class BrandAdmin(BaseAdminSlug):
     list_max_show_all = AdminProperty.Brand.list_max_show_all
     search_help_text = AdminProperty.Brand.search_help_text
 
-    inlines = [Inlines.ProductInline.Brand, ]
+    inlines = (Inlines.ProductInline.Brand, )
     product_inline = inlines[0].product_inline
 
+
 @admin.register(Category)
-class CategoryAdmin(BaseAdminSlug):
+class CategoryAdmin(CategoryParentMethods, AdminProperty.Category):
     model = Category
     search_fields = model.SEARCH_FIELDS
     list_display = AdminProperty.Category.list_display
@@ -111,42 +127,43 @@ class CategoryAdmin(BaseAdminSlug):
     inlines = (Inlines.ProductInline.Category,)
     product_inline = inlines[0].product_inline
 
+
 @admin.register(Tag)
-class TagAdmin(BaseAdminSlug):
+class TagAdmin(AdminProperty.Tag):
     model = Tag
     search_fields = model.SEARCH_FIELDS
-    list_display =AdminProperty.Tag.list_display
-    list_filter =AdminProperty.Tag.list_filter
-    list_editable =AdminProperty.Tag.list_editable
-    ordering =AdminProperty.Tag.ordering
-    filter_horizontal =AdminProperty.Tag.filter_horizontal
-    fieldsets =AdminProperty.Tag.fieldsets
-    add_fieldsets =AdminProperty.Tag.search_fields
-    prepopulated_fields =AdminProperty.Tag.prepopulated_fields
-    readonly_fields =AdminProperty.Tag.readonly_fields
-    list_per_page =AdminProperty.Tag.list_per_page
-    list_max_show_all =AdminProperty.Tag.list_max_show_all
-    search_help_text =AdminProperty.Tag.search_help_text
+    list_display = AdminProperty.Tag.list_display
+    list_filter = AdminProperty.Tag.list_filter
+    list_editable = AdminProperty.Tag.list_editable
+    ordering = AdminProperty.Tag.ordering
+    filter_horizontal = AdminProperty.Tag.filter_horizontal
+    fieldsets = AdminProperty.Tag.fieldsets
+    add_fieldsets = AdminProperty.Tag.search_fields
+    prepopulated_fields = AdminProperty.Tag.prepopulated_fields
+    readonly_fields = AdminProperty.Tag.readonly_fields
+    list_per_page = AdminProperty.Tag.list_per_page
+    list_max_show_all = AdminProperty.Tag.list_max_show_all
+    search_help_text = AdminProperty.Tag.search_help_text
     
     inlines = (Inlines.ProductInline.Tag,)
     product_inline = inlines[0].product_inline
 
 @admin.register(Comment)
-class CommentAdmin(BaseAdminSlug):
+class CommentAdmin(AdminProperty.Comment):
     model = Comment
     search_fields = model.SEARCH_FIELDS
-    list_display =AdminProperty.Comment.list_display
-    list_filter =AdminProperty.Comment.list_filter
-    list_editable =AdminProperty.Comment.list_editable
-    ordering =AdminProperty.Comment.ordering
-    filter_horizontal =AdminProperty.Comment.filter_horizontal
-    fieldsets =AdminProperty.Comment.fieldsets
-    add_fieldsets =AdminProperty.Comment.add_fieldsets
-    prepopulated_fields =AdminProperty.Comment.prepopulated_fields
-    readonly_fields =AdminProperty.Comment.readonly_fields
-    list_per_page =AdminProperty.Comment.list_per_page
-    list_max_show_all =AdminProperty.Comment.list_max_show_all
-    search_help_text =AdminProperty.Comment.search_help_text
+    list_display = AdminProperty.Comment.list_display
+    list_filter = AdminProperty.Comment.list_filter
+    list_editable = AdminProperty.Comment.list_editable
+    ordering = AdminProperty.Comment.ordering
+    filter_horizontal = AdminProperty.Comment.filter_horizontal
+    fieldsets = AdminProperty.Comment.fieldsets
+    add_fieldsets = AdminProperty.Comment.add_fieldsets
+    prepopulated_fields = AdminProperty.Comment.prepopulated_fields
+    readonly_fields = AdminProperty.Comment.readonly_fields
+    list_per_page = AdminProperty.Comment.list_per_page
+    list_max_show_all = AdminProperty.Comment.list_max_show_all
+    search_help_text = AdminProperty.Comment.search_help_text
     
     inlines = (Inlines.ProductInline.Comment,)
     product_inline = inlines[0].product_inline
