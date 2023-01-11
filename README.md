@@ -31,9 +31,14 @@ This is my first django project from zero to hero . wish me luck ...
     7. OrderItem
     8. Payment
     9. Wallet
+<<<<<<< Updated upstream
     10. Shipment
     11. ShipmentItem
     12. ContactUs
+=======
+    10. shipment
+    11. contact_us
+>>>>>>> Stashed changes
 
 * ### Costumers
     1. ProfileCostumer

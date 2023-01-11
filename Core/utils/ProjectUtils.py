@@ -68,7 +68,7 @@ class CustomStringMaker:
 class GetNameSpaceProperty:
 
     @staticmethod
-    def name(self: object, teststring,scopeparent):
+    def name(self: object, teststring):
         if teststring == "parent":
             parent_list = []
             parent = self.parent
@@ -89,19 +89,19 @@ class GetNameSpaceProperty:
                     try:
                         temp = []
                         try:
-                            items = self.__getattribute__(scopeparent).all()
+                            products = self.product.all()
                         except:
-                            items = self.__getattribute__(scopeparent+"s").all()
+                            products = self.products.all()
 
-                        for item in items:
-                            temp += item.__getattribute__(teststring + "_name")
+                        for product in products:
+                            temp += product.__getattribute__(teststring + "_name")
                         temp = list(set(temp))
                         return temp
                     except:
                         return []
 
     @staticmethod
-    def count(self: object, teststring,scopeparent):
+    def count(self: object, teststring):
         try:
             return self.__getattribute__(teststring).count()
         except:
@@ -111,26 +111,16 @@ class GetNameSpaceProperty:
                 try:
                     temp = []
                     try:
-                        items = self.__getattribute__(scopeparent).all()
+                        products = self.product.all()
                     except:
-                        items = self.__getattribute__(scopeparent+"s").all()
+                        products = self.products.all()
 
-                    for item in items:
-                        temp += item.__getattribute__(teststring + "_name")
+                    for product in products:
+                        temp += product.__getattribute__(teststring + "_name")
                     temp = len(set(temp))
                     return temp
                 except:
                     return 0
-    @staticmethod
-    def parent(self:object,teststring):
-        parent_list = []
-        item = self
-        while item.parent:
-            parent_list.append(item.__getattribute__(teststring).name)
-            item = item.parent
-        if len(parent_list) > 0:
-            return parent_list
-        return []
 
     @staticmethod
     def abs_url_slug(self: object, teststring):

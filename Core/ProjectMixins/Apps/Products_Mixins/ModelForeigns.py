@@ -11,22 +11,22 @@ class Brand:
     """
 
     @cached_property
-    def brand_count(self,teststring="brand",scopeparent="product"):
+    def brand_count(self):
         """
         Return brand count
         :return:
         """
         # product   tag     brand       category        comment     onetoone    manytomany      foreignkey
-        return GetNameSpaceProperty.count(self, teststring,scopeparent)
+        return GetNameSpaceProperty.count(self, "brand")
 
     @cached_property
-    def brand_name(self,teststring="brand",scopeparent="product"):
+    def brand_name(self):
         """
         Return brand count
         :return:
         """
         # product   tag     brand       category        comment     onetoone    manytomany      foreignkey
-        return GetNameSpaceProperty.name(self, teststring,scopeparent)
+        return GetNameSpaceProperty.name(self, "brand")
 
 class Category:
     class Meta:
@@ -37,23 +37,50 @@ class Category:
     """
 
     @cached_property
-    def category_count(self,teststring="category",scopeparent="product"):
+    def category_count(self):
         """
         Return brand count
         :return:
         """
         # product   tag     brand       category        comment     onetoone    manytomany      foreignkey
-        return GetNameSpaceProperty.count(self, teststring,scopeparent)
+        return GetNameSpaceProperty.count(self, "category")
 
 
     @cached_property
-    def category_name(self,teststring="category",scopeparent="product"):
+    def category_name(self):
         """
         Return brand count
         :return:
         """
         # product   tag     brand       category        comment     onetoone    manytomany      foreignkey
-        return GetNameSpaceProperty.name(self, teststring,scopeparent)
+        return GetNameSpaceProperty.name(self, "category")
+class Parent:
+    class Meta:
+        abstract = True
+
+    """
+    Brand Mixin
+    """
+
+    @cached_property
+    def parent_count(self):
+        """
+        Return brand count
+        :return:
+        """
+        # product   tag     brand       category        comment     onetoone    manytomany      foreignkey
+        return GetNameSpaceProperty.count(self, "category")
+
+
+    @cached_property
+    def parent_name(self):
+        """
+        Return brand count
+        :return:
+        """
+        # product   tag     brand       category        comment     onetoone    manytomany      foreignkey
+        return GetNameSpaceProperty.name(self, "parent")
+
 
 class Comment:
     class Meta:
@@ -64,22 +91,22 @@ class Comment:
     """
 
     @cached_property
-    def comment_count(self,teststring="comment",scopeparent="product"):
+    def comment_count(self):
         """
         Return brand count
         :return:
         """
         # product   tag     brand       category        comment     onetoone    manytomany      foreignkey
-        return GetNameSpaceProperty.count(self, teststring,scopeparent)
+        return GetNameSpaceProperty.count(self, "comment")
 
     @cached_property
-    def comment_name(self,teststring="comment",scopeparent="product"):
+    def comment_name(self):
         """
         Return brand count
         :return:
         """
         # product   tag     brand       category        comment     onetoone    manytomany      foreignkey
-        return GetNameSpaceProperty.name(self, teststring,scopeparent)
+        return GetNameSpaceProperty.name(self, "comment")
 
 class Product:
     class Meta:
@@ -90,23 +117,23 @@ class Product:
     """
 
     @cached_property
-    def product_count(self,teststring="product",scopeparent="product"):
+    def product_count(self):
         """
         Return brand count
         :return:
         """
         # product   tag     brand       category        comment     onetoone    manytomany      foreignkey
-        return GetNameSpaceProperty.count(self, teststring,scopeparent)
+        return GetNameSpaceProperty.count(self, "product")
 
 
     @cached_property
-    def product_name(self,teststring="product",scopeparent="product"):
+    def product_name(self):
         """
         Return brand count
         :return:
         """
         # product   tag     brand       category        comment     onetoone    manytomany      foreignkey
-        return GetNameSpaceProperty.name(self, teststring,scopeparent)
+        return GetNameSpaceProperty.name(self, "product")
 
 class Tag:
     class Meta:
@@ -117,19 +144,19 @@ class Tag:
     """
 
     @cached_property
-    def tag_count(self,teststring="tag",scopeparent="product"):
+    def tag_count(self):
         """
         Return brand count
         :return:
         """
         # product   tag     brand       category        comment     onetoone    manytomany      foreignkey
-        return GetNameSpaceProperty.count(self, teststring,scopeparent)
+        return GetNameSpaceProperty.count(self, "tag")
 
     @cached_property
-    def tag_name(self,teststring="tag",scopeparent="product"):
+    def tag_name(self):
         """
         Return brand count
         :return:
         """
         # product   tag     brand       category        comment     onetoone    manytomany      foreignkey
-        return GetNameSpaceProperty.name(self, teststring,scopeparent)
+        return GetNameSpaceProperty.name(self, "tag")

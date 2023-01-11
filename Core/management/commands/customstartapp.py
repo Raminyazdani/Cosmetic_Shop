@@ -2,7 +2,7 @@ import os
 import shutil
 
 from django.core.management import execute_from_command_line
-from django.core.management.base import CommandError,BaseCommand
+from django.core.management.base import BaseCommand, CommandError
 
 from Core.management.commands.ManagerUtils.AdminProperty_maker import AdminProperty_maker
 from Core.management.commands.ManagerUtils.ModelForeigns_maker import ModelForeigns_maker
@@ -24,7 +24,10 @@ class Command(BaseCommand):
                                                                                                                                                   'hard for adding and overwriting files and classes\n'
                                                                                                                                                   'delete for deleting files and classes\n'
                                                                                                                                                   'from for getting files and classes from a text file for batch')
-        parser.add_argument('--f', '-file', type = str, help = 'Indicates File name for batch in Core/management/AppMaker/...')
+        parser.add_argument('--f', '-file', default = "making.txt", const = "making.txt", nargs = "?", type = str, help = 'Indicates File name for batch in Core/management/AppMaker/...')
+        parser.add_argument('--D', '-delete', default = False, const = True, nargs = '?', choices = [True, False], help = 'force delete for adding not existing files and classes\n')
+        parser.add_argument('--H', '-hard', default = False, const = True, nargs = '?', choices = [True, False], help = 'force hard for adding not existing files and classes\n')
+        parser.add_argument('--S', '-soft', default = False, const = True, nargs = '?', choices = [True, False], help = 'force soft for adding not existing files and classes\n')
 
     def handle(self, *args, **kwargs):
         if kwargs['o'] == 'from':
@@ -33,7 +36,7 @@ class Command(BaseCommand):
                 return
             else:
                 destination = os.path.join(BASE_DIR, 'Core', 'management', 'AppMaker', kwargs['f'])
-                print(destination)
+                print("destination is :", destination)
                 with open(destination, 'r') as f:
                     formated_apps = []
                     for line in f.readlines():
@@ -53,7 +56,15 @@ class Command(BaseCommand):
                                 }
                             execution_list = ["manage.py", "customstartapp", "--a", app_name, "--p", project_name, "--m"]
                             [execution_list.append(model) for model in app_model_list]
-                            execution_list.extend(["--s", app_scope_parent, "--o", option])
+                            if kwargs["D"] == True:
+                                execution_list.extend(["--s", app_scope_parent, "--o", "delete"])
+                            elif kwargs["H"] == True:
+                                execution_list.extend(["--s", app_scope_parent, "--o", "hard"])
+                            elif kwargs["S"] == True:
+                                execution_list.extend(["--s", app_scope_parent, "--o", "soft"])
+                            else:
+                                execution_list.extend(["--s", app_scope_parent, "--o", option])
+
                             execute_from_command_line(execution_list)
 
                         else:
@@ -88,16 +99,16 @@ class Command(BaseCommand):
                 new += Command.make_dirs(Dirs_Files["App_dirs"], option = kwargs["Option"], app_name = kwargs["App_name"])
                 new += Command.make_files(Dirs_Files["App_files"], option = kwargs["Option"], app_name = kwargs["App_name"])
                 new += Command.make_files(Dirs_Files["Project_files"], option = "soft", app_name = kwargs["App_name"])
-                if kwargs["Option"] != "soft":
-                        new += Command.model_initialize(Dirs_Files, kwargs, option = kwargs["Option"])
+                if kwargs["Option"] in ["soft", "hard"]:
+                    new += Command.model_initialize(Dirs_Files, kwargs)
                 else:
                     print("done")
             print(*new, sep = "\n")
 
     @staticmethod
-    def model_initialize(Dirs, kwargs, option):
+    def model_initialize(Dirs, kwargs):
         new = []
-
+        kwargs['App_model_list'] = [x.capitalize() for x in kwargs['App_model_list']]
         new += admin_maker(File = Dirs["App_files"]["Admin_py"][0], Models = kwargs["App_model_list"], App_name = kwargs["App_name"], Scope_parent = kwargs["App_scope_parent"], Option = kwargs["Option"])
         new += AdminProperty_maker(File = Dirs["App_files"]["AdminProperty"][0], Models = kwargs["App_model_list"], App_name = kwargs["App_name"], Scope_parent = kwargs["App_scope_parent"], Option = kwargs["Option"])
         new += ModelForeigns_maker(File = Dirs["App_files"]["ModelForeigns"][0], Models = kwargs["App_model_list"], App_name = kwargs["App_name"], Scope_parent = kwargs["App_scope_parent"], Option = kwargs["Option"])
@@ -105,7 +116,6 @@ class Command(BaseCommand):
         new += ModelProperty_maker(File = Dirs["App_files"]["ModelProperty"][0], Models = kwargs["App_model_list"], App_name = kwargs["App_name"], Scope_parent = kwargs["App_scope_parent"], Option = kwargs["Option"])
         new += ModelRequiredProperties_maker(File = Dirs["App_files"]["ModelRequiredProperties"][0], Models = kwargs["App_model_list"], App_name = kwargs["App_name"], Scope_parent = kwargs["App_scope_parent"], Option = kwargs["Option"])
         new += models_maker(File = Dirs["App_files"]["Models_py"][0], Models = kwargs["App_model_list"], App_name = kwargs["App_name"], Scope_parent = kwargs["App_scope_parent"], Option = kwargs["Option"])
-
         return new
 
     @staticmethod

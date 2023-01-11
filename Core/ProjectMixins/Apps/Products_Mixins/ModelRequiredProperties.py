@@ -1,4 +1,3 @@
-import Core.ProjectMixins.Base.ModelForeigns
 from Core.ProjectMixins import Base
 from Core.models import CoreModel
 from . import ModelForeigns, ModelProperty
@@ -72,14 +71,14 @@ class CommentMixin(  # METHODS
 
 class CategoryMixin(
         # METHODS
-        Base.Save.SaveName,Base.Save.SaveCategory,Base.Save.SaveParent,  # save methods
+        Base.Save.SaveParent,  # save methods
         # def str and get_absolute_url
         Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         ModelForeigns.Tag,  # foreign count properties Tag
-        Core.ProjectMixins.Base.ModelForeigns.Parent,  # foreign count properties Parent
+        ModelForeigns.Parent,  # foreign count properties Parent
         ModelForeigns.Brand,  # foreign count properties Brand
         ModelForeigns.Comment,  # foreign count properties Comment
         ModelForeigns.Product,  # foreign count properties Products

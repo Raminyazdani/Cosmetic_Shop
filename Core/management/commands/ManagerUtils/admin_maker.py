@@ -1,5 +1,8 @@
+from Core.management.commands.ManagerUtils.CheckLines import check_lines
+from Core.management.commands.ManagerUtils.RemoveEmptyLines import remove_empty_lines
+
 def admin_maker(File, Models, App_name, Scope_parent, Option):
-    result = []
+
     header = f"""
 from django import forms
 from django.contrib import admin
@@ -11,14 +14,25 @@ from Core.admin import CustomInlineAdmin, CustomInlineAdminOneToMany
 from .models import *
 
 """
-    with open(File, "w") as f:
-        f.write(header)
+    result = []
+    remove_empty_lines(File)
+
+    if Option == "hard":
+        mode_file = "w"
+    else:
+        mode_file = "a"
+        Models = check_lines(File, Models, App_name, Scope_parent, header, prefix= "Admin")
+
+    with open(File, mode_file) as f:
+        if mode_file== "w" :
+            f.write(header)
         for Model in Models:
             body = f"""
 
+
 @admin.register({Model.capitalize()})
 class {Model.capitalize()}Admin(AdminProperty.{Model.capitalize()}):
-    Model.capitalize() = {Model.capitalize()}
+    model = {Model.capitalize()}
     search_fields = {Model.capitalize()}.SEARCH_FIELDS
     list_display = AdminProperty.{Model.capitalize()}.list_display
     list_filter = AdminProperty.{Model.capitalize()}.list_filter
@@ -35,10 +49,10 @@ class {Model.capitalize()}Admin(AdminProperty.{Model.capitalize()}):
 
     inlines = (Inlines.XInlineAdmin)
     x_inline = inlines[0].tag_inline
-    
-    
+
+
 """
             f.write(body)
-            result.append(f"{App_name:10}.{Model.capitalize():>25}\t {'Admin':25} \t\tadded in admin.py")
-
+            if Model!="":
+                result.append(f"{App_name:10}.{Model.capitalize():<25}\t {'Admin':25} \t\tadded in admin.py")
     return result

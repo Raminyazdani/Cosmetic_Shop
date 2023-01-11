@@ -70,11 +70,15 @@ class SaveParent:
         :param kwargs:
         :return:
         """
-
-        slug = self.parent_name + [slugify(self.name)]
+        if self.id and self.parent and (self.id == self.parent):
+            self.parent = None
+        if self.pk is None:
+            super().save(*args, **kwargs)
+        slug = self.parent_name + [self.slug]
+        print(self.parent_name)
         self.slug = "/".join(slug).lower()
-        print(self.__dict__)
-        super().save(*args, **kwargs)
+        print(self.slug)
+        self.save()
 
 class SaveProduct:
     class Meta:
@@ -104,24 +108,4 @@ class SaveProduct:
         print(categories_id)
         self.category.set(categories_id)
         super().save(*args, **kwargs)
-
-class SaveCategory:
-    class Meta:
-        abstract = True
-
-    """
-    Product Mixin with category parents saving
-    """
-
-    def save(self:object, *args, **kwargs):
-        """
-        Save product model with categories parents
-        :param args:
-        :param kwargs:
-        :return:
-        """
-        if self.id and self.parent :
-            if self.id == self.parent.id:
-                self.parent = None
-        if self.pk is None:
-            super().save(*args, **kwargs)
+<<<<<<< Updated upstream
