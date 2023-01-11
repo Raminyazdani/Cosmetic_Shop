@@ -2,31 +2,31 @@ from django.utils.functional import cached_property
 
 from Core.utils.ProjectUtils import GetNameSpaceProperty
 
-# User
-# user
-# user
-class User:
+# MODEL_NAME
+# LOWER
+
+class MODEL_NAME:
     class Meta:
         abstract = True
 
     """
-    User Mixin
+    MODEL_NAME Mixin
     """
 
     @cached_property
-    def user_count(self,teststring="user",scopeparent="user"):
+    def LOWER_count(self,teststring="LOWER",scopeparent="SCOUPEPARENT"):
         """
         Return brand count
         :return:
         """
         # product   tag     brand       category        comment     onetoone    manytomany      foreignkey
-        return GetNameSpaceProperty.count(self, "user","SCOPEPARENT")
+        return GetNameSpaceProperty.count(self, "LOWER","SCOPEPARENT")
 
     @cached_property
-    def user_name(self,teststring="user",scopeparent="user"):
+    def LOWER_name(self,teststring="LOWER",scopeparent="SCOUPEPARENT"):
         """
         Return brand count
         :return:
         """
         # product   tag     brand       category        comment     onetoone    manytomany      foreignkey
-        return GetNameSpaceProperty.name(self, "user","SCOPEPARENT")
+        return GetNameSpaceProperty.name(self, "LOWER","SCOPEPARENT")

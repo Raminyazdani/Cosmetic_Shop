@@ -1,3 +1,4 @@
+import Core.ProjectMixins.Base.ModelForeigns
 from Core.ProjectMixins import Base
 from Core.models import CoreModel
 from . import ModelForeigns, ModelProperty
@@ -78,7 +79,7 @@ class CategoryMixin(
         # PROPERTIES
         # COUNTS
         ModelForeigns.Tag,  # foreign count properties Tag
-        ModelForeigns.Parent,  # foreign count properties Parent
+        Core.ProjectMixins.Base.ModelForeigns.Parent,  # foreign count properties Parent
         ModelForeigns.Brand,  # foreign count properties Brand
         ModelForeigns.Comment,  # foreign count properties Comment
         ModelForeigns.Product,  # foreign count properties Products
