@@ -28,4 +28,22 @@ class Parent:
         """
         # product   tag     brand       category        comment     onetoone    manytomany      foreignkey
 
-        return GetNameSpaceProperty.parent(self, teststring)
+        return GetNameSpaceProperty.parent(self, teststring,scope = "name")
+    @cached_property
+    def parent_object(self,teststring="parent"):
+        """
+        Return brand count
+        :return:
+        """
+        # product   tag     brand       category        comment     onetoone    manytomany      foreignkey
+
+        return GetNameSpaceProperty.parent(self, teststring,scope = "nothing")
+    @cached_property
+    def parent_slug(self,teststring="parent"):
+        """
+        Return brand count
+        :return:
+        """
+        # product   tag     brand       category        comment     onetoone    manytomany      foreignkey
+
+        return GetNameSpaceProperty.parent(self, teststring,scope = "slug")

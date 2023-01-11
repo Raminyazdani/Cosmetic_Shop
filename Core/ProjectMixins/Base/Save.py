@@ -70,12 +70,33 @@ class SaveParent:
         :param kwargs:
         :return:
         """
-
-        slug = self.parent_name + [slugify(self.name)]
+        parents = [slugify(parent) for parent in self.parent_name[::-1]]
+        slug = parents + [self.slug]
         self.slug = "/".join(slug).lower()
-        print(self.__dict__)
         super().save(*args, **kwargs)
+        if self.child is not None:
+            childs = UpdateChilds.update_childs(self)
+            for child in childs:
+                child.save()
 
+
+class UpdateChilds:
+    class Meta:
+        abstract=True
+    @staticmethod
+    def update_childs(object):
+        """
+        Update childs
+        :return:
+        """
+        result = []
+        if object.child is not None:
+            for child in object.child.all():
+                result.append(child)
+                temp = UpdateChilds.update_childs(child)
+                for item in temp:
+                    result.append(item)
+        return result
 class SaveProduct:
     class Meta:
         abstract = True
@@ -125,3 +146,4 @@ class SaveCategory:
                 self.parent = None
         if self.pk is None:
             super().save(*args, **kwargs)
+        super().save(*args, **kwargs)
