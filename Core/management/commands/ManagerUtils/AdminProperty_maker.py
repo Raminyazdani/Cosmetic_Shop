@@ -1,12 +1,25 @@
+from Core.management.commands.ManagerUtils.CheckLines import check_lines
+from Core.management.commands.ManagerUtils.RemoveEmptyLines import remove_empty_lines
+
 def AdminProperty_maker(File, Models, App_name, Scope_parent, Option):
-    result = []
     header = f"""
 from Core.admin import BaseAdminInlineRender, BaseAdminSlug
 
 """
 
-    with open(File, "w") as f:
-        f.write(header)
+
+    result = []
+    remove_empty_lines(File)
+
+    if Option == "hard":
+        mode_file = "w"
+    else:
+        mode_file = "a"
+        Models = check_lines(File, Models, App_name, Scope_parent, header, prefix= "")
+
+    with open(File, mode_file) as f:
+        if mode_file== "w" :
+            f.write(header)
         for Model in Models:
             body = f"""
 class {Model.capitalize()}(BaseAdminInlineRender, BaseAdminSlug):
@@ -31,7 +44,7 @@ class {Model.capitalize()}(BaseAdminInlineRender, BaseAdminSlug):
         'classes': ('wide',)
         }),)
     add_fieldsets = []
-    prepopulated_fields = #     'slug' : ('name',),#     
+    prepopulated_fields = {}#     'slug' : ('name',),#     
     readonly_fields = []
     list_per_page = 25
     list_max_show_all = 100
@@ -39,7 +52,7 @@ class {Model.capitalize()}(BaseAdminInlineRender, BaseAdminSlug):
     
 """
 
-        f.write(body)
-        result.append(f"{App_name:10}.{Model.capitalize():>25}\t {'AdminProperty':25} \t\tadded in AdminProperty.py")
+            f.write(body)
+            result.append(f"{App_name:10}.{Model.capitalize():<25}\t {'AdminProperty':25} \t\tadded in AdminProperty.py")
 
     return result

@@ -8,12 +8,12 @@ class UrlPhone:
     Slug Mixin
     """
 
-    def get_absolute_url(self:object):
+    def get_absolute_url(self: object):
         """
         Return absolute url
         :return:
         """
-        return GetNameSpaceProperty.abs_url_phone(self, self.__name__.lower())
+        return GetNameSpaceProperty.abs_url_phone(self, self.__class__.__name__.lower())
 
 class UrlName:
     class Meta:
@@ -23,12 +23,12 @@ class UrlName:
     Slug Mixin
     """
 
-    def get_absolute_url(self:object):
+    def get_absolute_url(self: object):
         """
         Return absolute url
         :return:
         """
-        return GetNameSpaceProperty.abs_url_slug(self, self.__name__.lower())
+        return GetNameSpaceProperty.abs_url_slug(self, self.__class__.__name__.lower())
 
 class UrlId:
     class Meta:
@@ -38,9 +38,9 @@ class UrlId:
     Slug Mixin
     """
 
-    def get_absolute_url(self:object):
+    def get_absolute_url(self: object):
         """
         Return absolute url
         :return:
         """
-        return GetNameSpaceProperty.abs_url_id(self, self.__name__.lower())
+        return GetNameSpaceProperty.abs_url_id(self, self.__class__.__name__.lower())

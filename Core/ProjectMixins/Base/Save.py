@@ -72,8 +72,7 @@ class SaveParent:
         """
 
         slug = self.parent_name + [slugify(self.name)]
-        self.slug = "/".join(slug).lower()
-        print(self.__dict__)
+        self.slug = slugify("/".join(slug).lower())
         super().save(*args, **kwargs)
 
 class SaveProduct:
