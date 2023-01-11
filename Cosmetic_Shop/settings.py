@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 
 DJANGO_INSTALLED_APPS = ['django.contrib.admin', 'django.contrib.auth', 'django.contrib.contenttypes', 'django.contrib.sessions', 'django.contrib.messages', 'django.contrib.staticfiles', ]
 PROJECT_INSTALLED_APPS = ['APIs', 'Costumers', 'Markets', 'Products',
-                          # 'Shops',
+                          'Shops',
                           'Users', 'Core', ]
 
 INSTALLED_APPS = [] + DJANGO_INSTALLED_APPS + PROJECT_INSTALLED_APPS

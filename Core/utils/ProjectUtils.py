@@ -121,6 +121,21 @@ class GetNameSpaceProperty:
                     return temp
                 except:
                     return 0
+    @staticmethod
+    def parent(self:object,teststring,scope):
+        parent_list = []
+        item = self
+
+        while item.parent:
+            if scope!="nothing":
+                parent_list.append(item.__getattribute__(teststring).__getattribute__(scope))
+            else:
+                parent_list.append(item.__getattribute__(teststring))
+            item = item.parent
+        if len(parent_list) > 0:
+            return parent_list
+
+        return []
 
     @staticmethod
     def abs_url_slug(self: object, teststring):
