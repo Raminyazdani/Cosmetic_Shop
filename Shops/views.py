@@ -4,4 +4,4 @@ from django.views.generic.base import View
 
 class Home(View):
     def get(self,request,*args,**kwargs):
-        return render(request,"Shop/home.html")
+        return render(request, "Shops/home.html")
