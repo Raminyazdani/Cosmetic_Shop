@@ -1,0 +1,4 @@
+# example :
+# app_name project_name app_model_list app_scope_parent option
+# Test Cosmetic_shop App_a,App_b,App_c App_a soft
+Test Cosmetic_shop App_a,App_b,App_c App_a soft
