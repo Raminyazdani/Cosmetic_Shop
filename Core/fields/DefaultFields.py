@@ -6,15 +6,19 @@ from django.utils.translation import gettext_lazy as _
 from Core.utils.ProjectUtils import CustomStringMaker
 
 class BaseMethodCustomField:
+    class Meta:
+        abstract=True
     """
     Base Method Custom Field
     """
 
     class DelClassName:
+        class Meta:
+            abstract=True
         """
          This class is used to delete the class_name argument from the kwargs
         """
-
+        
         def __init__(self, *args, **kwargs):
             """
             This method is used to delete the class_name argument from the kwargs
@@ -36,12 +40,18 @@ class BaseMethodCustomField:
             super().__init__(*args, **kwargs)  # class GetClassName:  #     def __init__(self, *args, **kwargs):  #         kwargs["class_name"] = "Model" if "class_name" not in kwargs else kwargs["class_name"].capitalize()  #         self.class_name = kwargs["class_name"].capitalize()  #
 
 class CustomDefaultField:
+    class Meta:
+        abstract=True
+    
     class Base(BaseMethodCustomField.DelClassName):
-
+        class Meta:
+            abstract=True
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
 
     class CharField(Base, models.CharField):
+        class Meta:
+            abstract=True
         class_custom_default_attrs = {
             "class_name": "Model",
             "field_name": "Char Field",
@@ -50,7 +60,7 @@ class CustomDefaultField:
             "max_length": 30,
             "null": True,
             "unique": False,
-            # "validatos":None,
+            # "validators":None,
             }
 
         def __init__(self, *args, **kwargs):
@@ -60,6 +70,8 @@ class CustomDefaultField:
             super().__init__(*args, **kwargs)
 
     class PositiveIntegerField(Base, models.PositiveIntegerField):
+        class Meta:
+            abstract=True
         class_custom_default_attrs = {
             "class_name": "Model",
             "field_name": "Positive Integer Field",  # "choices":None,
@@ -77,6 +89,8 @@ class CustomDefaultField:
             super().__init__(*args, **kwargs)
 
     class DecimalField(Base, models.DecimalField):
+        class Meta:
+            abstract=True
         class_custom_default_attrs = {
             "class_name": "Model",
             "field_name": "Decimal Field",
@@ -96,6 +110,8 @@ class CustomDefaultField:
             super().__init__(*args, **kwargs)
 
     class SlugField(Base, models.SlugField):
+        class Meta:
+            abstract=True
         class_custom_default_attrs = {
             "class_name": "Model",
             "field_name": "Slug Field",
@@ -112,7 +128,8 @@ class CustomDefaultField:
             super().__init__(*args, **kwargs)
 
     class ForeignKey(Base, models.ForeignKey):
-        class_field_name = "Foreign Key"
+        class Meta:
+            abstract=True
         class_costum_default_attrs = {
             "class_name": "Model",
             "field_name": "Foreign Key",  # "app_name_destination": "?", get
@@ -145,8 +162,8 @@ class CustomDefaultField:
             super().__init__(*args, **kwargs)
 
     class ManyToManyField(Base, models.ManyToManyField):
-        class_field_name = "Many To Many Field"
-
+        class Meta:
+            abstract=True
         class_costum_default_attrs = {
             "class_name": "Model",
             "field_name": "Many To Many Field",
@@ -174,20 +191,13 @@ class CustomDefaultField:
                     kwargs[key] = kwargs.get(key, value(kwargs["class_name"], kwargs["app_name_model_destination"]))
 
                 elif key == "through_fields":
-                    kwargs[key] = kwargs.get(key, value(kwargs["class_name"], kwargs["app_name_model_destination"], kwargs["through_fields"]))
-
-                    if None in kwargs[key]:
-                        kwargs[key] = tuple(value(kwargs["class_name"], kwargs["app_name_model_destination"], kwargs["through_fields"]))
-                    else:
-                        kwargs[key] = tuple(kwargs[key])
-                elif key == "through":
-                    kwargs[key] = kwargs.get(key, value(kwargs["class_name"], kwargs["app_name_model_destination"], kwargs["through_fields"]))
-                    if kwargs[key] is None:
+                    kwargs[key] = kwargs.get(key, None)
+                    if None in kwargs[key] or kwargs[key] is None:
                         kwargs[key] = value(kwargs["class_name"], kwargs["app_name_model_destination"], kwargs["through_fields"])
-                    else:
-                        kwargs[key] = kwargs[key]
-
-
+                elif key == "through":
+                    kwargs[key] = kwargs.get(key, None)
+                    if kwargs[key] is None:
+                        kwargs[key] = value(kwargs["class_name"], kwargs["app_name_destination"], kwargs["through_fields"])
                 else:
                     kwargs[key] = kwargs.get(key, value)
             del kwargs["app_name_destination"], kwargs["app_name_model_destination"]
@@ -195,13 +205,15 @@ class CustomDefaultField:
             super().__init__(*args, **kwargs)
 
     class TextField(Base, models.TextField):
+        class Meta:
+            abstract=True
         class_custom_default_attrs = {
             "class_name": "Model",
             "field_name": "Text Field",
             "blank": True,
             "null": True,
             "max_length": 1000,
-            # "validator": None
+            # "validators": None
             }
 
         def __init__(self, *args, **kwargs):
@@ -210,6 +222,8 @@ class CustomDefaultField:
             super().__init__(*args, **kwargs)
 
     class BooleanField(Base, models.BooleanField):
+        class Meta:
+            abstract=True
         class_custom_default_attrs = {
             "class_name": "Model",
             "field_name": "Boolean Field",
@@ -226,6 +240,8 @@ class CustomDefaultField:
             super().__init__(*args, **kwargs)
 
     class DateTimeField(Base, models.DateTimeField):
+        class Meta:
+            abstract=True
         class_custom_default_attrs = {
             "class_name": "Model",
             "field_name": "Date Time Field",
@@ -236,16 +252,16 @@ class CustomDefaultField:
         def __init__(self, *args, **kwargs):
             for key, value in CustomDefaultField.DateTimeField.class_custom_default_attrs.items():
                 kwargs[key] = kwargs.get(key, value)
-            kwargs["blank"] = kwargs.get("blank", CustomDefaultField.DateTimeField.class_custom_default_attrs["blank"])
-            kwargs["null"] = kwargs.get("null", CustomDefaultField.DateTimeField.class_custom_default_attrs["null"])
 
             super().__init__(*args, **kwargs)
 
     class BigAutoField(Base, models.BigAutoField):
+        class Meta:
+            abstract=True
         class_custom_default_attrs = {
             "class_name": "Model",
             "field_name": "Big Auto Field",  #
-            "primary_key": True, # "auto_created": True,
+            "primary_key": True,  # "auto_created": True,
             # "blank": True,
             # "null": False,
             "db_index": True,

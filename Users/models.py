@@ -2,12 +2,11 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import AbstractUser, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 
-from Core.ProjectMixins.Users import ModelRequiredProperties, ModelProperty
-from Core.fields import ProjectFields
-from Core.models import CoreModel, CoreModelUniversal
-
+from Core.ProjectMixins.Apps.Users_Mixins import ModelRequiredProperties
 # Create your models here.
-class User(AbstractBaseUser, PermissionsMixin, ModelRequiredProperties.User):
+from Core.fields import ProjectFields
+
+class User(ModelRequiredProperties.UserMixin,AbstractUser, PermissionsMixin):
     """
     User model for the system with phone number as the unique identifier and whether it is a costumer or market or both
     """
@@ -36,13 +35,6 @@ class User(AbstractBaseUser, PermissionsMixin, ModelRequiredProperties.User):
     is_delete = ProjectFields.CustomIsDeletedField(class_name = "User")
     created_at = ProjectFields.CustomCreatedAtField(class_name = "User")
     modified_at = ProjectFields.CustomModifiedAtField(class_name = "User")
-
-    objects = ModelProperty.Manager.USER_OBJECT
-    subset = ModelProperty.Manager.USER_SUBSET
-
-    USERNAME_FIELD = ModelProperty.UserNameField.USER
-    REQUIRED_FIELDS = ModelProperty.RequiredField.USER
-    SEARCH_FIELDS = ModelProperty.SearchFields.USER
 
     class Meta:
         verbose_name = _('User')

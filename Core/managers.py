@@ -1,6 +1,8 @@
 from django.db import models
 
 class BaseManager(models.Manager):
+    class Meta:
+        abstract=True
     """
     base manager for all models in project
     """
