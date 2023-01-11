@@ -21,7 +21,7 @@ This is my first django project from zero to hero . wish me luck ...
     7. ProductTag
     8. ProductBrand
 
-* ### Shop
+* ### Shops
     1. Address
     2. Coupon
     3. Discount
@@ -31,8 +31,9 @@ This is my first django project from zero to hero . wish me luck ...
     7. OrderItem
     8. Payment
     9. Wallet
-    10. shipment
-    11. contact_us
+    10. Shipment
+    11. ShipmentItem
+    12. ContactUs
 
 * ### Costumers
     1. ProfileCostumer
