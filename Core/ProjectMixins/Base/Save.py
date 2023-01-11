@@ -70,10 +70,22 @@ class SaveParent:
         :param kwargs:
         :return:
         """
+<<<<<<< Updated upstream
 
         slug = self.parent_name + [slugify(self.name)]
         self.slug = slugify("/".join(slug).lower())
         super().save(*args, **kwargs)
+=======
+        if self.id and self.parent and (self.id == self.parent):
+            self.parent = None
+        if self.pk is None:
+            super().save(*args, **kwargs)
+        slug = self.parent_name + [self.slug]
+        print(self.parent_name)
+        self.slug = "/".join(slug).lower()
+        print(self.slug)
+        self.save()
+>>>>>>> Stashed changes
 
 class SaveProduct:
     class Meta:
@@ -103,6 +115,7 @@ class SaveProduct:
         print(categories_id)
         self.category.set(categories_id)
         super().save(*args, **kwargs)
+<<<<<<< Updated upstream
 
 class SaveCategory:
     class Meta:
@@ -124,3 +137,5 @@ class SaveCategory:
                 self.parent = None
         if self.pk is None:
             super().save(*args, **kwargs)
+=======
+>>>>>>> Stashed changes
