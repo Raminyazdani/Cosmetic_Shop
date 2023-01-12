@@ -27,13 +27,12 @@ This is my first django project from zero to hero . wish me luck ...
     3. Discount
     4. Gallery
     5. Image
-    6. Order
-    7. OrderItem
-    8. Payment
-    9. Wallet
-    10. Shipment
-    11. ShipmentItem
-    12. ContactUs
+    6. OrderItem
+    7. Payment
+    8. Wallet
+    9. Shipment
+    10. ShipmentItem
+    11. ContactUs
 
 * ### Costumers
     1. ProfileCostumer
