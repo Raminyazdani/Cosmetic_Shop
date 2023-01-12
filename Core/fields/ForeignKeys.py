@@ -2,7 +2,7 @@ from django.db import models
 
 from Core.fields.DefaultFields import CustomDefaultField
 
-class AbstractForeignKey(CustomDefaultField.ForeignKey):
+class ForeignKeyABC(CustomDefaultField.ForeignKeyField):
     class Meta:
         abstract = True
 
@@ -21,11 +21,11 @@ class AbstractForeignKey(CustomDefaultField.ForeignKey):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in AbstractForeignKey.class_custom_default_attrs.items():
+        for key, value in ForeignKeyABC.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
         super().__init__(*args, **kwargs)
 
-class AbstractSelfForeignKey(CustomDefaultField.ForeignKey):
+class ForeignKeySelf(CustomDefaultField.ForeignKeyField):
     class Meta:
         abstract = True
 
@@ -43,12 +43,12 @@ class AbstractSelfForeignKey(CustomDefaultField.ForeignKey):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in AbstractSelfForeignKey.class_custom_default_attrs.items():
+        for key, value in ForeignKeySelf.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         super().__init__(*args, **kwargs)
 
-class CustomCommentFieldForeignKey(CustomDefaultField.ForeignKey):
+class ForeignKeyComment(CustomDefaultField.ForeignKeyField):
     class Meta:
         abstract = True
 
@@ -77,11 +77,11 @@ class CustomCommentFieldForeignKey(CustomDefaultField.ForeignKey):
         # "kw_app_name" : "Products"
         # "kw_class_model" : "Comment"
         # "kw_related_name" : "comment"
-        for key, value in CustomCommentFieldForeignKey.class_custom_default_attrs.items():
+        for key, value in ForeignKeyComment.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
         super().__init__(*args, **kwargs)
 
-class CustomCategoryParentFieldForeignKey(CustomDefaultField.ForeignKey):
+class ForeignKeyCategoryParent(CustomDefaultField.ForeignKeyField):
     class Meta:
         abstract = True
 
@@ -115,12 +115,12 @@ class CustomCategoryParentFieldForeignKey(CustomDefaultField.ForeignKey):
         # "kw_app_name" : "Products"
         # "kw_class_model" : "Category"
         # "kw_related_name" : "parent"
-        for key, value in CustomCategoryParentFieldForeignKey.class_custom_default_attrs.items():
+        for key, value in ForeignKeyCategoryParent.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         super().__init__(*args, **kwargs)
 
-class CustomUserFieldForeignKey(CustomDefaultField.ForeignKey):
+class ForeignKeyUser(CustomDefaultField.ForeignKeyField):
     class Meta:
         abstract = True
 
@@ -150,12 +150,12 @@ class CustomUserFieldForeignKey(CustomDefaultField.ForeignKey):
         # "kw_app_name" : "Users"
         # "kw_class_model" : "User"
         # "kw_related_name" : "user"
-        for key, value in CustomUserFieldForeignKey.class_custom_default_attrs.items():
+        for key, value in ForeignKeyUser.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         super().__init__(*args, **kwargs)
 
-class CustomProductFieldForeignKey(CustomDefaultField.ForeignKey):
+class ForeignKeyProduct(CustomDefaultField.ForeignKeyField):
     class Meta:
         abstract = True
 
@@ -185,11 +185,11 @@ class CustomProductFieldForeignKey(CustomDefaultField.ForeignKey):
         # "kw_app_name" : "Products"
         # "kw_class_model" : "Product"
         # "kw_related_name" : "product"
-        for key, value in CustomProductFieldForeignKey.class_custom_default_attrs.items():
+        for key, value in ForeignKeyProduct.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
         super().__init__(*args, **kwargs)
 
-class CustomCategoryFieldForeignKey(CustomDefaultField.ForeignKey):
+class ForeignKeyCategory(CustomDefaultField.ForeignKeyField):
     class Meta:
         abstract = True
 
@@ -219,11 +219,11 @@ class CustomCategoryFieldForeignKey(CustomDefaultField.ForeignKey):
         # "kw_app_name" : "Products"
         # "kw_class_model" : "Category"
         # "kw_related_name" : "category"
-        for key, value in CustomCategoryFieldForeignKey.class_custom_default_attrs.items():
+        for key, value in ForeignKeyCategory.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
         super().__init__(*args, **kwargs)
 
-class CustomTagFieldForeignKey(CustomDefaultField.ForeignKey):
+class ForeignKeyTag(CustomDefaultField.ForeignKeyField):
     class Meta:
         abstract = True
 
@@ -253,11 +253,11 @@ class CustomTagFieldForeignKey(CustomDefaultField.ForeignKey):
         # "kw_app_name" : "Products"
         # "kw_class_model" : "Tag"
         # "kw_related_name" : "tag"
-        for key, value in CustomTagFieldForeignKey.class_custom_default_attrs.items():
+        for key, value in ForeignKeyTag.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
         super().__init__(*args, **kwargs)
 
-class CustomBrandFieldForeignKey(CustomDefaultField.ForeignKey):
+class ForeignKeyBrand(CustomDefaultField.ForeignKeyField):
     class Meta:
         abstract = True
 
@@ -287,6 +287,6 @@ class CustomBrandFieldForeignKey(CustomDefaultField.ForeignKey):
         # "kw_app_name" : "Products"
         # "kw_class_model" : "Brand"
         # "kw_related_name" : "brand"
-        for key, value in CustomBrandFieldForeignKey.class_custom_default_attrs.items():
+        for key, value in ForeignKeyBrand.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
         super().__init__(*args, **kwargs)

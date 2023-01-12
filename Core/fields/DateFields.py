@@ -2,7 +2,7 @@ from django.utils.translation import gettext_lazy as _
 
 from Core.fields.DefaultFields import CustomDefaultField
 
-class AbstractDateTimeField(CustomDefaultField.DateTimeField):
+class DateTimeABC(CustomDefaultField.DateTimeField):
     class Meta:
         abstract=True
     """
@@ -21,7 +21,7 @@ class AbstractDateTimeField(CustomDefaultField.DateTimeField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in AbstractDateTimeField.class_custom_default_attrs.items():
+        for key, value in DateTimeABC.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         kwargs["help_text"] = kwargs.get("help_text", _(f"When this {kwargs['class_name']} record was ..."))
@@ -29,7 +29,7 @@ class AbstractDateTimeField(CustomDefaultField.DateTimeField):
 
         super().__init__(*args, **kwargs)
 
-class CustomCreatedAtField(CustomDefaultField.DateTimeField):
+class CreatedAt(CustomDefaultField.DateTimeField):
     class Meta:
         abstract=True
     """
@@ -47,7 +47,7 @@ class CustomCreatedAtField(CustomDefaultField.DateTimeField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomCreatedAtField.class_custom_default_attrs.items():
+        for key, value in CreatedAt.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         kwargs["help_text"] = kwargs.get("help_text", _(f"When this {kwargs['class_name']} record was created"))
@@ -55,7 +55,7 @@ class CustomCreatedAtField(CustomDefaultField.DateTimeField):
 
         super().__init__(*args, **kwargs)
 
-class CustomModifiedAtField(CustomDefaultField.DateTimeField):
+class ModifiedAt(CustomDefaultField.DateTimeField):
     class Meta:
         abstract=True
     """
@@ -74,7 +74,7 @@ class CustomModifiedAtField(CustomDefaultField.DateTimeField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomModifiedAtField.class_custom_default_attrs.items():
+        for key, value in ModifiedAt.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
         kwargs["help_text"] = kwargs.get("help_text", _(f"When this {kwargs['class_name']} record was modified"))
         kwargs["verbose_name"] = kwargs.get("verbose_name", _("Modified At"))

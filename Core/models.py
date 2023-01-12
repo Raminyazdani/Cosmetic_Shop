@@ -13,7 +13,7 @@ class CoreModel(models.Model):
     Core Model
 
     """
-    id = ProjectFields.CustomIdField()
+    id = ProjectFields.Id()
 
     class Meta:
         abstract = True
@@ -23,9 +23,9 @@ class CoreModelUniversal(CoreModel):
     """
     Core Model Universal with universal fields and managers
     """
-    is_delete = ProjectFields.CustomIsDeletedField()
-    created_at = ProjectFields.CustomCreatedAtField()
-    modified_at = ProjectFields.CustomModifiedAtField()
+    is_delete = ProjectFields.IsDeleted()
+    created_at = ProjectFields.CreatedAt()
+    modified_at = ProjectFields.ModifiedAt()
 
     objects = BaseManager()
     subset = BaseManager()

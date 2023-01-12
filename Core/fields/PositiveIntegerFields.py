@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from Core.fields.DefaultFields import CustomDefaultField
 from Core.utils.ProjectUtils import CustomValidators
 
-class AbstractPostivieIntegerField(CustomDefaultField.PositiveIntegerField):
+class PostivieIntegerABC(CustomDefaultField.PositiveIntegerField):
     class Meta:
         abstract=True
     """
@@ -23,14 +23,14 @@ class AbstractPostivieIntegerField(CustomDefaultField.PositiveIntegerField):
 
     
     def __init__(self, *args, **kwargs):
-        for key, value in AbstractPostivieIntegerField.class_custom_default_attrs.items():
+        for key, value in PostivieIntegerABC.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         kwargs["help_text"] = kwargs.get("help_text", _("UNISEX/MALE/FEMALE as integers"))
 
         super().__init__(*args, **kwargs)
 
-class CustomGenderField(CustomDefaultField.PositiveIntegerField):
+class Gender(CustomDefaultField.PositiveIntegerField):
     class Meta:
         abstract=True
     """
@@ -63,14 +63,14 @@ class CustomGenderField(CustomDefaultField.PositiveIntegerField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomGenderField.class_custom_default_attrs.items():
+        for key, value in Gender.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         kwargs["help_text"] = kwargs.get("help_text", _("UNISEX/MALE/FEMALE as integers"))
 
         super().__init__(*args, **kwargs)
 
-class CustomRatingField(CustomDefaultField.PositiveIntegerField):
+class Rating(CustomDefaultField.PositiveIntegerField):
     class Meta:
         abstract=True
     """
@@ -93,7 +93,7 @@ class CustomRatingField(CustomDefaultField.PositiveIntegerField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomRatingField.class_custom_default_attrs.items():
+        for key, value in Rating.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         super().__init__(*args, **kwargs)

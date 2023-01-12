@@ -1,6 +1,6 @@
 from Core.fields.DefaultFields import CustomDefaultField
 
-class AbstractObjectFieldManyToMany(CustomDefaultField.ManyToManyField):
+class ManyToManyABC(CustomDefaultField.ManyToManyField):
     class Meta:
         abstract=True
     class_costum_default_attrs = {
@@ -20,12 +20,12 @@ class AbstractObjectFieldManyToMany(CustomDefaultField.ManyToManyField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in AbstractObjectFieldManyToMany.class_custom_default_attrs.items():
+        for key, value in ManyToManyABC.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         super().__init__(*args, **kwargs)
 
-class CustomCategoryFieldManyToMany(CustomDefaultField.ManyToManyField):
+class ManyToManyCategory(CustomDefaultField.ManyToManyField):
     class Meta:
         abstract=True
     """
@@ -43,11 +43,11 @@ class CustomCategoryFieldManyToMany(CustomDefaultField.ManyToManyField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomCategoryFieldManyToMany.class_custom_default_attrs.items():
+        for key, value in ManyToManyCategory.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
         super().__init__(*args, **kwargs)
 
-class CustomTagFieldManyToMany(CustomDefaultField.ManyToManyField):
+class ManyToManyTag(CustomDefaultField.ManyToManyField):
     class Meta:
         abstract=True
     """
@@ -65,12 +65,12 @@ class CustomTagFieldManyToMany(CustomDefaultField.ManyToManyField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomTagFieldManyToMany.class_custom_default_attrs.items():
+        for key, value in ManyToManyTag.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         super().__init__(*args, **kwargs)
 
-class CustomBrandFieldManyToMany(CustomDefaultField.ManyToManyField):
+class ManyToManyBrand(CustomDefaultField.ManyToManyField):
     class Meta:
         abstract=True
     """
@@ -88,12 +88,12 @@ class CustomBrandFieldManyToMany(CustomDefaultField.ManyToManyField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomBrandFieldManyToMany.class_custom_default_attrs.items():
+        for key, value in ManyToManyBrand.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         super().__init__(*args, **kwargs)
 
-class CustomProductFieldManyToMany(CustomDefaultField.ManyToManyField):
+class ManyToManyProduct(CustomDefaultField.ManyToManyField):
     class Meta:
         abstract=True
     """
@@ -111,7 +111,7 @@ class CustomProductFieldManyToMany(CustomDefaultField.ManyToManyField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomProductFieldManyToMany.class_custom_default_attrs.items():
+        for key, value in ManyToManyProduct.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         super().__init__(*args, **kwargs)

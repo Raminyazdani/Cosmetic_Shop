@@ -2,7 +2,7 @@ from django.utils.translation import gettext_lazy as _
 
 from Core.fields.DefaultFields import CustomDefaultField
 
-class AbstractBigAutoField(CustomDefaultField.BigAutoField):
+class BigAutoABC(CustomDefaultField.BigAutoField):
     class Meta:
         abstract=True
     class_custom_default_attrs = {
@@ -19,13 +19,13 @@ class AbstractBigAutoField(CustomDefaultField.BigAutoField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in AbstractBigAutoField.class_custom_default_attrs.items():
+        for key, value in BigAutoABC.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
         kwargs["help_text"] = kwargs.get("help_text", _(f"Id of this {kwargs['class_name']} record"))
         kwargs["verbose_name"] = kwargs.get("verbose_name", _(kwargs["class_name"] + "`s Id"))
         super().__init__(*args, **kwargs)
 
-class CustomIdField(CustomDefaultField.BigAutoField):
+class Id(CustomDefaultField.BigAutoField):
     class Meta:
         abstract=True
     """
@@ -41,7 +41,7 @@ class CustomIdField(CustomDefaultField.BigAutoField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomIdField.class_custom_default_attrs.items():
+        for key, value in Id.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
         kwargs["help_text"] = kwargs.get("help_text", _(f"Id of this {kwargs['class_name']} record"))
         kwargs["verbose_name"] = kwargs.get("verbose_name", _(kwargs["class_name"] + "`s Id"))

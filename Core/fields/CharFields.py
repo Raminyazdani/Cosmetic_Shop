@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from Core.fields.DefaultFields import CustomDefaultField
 from Core.utils.ProjectUtils import CustomValidators
 
-class AbstractCharField(CustomDefaultField.CharField):
+class CharABC(CustomDefaultField.CharField):
     class Meta:
         abstract=True
     class_custom_default_attrs = {
@@ -19,13 +19,13 @@ class AbstractCharField(CustomDefaultField.CharField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in AbstractCharField.class_custom_default_attrs.items():
+        for key, value in CharABC.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
         kwargs["help_text"] = kwargs.get("help_text", _(f" ... of this {kwargs['class_name']} record"))
 
         super().__init__(*args, **kwargs)
 
-class CustomNameField(CustomDefaultField.CharField):
+class Name(CustomDefaultField.CharField):
     class Meta:
         abstract=True
     """
@@ -51,11 +51,11 @@ class CustomNameField(CustomDefaultField.CharField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomNameField.class_custom_default_attrs.items():
+        for key, value in Name.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
         super().__init__(*args, **kwargs)
 
-class CustomTitleField(CustomDefaultField.CharField):
+class Title(CustomDefaultField.CharField):
     class Meta:
         abstract=True
     """
@@ -79,12 +79,12 @@ class CustomTitleField(CustomDefaultField.CharField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomTitleField.class_custom_default_attrs.items():
+        for key, value in Title.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         super().__init__(*args, **kwargs)
 
-class CustomShortDescriptionField(CustomDefaultField.CharField):
+class ShortDescription(CustomDefaultField.CharField):
     class Meta:
         abstract=True
     """
@@ -107,12 +107,12 @@ class CustomShortDescriptionField(CustomDefaultField.CharField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomShortDescriptionField.class_custom_default_attrs.items():
+        for key, value in ShortDescription.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         super().__init__(*args, **kwargs)
 
-class CustomPhoneNumberField(CustomDefaultField.CharField):
+class PhoneNumber(CustomDefaultField.CharField):
     class Meta:
         abstract=True
     """
@@ -139,7 +139,7 @@ class CustomPhoneNumberField(CustomDefaultField.CharField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomPhoneNumberField.class_custom_default_attrs.items():
+        for key, value in PhoneNumber.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
         kwargs["help_text"] = kwargs.get("help_text", _(f"Phone number of this {kwargs['class_name']} record"))
 

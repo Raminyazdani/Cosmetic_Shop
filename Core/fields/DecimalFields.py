@@ -1,7 +1,7 @@
 from Core.fields.DefaultFields import CustomDefaultField
 from Core.utils.ProjectUtils import CustomValidators
 
-class AbstractDecimalField:
+class DecimalABC:
     class Meta:
         abstract=True
     class_custom_default_attrs = {
@@ -17,12 +17,12 @@ class AbstractDecimalField:
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in AbstractDecimalField.class_custom_default_attrs.items():
+        for key, value in DecimalABC.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         super().__init__(*args, **kwargs)
 
-class CustomPriceDollarField(CustomDefaultField.DecimalField):
+class PriceDollar(CustomDefaultField.DecimalField):
     class Meta:
         abstract=True
     """
@@ -44,7 +44,7 @@ class CustomPriceDollarField(CustomDefaultField.DecimalField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomPriceDollarField.class_custom_default_attrs.items():
+        for key, value in PriceDollar.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         super().__init__(*args, **kwargs)

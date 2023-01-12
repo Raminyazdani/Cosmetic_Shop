@@ -1,6 +1,6 @@
 from Core.fields.DefaultFields import CustomDefaultField
 
-class AbstractSlugField(CustomDefaultField.SlugField):
+class SlugABC(CustomDefaultField.SlugField):
     class Meta:
         abstract=True
     """
@@ -18,12 +18,12 @@ class AbstractSlugField(CustomDefaultField.SlugField):
 
 
     def __init__(self, *args, **kwargs):
-        for key, value in AbstractSlugField.class_custom_default_attrs.items():
+        for key, value in SlugABC.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         super().__init__(*args, **kwargs)
 
-class CustomSlugField(CustomDefaultField.SlugField):
+class Slug(CustomDefaultField.SlugField):
     class Meta:
         abstract=True
     """
@@ -44,7 +44,7 @@ class CustomSlugField(CustomDefaultField.SlugField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomSlugField.class_custom_default_attrs.items():
+        for key, value in Slug.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         super().__init__(*args, **kwargs)

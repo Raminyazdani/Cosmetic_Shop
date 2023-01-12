@@ -151,16 +151,17 @@ Shops
 
     Order
         id
-        customer_order:f:CustomerOrder
-        market_order:f:MarketOrder
+        status_order
+        customer_order:f:OrderCustomer
+        market_order:f:OrderMarket
         order_item:m:OrderItem
         shipment:f:Shipment
 
     OrderItem
         id
         product:f:Product
-        order_market:f:MarketOrder
-        order_customer:f:CustomerOrder
+        order_market:f:OrderMarket
+        order_customer:f:OrderCustomer
         quantity
         final_price
         is_delete
@@ -170,12 +171,11 @@ Shops
     Payment
         id
         owner:generic(?)
-        payment_method
         wallet:f:Wallet
         payment_type
         amount
         description
-        status
+        status_payment
         is_delete
         created_at
         modified_at
@@ -200,6 +200,7 @@ Shops
         order:f:Order
         shipment_item:f:ShipmentItem
         shipment_method
+        status_shipment
         is_delete
         created_at
         modified_at
@@ -214,7 +215,8 @@ Shops
 
     ContactUs
         id
-        author:unkown
+        firstname
+        lastname
         title
         body
         email
@@ -227,7 +229,7 @@ Customers
         id
         firstname
         lastname
-        order:f:CustomerOrder
+        order:f:OrderCustomer
         coupon:M:CustomerCoupon
         favorite:f:Favorite
         wishlist:f:Wishlist
@@ -297,6 +299,7 @@ Customers
         payment:f:Payment
         coupon:f:CustomerCoupon
         order_item:f:OrderItem
+        Status_order
         total_price
         tax
         discount
@@ -327,7 +330,7 @@ Markets
         id
         firstname
         lastname
-        order:f:MarketOrder
+        order:f:OrderMarket
         payment:generic(?)
         gallery:generic(?)
         wallet:onetoone:Wallet
@@ -360,7 +363,7 @@ Markets
         date_open
         date_close
         time_open
-        time_to
+        time_close
         weekday:onetoone:WeekDayInventory
         is_delete
         created_at
@@ -415,11 +418,29 @@ Markets
         payment:f:Payment
         inventory_item:f:InventoryItem
         order_items:f:OrderItem
+        status_order
         total_price
         final_price
         status_payment
         is_delete
         created_at
         modified_at
-
-
+Users
+    User
+        id 
+        phone_number
+        is_costumer
+        costumer:onetoone:Customer
+        is_market 
+        market:onetoone:Market
+        is_staff
+        is_active
+        is_admin
+        is_superuser 
+        is_verified
+        slug
+        is_delete 
+        created_at 
+        modified_at 
+    
+    

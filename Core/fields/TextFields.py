@@ -1,7 +1,7 @@
 from Core.fields.DefaultFields import CustomDefaultField
 from Core.utils.ProjectUtils import CustomValidators
 
-class AbstractTextField(CustomDefaultField.TextField):
+class TextABC(CustomDefaultField.TextField):
     class Meta:
         abstract=True
     class_custom_default_attrs = {
@@ -15,12 +15,12 @@ class AbstractTextField(CustomDefaultField.TextField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in AbstractTextField.class_custom_default_attrs.items():
+        for key, value in TextABC.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         super().__init__(*args, **kwargs)
 
-class CustomDescriptionField(CustomDefaultField.TextField):
+class Description(CustomDefaultField.TextField):
     class Meta:
         abstract=True
     """
@@ -40,12 +40,12 @@ class CustomDescriptionField(CustomDefaultField.TextField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomDescriptionField.class_custom_default_attrs.items():
+        for key, value in Description.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         super().__init__(*args, **kwargs)
 
-class CustomBodyField(CustomDefaultField.TextField):
+class Body(CustomDefaultField.TextField):
     class Meta:
         abstract=True
     """
@@ -68,7 +68,7 @@ class CustomBodyField(CustomDefaultField.TextField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomBodyField.class_custom_default_attrs.items():
+        for key, value in Body.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         super().__init__(*args, **kwargs)

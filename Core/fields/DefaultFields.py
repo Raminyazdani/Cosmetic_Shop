@@ -127,7 +127,7 @@ class CustomDefaultField:
                 kwargs[key] = kwargs.get(key, value)
             super().__init__(*args, **kwargs)
 
-    class ForeignKey(Base, models.ForeignKey):
+    class ForeignKeyField(Base, models.ForeignKey):
         class Meta:
             abstract=True
         class_costum_default_attrs = {
@@ -150,7 +150,7 @@ class CustomDefaultField:
         # "kw_class_model" : "Comment"
         # "kw_related_name" : "comment"
         def __init__(self, *args, **kwargs):
-            for key, value in CustomDefaultField.ForeignKey.class_costum_default_attrs.items():
+            for key, value in CustomDefaultField.ForeignKeyField.class_costum_default_attrs.items():
                 if key == "to":
                     kwargs[key] = kwargs.get(key, value(kwargs["app_name_destination"], kwargs["app_name_model_destination"]))
                 elif key == "related_name":

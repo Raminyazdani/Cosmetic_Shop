@@ -2,7 +2,7 @@ from django.utils.translation import gettext_lazy as _
 
 from Core.fields.DefaultFields import CustomDefaultField
 
-class AbstractBooleanField(CustomDefaultField.BooleanField):
+class BooleanABC(CustomDefaultField.BooleanField):
     class Meta:
         abstract=True
     """
@@ -21,7 +21,7 @@ class AbstractBooleanField(CustomDefaultField.BooleanField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in AbstractBooleanField.class_custom_default_attrs.items():
+        for key, value in BooleanABC.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record ... ?"))
@@ -29,7 +29,7 @@ class AbstractBooleanField(CustomDefaultField.BooleanField):
 
         super().__init__(*args, **kwargs)
 
-class CustomIsAvailableField(CustomDefaultField.BooleanField):
+class IsAvailable(CustomDefaultField.BooleanField):
     class Meta:
         abstract=True
     """
@@ -47,7 +47,7 @@ class CustomIsAvailableField(CustomDefaultField.BooleanField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomIsAvailableField.class_custom_default_attrs.items():
+        for key, value in IsAvailable.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record available ?"))
@@ -55,7 +55,7 @@ class CustomIsAvailableField(CustomDefaultField.BooleanField):
 
         super().__init__(*args, **kwargs)
 
-class CustomIsActiveField(CustomDefaultField.BooleanField):
+class IsActive(CustomDefaultField.BooleanField):
     class Meta:
         abstract=True
     """
@@ -73,7 +73,7 @@ class CustomIsActiveField(CustomDefaultField.BooleanField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomIsActiveField.class_custom_default_attrs.items():
+        for key, value in IsActive.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record available ?"))
@@ -81,7 +81,7 @@ class CustomIsActiveField(CustomDefaultField.BooleanField):
 
         super().__init__(*args, **kwargs)
 
-class CustomIsDeletedField(CustomDefaultField.BooleanField):
+class IsDeleted(CustomDefaultField.BooleanField):
     class Meta:
         abstract=True
     """
@@ -99,7 +99,7 @@ class CustomIsDeletedField(CustomDefaultField.BooleanField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomIsDeletedField.class_custom_default_attrs.items():
+        for key, value in IsDeleted.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record deleted ?"))
@@ -107,7 +107,7 @@ class CustomIsDeletedField(CustomDefaultField.BooleanField):
 
         super().__init__(*args, **kwargs)
 
-class CustomIsCustomerField(CustomDefaultField.BooleanField):
+class IsCustomer(CustomDefaultField.BooleanField):
     class Meta:
         abstract=True
     """
@@ -123,7 +123,7 @@ class CustomIsCustomerField(CustomDefaultField.BooleanField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomIsCustomerField.class_custom_default_attrs.items():
+        for key, value in IsCustomer.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record has costumer profile ?"))
@@ -131,7 +131,7 @@ class CustomIsCustomerField(CustomDefaultField.BooleanField):
 
         super().__init__(*args, **kwargs)
 
-class CustomIsMarketField(CustomDefaultField.BooleanField):
+class IsMarket(CustomDefaultField.BooleanField):
     class Meta:
         abstract=True
     """
@@ -148,7 +148,7 @@ class CustomIsMarketField(CustomDefaultField.BooleanField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomIsMarketField.class_custom_default_attrs.items():
+        for key, value in IsMarket.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record has market profile ?"))
@@ -156,7 +156,7 @@ class CustomIsMarketField(CustomDefaultField.BooleanField):
 
         super().__init__(*args, **kwargs)
 
-class CustomIsStaffField(CustomDefaultField.BooleanField):
+class IsStaff(CustomDefaultField.BooleanField):
     class Meta:
         abstract=True
     """
@@ -173,7 +173,7 @@ class CustomIsStaffField(CustomDefaultField.BooleanField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomIsStaffField.class_custom_default_attrs.items():
+        for key, value in IsStaff.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record has staff permissions ?"))
@@ -181,7 +181,7 @@ class CustomIsStaffField(CustomDefaultField.BooleanField):
 
         super().__init__(*args, **kwargs)
 
-class CustomIsAdminField(CustomDefaultField.BooleanField):
+class IsAdmin(CustomDefaultField.BooleanField):
     class Meta:
         abstract=True
     """
@@ -198,7 +198,7 @@ class CustomIsAdminField(CustomDefaultField.BooleanField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomIsAdminField.class_custom_default_attrs.items():
+        for key, value in IsAdmin.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record has admin permissions ?"))
@@ -206,7 +206,7 @@ class CustomIsAdminField(CustomDefaultField.BooleanField):
 
         super().__init__(*args, **kwargs)
 
-class CustomIsSuperUserField(CustomDefaultField.BooleanField):
+class IsSuperUser(CustomDefaultField.BooleanField):
     class Meta:
         abstract=True
     """
@@ -223,7 +223,7 @@ class CustomIsSuperUserField(CustomDefaultField.BooleanField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomIsSuperUserField.class_custom_default_attrs.items():
+        for key, value in IsSuperUser.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record has super user permissions ?"))
@@ -231,7 +231,7 @@ class CustomIsSuperUserField(CustomDefaultField.BooleanField):
 
         super().__init__(*args, **kwargs)
 
-class CustomIsVerifiedField(CustomDefaultField.BooleanField):
+class IsVerified(CustomDefaultField.BooleanField):
     class Meta:
         abstract=True
     """
@@ -248,7 +248,7 @@ class CustomIsVerifiedField(CustomDefaultField.BooleanField):
         }
 
     def __init__(self, *args, **kwargs):
-        for key, value in CustomIsVerifiedField.class_custom_default_attrs.items():
+        for key, value in IsVerified.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
 
         kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record verified ?"))

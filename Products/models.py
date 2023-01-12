@@ -14,21 +14,21 @@ class Product(ModelRequiredProperties.ProductMixin,CoreModelUniversal ):
     Product Model
     """
     # """ Fields   """
-    name = ProjectFields.CustomNameField(class_name = "Product")
-    comment = ProjectFields.CustomCommentFieldForeignKey(class_name = "Product")
-    category = ProjectFields.CustomCategoryFieldManyToMany(class_name = "Product")
-    tag = ProjectFields.CustomTagFieldManyToMany(class_name = "Product")
-    brand = ProjectFields.CustomBrandFieldManyToMany(class_name = "Product")
+    name = ProjectFields.Name(class_name = "Product")
+    comment = ProjectFields.ForeignKeyComment(class_name = "Product")
+    category = ProjectFields.ManyToManyCategory(class_name = "Product")
+    tag = ProjectFields.ManyToManyTag(class_name = "Product")
+    brand = ProjectFields.ManyToManyBrand(class_name = "Product")
 
     # GalleryField
     #   gallery = ProjectField.CustomGalleryField(class_name"Product")
     # slug field populated by name field
-    slug = ProjectFields.CustomSlugField(class_name = "Product")
-    short_description = ProjectFields.CustomShortDescriptionField(class_name = "Product")
-    description = ProjectFields.CustomDescriptionField(class_name = "Product")
-    price = ProjectFields.CustomPriceDollarField(class_name = "Product")
-    is_available = ProjectFields.CustomIsAvailableField(class_name = "Product")
-    gender = ProjectFields.CustomGenderField(class_name = "Product")
+    slug = ProjectFields.Slug(class_name = "Product")
+    short_description = ProjectFields.ShortDescription(class_name = "Product")
+    description = ProjectFields.Description(class_name = "Product")
+    price = ProjectFields.PriceDollar(class_name = "Product")
+    is_available = ProjectFields.IsAvailable(class_name = "Product")
+    gender = ProjectFields.Gender(class_name = "Product")
 
     # required options
 
@@ -41,13 +41,13 @@ class Category(ModelRequiredProperties.CategoryMixin,CoreModelUniversal):
     Category Model
     """
     # """ Fields   """
-    name = ProjectFields.CustomNameField(class_name = "Category")
-    parent = ProjectFields.CustomCategoryParentFieldForeignKey(class_name = "Category")
-    product = ProjectFields.CustomProductFieldManyToMany(class_name = "Category")
+    name = ProjectFields.Name(class_name = "Category")
+    parent = ProjectFields.ForeignKeyCategoryParent(class_name = "Category")
+    product = ProjectFields.ManyToManyProduct(class_name = "Category")
 
     # slug field populated by name field of parent and self
-    slug = ProjectFields.CustomSlugField(class_name = "Category")
-    description = ProjectFields.CustomDescriptionField(class_name = "Category")
+    slug = ProjectFields.Slug(class_name = "Category")
+    description = ProjectFields.Description(class_name = "Category")
 
     REQUIRED_FIELDS = ['name']
     # GalleryField
@@ -66,13 +66,13 @@ class Brand(ModelRequiredProperties.BrandMixin,CoreModelUniversal):
     Brand Model
     """
     # """ Fields   """
-    name = ProjectFields.CustomNameField(class_name = "Brand")
-    product = ProjectFields.CustomProductFieldManyToMany(class_name = "Brand")
+    name = ProjectFields.Name(class_name = "Brand")
+    product = ProjectFields.ManyToManyProduct(class_name = "Brand")
 
     # slug field populated by name field
-    slug = ProjectFields.CustomSlugField(class_name = "Brand")
-    is_available = ProjectFields.CustomIsAvailableField(class_name = "Brand")
-    description = ProjectFields.CustomDescriptionField(class_name = "Brand")
+    slug = ProjectFields.Slug(class_name = "Brand")
+    is_available = ProjectFields.IsAvailable(class_name = "Brand")
+    description = ProjectFields.Description(class_name = "Brand")
 
     # GalleryField
     #   gallery = ProjectField.CustomGalleryField("Product")
@@ -87,9 +87,9 @@ class Tag(ModelRequiredProperties.TagMixin,CoreModelUniversal):
     Tag Model
     """
     # """ Fields   """
-    name = ProjectFields.CustomNameField(class_name = "Tag")
-    slug = ProjectFields.CustomSlugField(class_name = "Tag")
-    product = ProjectFields.CustomProductFieldManyToMany(class_name = "Tag")
+    name = ProjectFields.Name(class_name = "Tag")
+    slug = ProjectFields.Slug(class_name = "Tag")
+    product = ProjectFields.ManyToManyProduct(class_name = "Tag")
 
     # GalleryField
     #   gallery = ProjectField.CustomGalleryField("Product")
@@ -104,17 +104,17 @@ class Comment(ModelRequiredProperties.CommentMixin,CoreModelUniversal):
     Comment Model
     """
     # """ Fields   """
-    author = ProjectFields.CustomUserFieldForeignKey(class_name = "Comment", verbose_name = _('Author'), help_text = _('Author id'), related_name = 'comments_author')
-    product = ProjectFields.CustomProductFieldForeignKey(class_name = "Comment")
-    title = ProjectFields.CustomTitleField(class_name = "Comment")
-    body = ProjectFields.CustomBodyField(class_name = "Comment")
-    rating = ProjectFields.CustomRatingField(class_name = "Comment")
-    is_active = ProjectFields.CustomIsActiveField(class_name = "Comment")
+    author = ProjectFields.ForeignKeyUser(class_name = "Comment", verbose_name = _('Author'), help_text = _('Author id'), related_name = 'comments_author')
+    product = ProjectFields.ForeignKeyProduct(class_name = "Comment")
+    title = ProjectFields.Title(class_name = "Comment")
+    body = ProjectFields.Body(class_name = "Comment")
+    rating = ProjectFields.Rating(class_name = "Comment")
+    is_active = ProjectFields.IsActive(class_name = "Comment")
 
     # GalleryField
     #   gallery = ProjectField.CustomGalleryField("Product")
     # slug field populated by id field
-    slug = ProjectFields.CustomSlugField(class_name = "Comment")
+    slug = ProjectFields.Slug(class_name = "Comment")
 
     # required options
 
@@ -127,8 +127,8 @@ class ProductTag(ModelRequiredProperties.ProductTagMixin,CoreModelUniversal):
     ProductTag Model as a many to many relationship between Product and Tag
     """
     # """ Fields   """
-    product_id = ProjectFields.CustomProductFieldForeignKey(class_name = "ProductTag")
-    tag_id = ProjectFields.CustomTagFieldForeignKey(class_name = "ProductTag")
+    product_id = ProjectFields.ForeignKeyProduct(class_name = "ProductTag")
+    tag_id = ProjectFields.ForeignKeyTag(class_name = "ProductTag")
 
     class Meta:
         verbose_name = _('Product Tag')
@@ -139,8 +139,8 @@ class ProductCategory(ModelRequiredProperties.ProductCategoryMixin,CoreModelUniv
     ProductCategory Model as a many to many relationship between Product and Category
     """
     # """ Fields   """
-    product_id = ProjectFields.CustomProductFieldForeignKey(class_name = "ProductCategory")
-    category_id = ProjectFields.CustomCategoryFieldForeignKey(class_name = "ProductCategory")
+    product_id = ProjectFields.ForeignKeyProduct(class_name = "ProductCategory")
+    category_id = ProjectFields.ForeignKeyCategory(class_name = "ProductCategory")
 
     class Meta:
         verbose_name = _('Product Category')
@@ -151,8 +151,8 @@ class ProductBrand(ModelRequiredProperties.ProductBrandMixin,CoreModelUniversal)
     ProductBrand Model as a many to many relationship between Product and Brand
     """
     # """ Fields   """
-    product_id = ProjectFields.CustomProductFieldForeignKey(class_name = "ProductBrand")
-    brand_id = ProjectFields.CustomBrandFieldForeignKey(class_name = "ProductBrand")
+    product_id = ProjectFields.ForeignKeyProduct(class_name = "ProductBrand")
+    brand_id = ProjectFields.ForeignKeyBrand(class_name = "ProductBrand")
 
     class Meta:
         verbose_name = _('Product Brand')
