@@ -2,7 +2,7 @@ from django.db import models
 
 from Core.fields.DefaultFields import CustomDefaultField
 
-class ForeignKeyABC(CustomDefaultField.ForeignKeyField):
+class ForeignKeyABC(CustomDefaultField.ForeignKey):
     class Meta:
         abstract = True
 
@@ -25,7 +25,7 @@ class ForeignKeyABC(CustomDefaultField.ForeignKeyField):
             kwargs[key] = kwargs.get(key, value)
         super().__init__(*args, **kwargs)
 
-class ForeignKeySelf(CustomDefaultField.ForeignKeyField):
+class ForeignKeySelf(CustomDefaultField.ForeignKey):
     class Meta:
         abstract = True
 
@@ -48,7 +48,7 @@ class ForeignKeySelf(CustomDefaultField.ForeignKeyField):
 
         super().__init__(*args, **kwargs)
 
-class ForeignKeyComment(CustomDefaultField.ForeignKeyField):
+class ForeignKeyComment(CustomDefaultField.ForeignKey):
     class Meta:
         abstract = True
 
@@ -81,7 +81,7 @@ class ForeignKeyComment(CustomDefaultField.ForeignKeyField):
             kwargs[key] = kwargs.get(key, value)
         super().__init__(*args, **kwargs)
 
-class ForeignKeyCategoryParent(CustomDefaultField.ForeignKeyField):
+class ForeignKeyCategoryParent(CustomDefaultField.ForeignKey):
     class Meta:
         abstract = True
 
@@ -120,7 +120,7 @@ class ForeignKeyCategoryParent(CustomDefaultField.ForeignKeyField):
 
         super().__init__(*args, **kwargs)
 
-class ForeignKeyUser(CustomDefaultField.ForeignKeyField):
+class ForeignKeyUser(CustomDefaultField.ForeignKey):
     class Meta:
         abstract = True
 
@@ -155,7 +155,7 @@ class ForeignKeyUser(CustomDefaultField.ForeignKeyField):
 
         super().__init__(*args, **kwargs)
 
-class ForeignKeyProduct(CustomDefaultField.ForeignKeyField):
+class ForeignKeyProduct(CustomDefaultField.ForeignKey):
     class Meta:
         abstract = True
 
@@ -189,7 +189,7 @@ class ForeignKeyProduct(CustomDefaultField.ForeignKeyField):
             kwargs[key] = kwargs.get(key, value)
         super().__init__(*args, **kwargs)
 
-class ForeignKeyCategory(CustomDefaultField.ForeignKeyField):
+class ForeignKeyCategory(CustomDefaultField.ForeignKey):
     class Meta:
         abstract = True
 
@@ -223,7 +223,7 @@ class ForeignKeyCategory(CustomDefaultField.ForeignKeyField):
             kwargs[key] = kwargs.get(key, value)
         super().__init__(*args, **kwargs)
 
-class ForeignKeyTag(CustomDefaultField.ForeignKeyField):
+class ForeignKeyTag(CustomDefaultField.ForeignKey):
     class Meta:
         abstract = True
 
@@ -257,7 +257,7 @@ class ForeignKeyTag(CustomDefaultField.ForeignKeyField):
             kwargs[key] = kwargs.get(key, value)
         super().__init__(*args, **kwargs)
 
-class ForeignKeyBrand(CustomDefaultField.ForeignKeyField):
+class ForeignKeyBrand(CustomDefaultField.ForeignKey):
     class Meta:
         abstract = True
 

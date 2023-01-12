@@ -1,3 +1,5 @@
+import re
+
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxLengthValidator, MaxValueValidator, MinLengthValidator, MinValueValidator, RegexValidator
 from django.urls import reverse
@@ -7,7 +9,7 @@ class CustomRegex:
     phone_regex = r'^(\+98|\+980|0098|00980|0|)\d{10}$'
     name_regex = r'^.{3,30}$'
     title_regex = r'^.{3,20}$'
-
+    email_regex = r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
 class CustomValidators:
     RatingValidator = [MinValueValidator(0, message = _('Rating must be at least 0')), MaxValueValidator(10, message = _('Rating must be at most 10'))]
     PhoneValidator = [RegexValidator(regex = CustomRegex.phone_regex, message = _('must be a phone number with 10 digits'))]
@@ -18,8 +20,26 @@ class CustomValidators:
     DollarPriceValidator = [MinValueValidator(0, message = _('Price must be at least 0')), MaxValueValidator(1000000000, message = _('Price must be at most 1000000000'))]
     TitleValidator = [RegexValidator(regex = CustomRegex.title_regex, message = _('Title must be a valid string with 3 to 20 characters'))]
     BodyValidator = [MinLengthValidator(10, message = _('Body must be at least 10 characters')), MaxLengthValidator(250, message = _('Body must be at most 250 characters'))]
+    EmailValidator = [RegexValidator(regex = CustomRegex.email_regex, message = _("Must be an email)"))]
 
 class CustomStringMaker:
+    class ContentType:
+        @staticmethod
+        def related_name_gen(class_name):
+            name = class_name
+            name = re.sub(r'(?<!^)(?=[A-Z])', '_', name).lower()
+            return name
+    class FilePath:
+        @staticmethod
+        def path_gen(field_name):
+            return f"settings.FILE_PATH_FIELD_DIRECTORY + '{field_name}'"
+
+
+    class File:
+        @staticmethod
+        def path_gen(field_name):
+            return f"settings.{field_name.upper()}_DIRECTORY"
+
     class ForeignKey:
 
         @staticmethod
@@ -68,7 +88,7 @@ class CustomStringMaker:
 class GetNameSpaceProperty:
 
     @staticmethod
-    def name(self: object, teststring,scopeparent):
+    def name(self: object, teststring, scopeparent):
         if teststring == "parent":
             parent_list = []
             parent = self.parent
@@ -91,7 +111,7 @@ class GetNameSpaceProperty:
                         try:
                             items = self.__getattribute__(scopeparent).all()
                         except:
-                            items = self.__getattribute__(scopeparent+"s").all()
+                            items = self.__getattribute__(scopeparent + "s").all()
 
                         for item in items:
                             temp += item.__getattribute__(teststring + "_name")
@@ -101,7 +121,7 @@ class GetNameSpaceProperty:
                         return []
 
     @staticmethod
-    def count(self: object, teststring,scopeparent):
+    def count(self: object, teststring, scopeparent):
         try:
             return self.__getattribute__(teststring).count()
         except:
@@ -113,7 +133,7 @@ class GetNameSpaceProperty:
                     try:
                         items = self.__getattribute__(scopeparent).all()
                     except:
-                        items = self.__getattribute__(scopeparent+"s").all()
+                        items = self.__getattribute__(scopeparent + "s").all()
 
                     for item in items:
                         temp += item.__getattribute__(teststring + "_name")
@@ -121,13 +141,14 @@ class GetNameSpaceProperty:
                     return temp
                 except:
                     return 0
+
     @staticmethod
-    def parent(self:object,teststring,scope):
+    def parent(self: object, teststring, scope):
         parent_list = []
         item = self
 
         while item.parent:
-            if scope!="nothing":
+            if scope != "nothing":
                 parent_list.append(item.__getattribute__(teststring).__getattribute__(scope))
             else:
                 parent_list.append(item.__getattribute__(teststring))

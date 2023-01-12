@@ -8,31 +8,26 @@ BooleanABC
     IsAdmin
     IsSuperUser
     IsVerified
-
-    #new
     IsCostumer
     IsDefault
     IsDelete
-    IsOnine
+    IsOnline
     IsSuperuser
     IsUsed
     IsShippingFree
     IsTaxFree
-    *Weekday
-        Saturday
-        Sunday
-        Monday
-        Tuesday
-        Wednesday
-        Thursday
-        Friday
+    Saturday
+    Sunday
+    Monday
+    Tuesday
+    Wednesday
+    Thursday
+    Friday
 
 
 TextABC
     Description
     Body
-
-    #new
     AddressLine
     Bio
 
@@ -41,16 +36,11 @@ TextABC
 SlugABC
     Slug
 
-    #new
-
-
 
 
 PositiveIntegerABC
     Gender
     Rating
-
-    #new
     CouponType
     DiscountType
     PaymentType
@@ -66,8 +56,6 @@ CharABC
     Title
     ShortDescription
     PhoneNumber
-
-    #new
     AltText
     CardNumber
     City
@@ -90,15 +78,13 @@ ManyToManyABC
     ManyToManyTag
     ManyToManyBrand
     ManyToManyProduct
-
-    #new
-    ManyToManyCoupon            :M:CustomerCoupon:
-    ManyToManyCustomer          :M:CustomerCoupon
-    ManyToManyGallery           :M:GalleryaImage
-    ManyToManyImage             :M:GalleryImage
-    ManyToManyInventoryItem     :M:InventoryProductProperty
-    ManyToManyOrderItem         :M:OrderItem
-    ManyToManyProduct           :M:InventoryProductProperty
+    ManyToManyCoupon:CustomerCoupon
+    ManyToManyCustomer:CustomerCoupon
+    ManyToManyGallery:GalleryaImage
+    ManyToManyImage:GalleryImage
+    ManyToManyInventoryItem:InventoryProductProperty
+    ManyToManyOrderItem:OrderItem
+    ManyToManyProduct:InventoryProductProperty
 
 
 
@@ -106,8 +92,8 @@ ManyToManyABC
 BigAutoABC
     Id
 
-    #new
-
+FileABC
+    Image
 
 
 
@@ -120,8 +106,6 @@ ForeignKeyABC
     ForeignKeyComment
     ForeignKeyCategoryParent
     ForeignKeyUser
-
-    #new
     ForeignKeyAddress
     ForeignKeyCart
     ForeignKeyCartItem
@@ -152,13 +136,11 @@ ForeignKeyABC
     ForeignKeyWishListItem
     ForeignKeyWishlist
     ForeignKeyProperty
-  
+    ForeignKeyContentType
+
 
 DecimalABC
     PriceDollar
-    
-    
-    #new
     Amount
     TotalPrice
     FinalPrice
@@ -170,14 +152,12 @@ DecimalABC
 DateTimeABC
     CreatedAt
     ModifiedAt
-
-    #new
     DateOpen
     DateClose
     DateFrom
     DateTo
 
-# new TimeABC
+TimeABC
     TimeTo
     TimeFrom
     TimeOpen
@@ -185,7 +165,7 @@ DateTimeABC
 
 
 
-# new OneToOneABC
+OneToOneABC
     OneToOneCostumer
     OneToOneInventory
     OneToOneInventoryProperty
@@ -195,23 +175,27 @@ DateTimeABC
     OneToOneWeekDayInventory
 
 
-# new EmailABC
+EmailABC
     Email
 
-#foreign key
-    #contenttype
-#Bigintegerfield
-    #objectid
-#GenericForeighKey
-    #object
 
-#GenericRelation
-    #Gallery
-    #OrderItem
-    #Owner
-    #Payment
+GenericRelationABC
+    Gallery
+    OrderItem
+    Owner
+    Payment
 
-# new FilePathABC
+GenericForeignKeyABC
+    Object
+
+BigIntegerABC
+    ObjectId
+
+
+
+FilePathABC
     PathOriginal
     PathThumbnail
+
+
 

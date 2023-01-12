@@ -1,24 +1,27 @@
 import re
 
+from django.contrib.contenttypes import fields
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from Core.utils.ProjectUtils import CustomStringMaker
+from Core.utils.ProjectUtils import CustomStringMaker, CustomValidators
 
 class BaseMethodCustomField:
     class Meta:
-        abstract=True
+        abstract = True
+
     """
     Base Method Custom Field
     """
 
     class DelClassName:
         class Meta:
-            abstract=True
+            abstract = True
+
         """
          This class is used to delete the class_name argument from the kwargs
         """
-        
+
         def __init__(self, *args, **kwargs):
             """
             This method is used to delete the class_name argument from the kwargs
@@ -41,17 +44,19 @@ class BaseMethodCustomField:
 
 class CustomDefaultField:
     class Meta:
-        abstract=True
-    
+        abstract = True
+
     class Base(BaseMethodCustomField.DelClassName):
         class Meta:
-            abstract=True
+            abstract = True
+
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
 
     class CharField(Base, models.CharField):
         class Meta:
-            abstract=True
+            abstract = True
+
         class_custom_default_attrs = {
             "class_name": "Model",
             "field_name": "Char Field",
@@ -71,7 +76,8 @@ class CustomDefaultField:
 
     class PositiveIntegerField(Base, models.PositiveIntegerField):
         class Meta:
-            abstract=True
+            abstract = True
+
         class_custom_default_attrs = {
             "class_name": "Model",
             "field_name": "Positive Integer Field",  # "choices":None,
@@ -90,7 +96,8 @@ class CustomDefaultField:
 
     class DecimalField(Base, models.DecimalField):
         class Meta:
-            abstract=True
+            abstract = True
+
         class_custom_default_attrs = {
             "class_name": "Model",
             "field_name": "Decimal Field",
@@ -111,7 +118,8 @@ class CustomDefaultField:
 
     class SlugField(Base, models.SlugField):
         class Meta:
-            abstract=True
+            abstract = True
+
         class_custom_default_attrs = {
             "class_name": "Model",
             "field_name": "Slug Field",
@@ -127,9 +135,10 @@ class CustomDefaultField:
                 kwargs[key] = kwargs.get(key, value)
             super().__init__(*args, **kwargs)
 
-    class ForeignKeyField(Base, models.ForeignKey):
+    class ForeignKey(Base, models.ForeignKey):
         class Meta:
-            abstract=True
+            abstract = True
+
         class_costum_default_attrs = {
             "class_name": "Model",
             "field_name": "Foreign Key",  # "app_name_destination": "?", get
@@ -150,7 +159,10 @@ class CustomDefaultField:
         # "kw_class_model" : "Comment"
         # "kw_related_name" : "comment"
         def __init__(self, *args, **kwargs):
-            for key, value in CustomDefaultField.ForeignKeyField.class_costum_default_attrs.items():
+            for key, value in CustomDefaultField.ForeignKey.class_costum_default_attrs.items():
+                if kwargs["class_name"] == "ContentType":
+                    kwargs["related_name"] = kwargs.get("related_name", CustomStringMaker.ContentType.related_name_gen(kwargs["class_name"]))
+                    break
                 if key == "to":
                     kwargs[key] = kwargs.get(key, value(kwargs["app_name_destination"], kwargs["app_name_model_destination"]))
                 elif key == "related_name":
@@ -163,7 +175,8 @@ class CustomDefaultField:
 
     class ManyToManyField(Base, models.ManyToManyField):
         class Meta:
-            abstract=True
+            abstract = True
+
         class_costum_default_attrs = {
             "class_name": "Model",
             "field_name": "Many To Many Field",
@@ -206,7 +219,8 @@ class CustomDefaultField:
 
     class TextField(Base, models.TextField):
         class Meta:
-            abstract=True
+            abstract = True
+
         class_custom_default_attrs = {
             "class_name": "Model",
             "field_name": "Text Field",
@@ -223,7 +237,8 @@ class CustomDefaultField:
 
     class BooleanField(Base, models.BooleanField):
         class Meta:
-            abstract=True
+            abstract = True
+
         class_custom_default_attrs = {
             "class_name": "Model",
             "field_name": "Boolean Field",
@@ -241,7 +256,8 @@ class CustomDefaultField:
 
     class DateTimeField(Base, models.DateTimeField):
         class Meta:
-            abstract=True
+            abstract = True
+
         class_custom_default_attrs = {
             "class_name": "Model",
             "field_name": "Date Time Field",
@@ -257,7 +273,8 @@ class CustomDefaultField:
 
     class BigAutoField(Base, models.BigAutoField):
         class Meta:
-            abstract=True
+            abstract = True
+
         class_custom_default_attrs = {
             "class_name": "Model",
             "field_name": "Big Auto Field",  #
@@ -271,5 +288,174 @@ class CustomDefaultField:
         def __init__(self, *args, **kwargs):
             for key, value in CustomDefaultField.BigAutoField.class_custom_default_attrs.items():
                 kwargs[key] = kwargs.get(key, value)
+
+            super().__init__(*args, **kwargs)
+
+    class Time(Base, models.TimeField):
+        class Meta:
+            abstract = True
+
+        class_custom_default_attrs = {
+            "class_name": "Model",
+            "field_name": "Big Auto Field",  #
+            "auto_now": False,
+            "auto_now_add": False,
+            'null': True,
+            "blank": True
+            }
+
+        def __init__(self, *args, **kwargs):
+            for key, value in CustomDefaultField.Time.class_custom_default_attrs.items():
+                kwargs[key] = kwargs.get(key, value)
+
+            super().__init__(*args, **kwargs)
+
+    class FilePath(Base, models.FilePathField):
+        class Meta:
+            abstract = True
+
+        class_custom_default_attrs = {
+            "class_name": "Model",
+            "field_name": "File Path Field",  #
+            "path": CustomStringMaker.FilePath.path_gen,
+            "recursive": True,
+            "match": None,
+            "allow_files": True,
+            }
+
+        def __init__(self, *args, **kwargs):
+            for key, value in CustomDefaultField.FilePath.class_custom_default_attrs.items():
+                kwargs[key] = kwargs.get(key, value)
+
+            super().__init__(*args, **kwargs)
+
+    class File(Base, models.FileField):
+        class Meta:
+            abstract = True
+
+        class_custom_default_attrs = {
+            "class_name": "Model",
+            "field_name": "File Path Field",  #
+            "path": CustomStringMaker.File.path_gen,
+            "recursive": True,
+            "match": None,
+            "allow_files": True,
+            }
+
+        def __init__(self, *args, **kwargs):
+            for key, value in CustomDefaultField.File.class_custom_default_attrs.items():
+                kwargs[key] = kwargs.get(key, value)
+
+            super().__init__(*args, **kwargs)
+
+    class Email(Base, models.EmailField):
+        class Meta:
+            abstract = True
+
+        class_custom_default_attrs = {
+            "class_name": "Model",
+            "field_name": "Email Field",
+            'null': True,
+            'blank': True,  #
+            "validator": CustomValidators.EmailValidator,
+            }
+
+        def __init__(self, *args, **kwargs):
+            for key, value in CustomDefaultField.Email.class_custom_default_attrs.items():
+                kwargs[key] = kwargs.get(key, value)
+
+            super().__init__(*args, **kwargs)
+
+    class OneToOne(Base, models.OneToOneField):
+        class Meta:
+            abstract = True
+
+        class_costum_default_attrs = {
+            "class_name": "Model",
+            "field_name": "One To One Key",  # "app_name_destination": "?", get
+            # "app_name_model_destination": "?",get
+            "blank": True,
+            "db_index": True,
+            "null": True,
+            "on_delete": models.SET_NULL,
+            "related_name": CustomStringMaker.ForeignKey.related_name_gen,
+            "to": CustomStringMaker.ForeignKey.to_gen,
+            # "validators":None,
+            }
+
+        # test CommentField
+        # "kw_class_name" : "Product/User"
+        # "kw_field_name" : "Comment"
+        # "kw_app_name" : "Products"
+        # "kw_class_model" : "Comment"
+        # "kw_related_name" : "comment"
+        def __init__(self, *args, **kwargs):
+            for key, value in CustomDefaultField.OneToOne.class_costum_default_attrs.items():
+                if key == "to":
+                    kwargs[key] = kwargs.get(key, value(kwargs["app_name_destination"], kwargs["app_name_model_destination"]))
+                elif key == "related_name":
+                    kwargs[key] = kwargs.get(key, value(kwargs["class_name"], kwargs["app_name_model_destination"]))
+                else:
+                    kwargs[key] = kwargs.get(key, value)
+
+            del kwargs["app_name_destination"], kwargs["app_name_model_destination"]
+            super().__init__(*args, **kwargs)
+
+    class BigInteger(Base, models.BigIntegerField):
+        class Meta:
+            abstract = True
+
+        class_custom_default_attrs = {
+            "class_name": "Model",
+            "field_name": "Big Integer Field",  #
+            'default': None,
+            'null': True,
+            'blank': True,
+            }
+
+        def __init__(self, *args, **kwargs):
+            for key, value in CustomDefaultField.BigInteger.class_custom_default_attrs.items():
+                kwargs[key] = kwargs.get(key, value)
+
+            super().__init__(*args, **kwargs)
+
+    class GenericForeignKey(Base, fields.GenericForeignKey):
+        class Meta:
+            abstract = True
+
+        class_custom_default_attrs = {
+            "class_name": "Model",
+            "field_name": "Big Integer Field",  #
+            "ct_field": "content_type",
+            "fk_field": "object_id",
+            }
+
+        def __init__(self, *args, **kwargs):
+            for key, value in CustomDefaultField.GenericForeignKey.class_custom_default_attrs.items():
+                kwargs[key] = kwargs.get(key, value)
+
+            super().__init__(*args, **kwargs)
+
+    class GenericRelation(Base, fields.GenericRelation):
+        class Meta:
+            abstract = True
+
+        class_custom_default_attrs = {
+            "class_name": "Model",
+            "field_name": "Generic Relation Field",  #
+            "to": CustomStringMaker.ForeignKey.to_gen,
+            "content_type_field": "content_type",
+            "object_id_field": "object_id",
+            "related_query_name": CustomStringMaker.ForeignKey.related_name_gen,
+            }
+
+        def __init__(self, *args, **kwargs):
+            for key, value in CustomDefaultField.GenericRelation.class_custom_default_attrs.items():
+                if key == "to":
+                    kwargs[key] = kwargs.get(key, value(kwargs["app_name_destination"], kwargs["app_name_model_destination"]))
+                elif key == "related_query_name":
+                    kwargs[key] = kwargs.get(key, value(kwargs["class_name"], kwargs["app_name_model_destination"]))
+                else:
+                    kwargs[key] = kwargs.get(key, value)
 
             super().__init__(*args, **kwargs)
