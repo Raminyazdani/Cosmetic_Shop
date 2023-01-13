@@ -122,7 +122,6 @@ class SaveProduct:
                 category_temp = category_temp.parent
                 categories_id.append(category_temp)
         categories_id = list(set(categories_id))
-        print(categories_id)
         self.category.set(categories_id)
         super().save(*args, **kwargs)
 
