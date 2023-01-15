@@ -3,6 +3,7 @@ import re
 from django.contrib.contenttypes import fields
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from multiselectfield import MultiSelectField
 
 from Core.utils.ProjectUtils import CustomStringMaker, CustomValidators
 
@@ -10,24 +11,11 @@ class BaseMethodCustomField:
     class Meta:
         abstract = True
 
-    """
-    Base Method Custom Field
-    """
-
     class DelClassName:
         class Meta:
             abstract = True
 
-        """
-         This class is used to delete the class_name argument from the kwargs
-        """
-
         def __init__(self, *args, **kwargs):
-            """
-            This method is used to delete the class_name argument from the kwargs
-            :param args:
-            :param kwargs:
-            """
             res = re.findall('[A-Z][^A-Z]*', kwargs["class_name"])
             if len(res) > 1: kwargs["class_name"], kwargs["field_name"] = res[1], res[0]
 
@@ -36,11 +24,7 @@ class BaseMethodCustomField:
 
             del kwargs["class_name"], kwargs['field_name'],
 
-            # print("\nstart")
-            # print(self)
-            # print(args)
-            # print(kwargs)
-            super().__init__(*args, **kwargs)  # class GetClassName:  #     def __init__(self, *args, **kwargs):  #         kwargs["class_name"] = "Model" if "class_name" not in kwargs else kwargs["class_name"].capitalize()  #         self.class_name = kwargs["class_name"].capitalize()  #
+            super().__init__(*args, **kwargs)
 
 class CustomDefaultField:
     class Meta:
@@ -52,6 +36,18 @@ class CustomDefaultField:
 
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
+
+        @staticmethod
+        def kwargs_setter(kwargs, class_defaults, deleters = None):
+            for key, value in class_defaults.items():
+                if callable(value) and key not in ["on_delete"]:
+                    kwargs[key] = kwargs.get(key, value(kwargs))
+                else:
+                    kwargs[key] = kwargs.get(key, value)
+            if deleters:
+                for key in deleters:
+                    del kwargs[key]
+            return kwargs
 
     class CharField(Base, models.CharField):
         class Meta:
@@ -69,9 +65,9 @@ class CustomDefaultField:
             }
 
         def __init__(self, *args, **kwargs):
-            for key, value in CustomDefaultField.CharField.class_custom_default_attrs.items():
-                kwargs[key] = kwargs.get(key, value)
-
+            deleters = None
+            class_attrs = CustomDefaultField.CharField.class_custom_default_attrs
+            kwargs = CustomDefaultField.Base.kwargs_setter(kwargs, class_attrs, deleters)
             super().__init__(*args, **kwargs)
 
     class PositiveIntegerField(Base, models.PositiveIntegerField):
@@ -89,9 +85,7 @@ class CustomDefaultField:
             }
 
         def __init__(self, *args, **kwargs):
-            for key, value in CustomDefaultField.PositiveIntegerField.class_custom_default_attrs.items():
-                kwargs[key] = kwargs.get(key, value)
-
+            kwargs = CustomDefaultField.Base.kwargs_setter(kwargs, CustomDefaultField.PositiveIntegerField.class_custom_default_attrs)
             super().__init__(*args, **kwargs)
 
     class DecimalField(Base, models.DecimalField):
@@ -111,9 +105,9 @@ class CustomDefaultField:
             }
 
         def __init__(self, *args, **kwargs):
-            for key, value in CustomDefaultField.DecimalField.class_custom_default_attrs.items():
-                kwargs[key] = kwargs.get(key, value)
-
+            deleters = None
+            class_attrs = CustomDefaultField.DecimalField.class_custom_default_attrs
+            kwargs = CustomDefaultField.Base.kwargs_setter(kwargs, class_attrs, deleters)
             super().__init__(*args, **kwargs)
 
     class SlugField(Base, models.SlugField):
@@ -131,15 +125,16 @@ class CustomDefaultField:
             }
 
         def __init__(self, *args, **kwargs):
-            for key, value in CustomDefaultField.SlugField.class_custom_default_attrs.items():
-                kwargs[key] = kwargs.get(key, value)
+            deleters = None
+            class_attrs = CustomDefaultField.SlugField.class_custom_default_attrs
+            kwargs = CustomDefaultField.Base.kwargs_setter(kwargs, class_attrs, deleters)
             super().__init__(*args, **kwargs)
 
     class ForeignKey(Base, models.ForeignKey):
         class Meta:
             abstract = True
 
-        class_costum_default_attrs = {
+        class_custom_default_attrs = {
             "class_name": "Model",
             "field_name": "Foreign Key",  # "app_name_destination": "?", get
             # "app_name_model_destination": "?",get
@@ -152,32 +147,38 @@ class CustomDefaultField:
             # "validators":None,
             }
 
-        # test CommentField
-        # "kw_class_name" : "Product/User"
-        # "kw_field_name" : "Comment"
-        # "kw_app_name" : "Products"
-        # "kw_class_model" : "Comment"
-        # "kw_related_name" : "comment"
         def __init__(self, *args, **kwargs):
-            for key, value in CustomDefaultField.ForeignKey.class_costum_default_attrs.items():
-                if kwargs["class_name"] == "ContentType":
-                    kwargs["related_name"] = kwargs.get("related_name", CustomStringMaker.ContentType.related_name_gen(kwargs["class_name"]))
-                    break
-                if key == "to":
-                    kwargs[key] = kwargs.get(key, value(kwargs["app_name_destination"], kwargs["app_name_model_destination"]))
-                elif key == "related_name":
-                    kwargs[key] = kwargs.get(key, value(kwargs["class_name"], kwargs["app_name_model_destination"]))
-                else:
-                    kwargs[key] = kwargs.get(key, value)
+            deleters = ["app_name_destination", "app_name_model_destination"]
+            class_attrs = CustomDefaultField.ForeignKey.class_custom_default_attrs
+            kwargs = CustomDefaultField.Base.kwargs_setter(kwargs, class_attrs, deleters)
 
-            del kwargs["app_name_destination"], kwargs["app_name_model_destination"]
+            super().__init__(*args, **kwargs)  # if kwargs["class_name"] == "ContentType":  #     kwargs["related_name"] = kwargs.get("related_name", CustomStringMaker.ContentType.related_name_gen(kwargs["class_name"]))  #     break
+
+    class ContentTypes(Base, models.ForeignKey):
+        class_custom_default_attrs = {
+            "class_name": "Model",
+            "field_name": "Content Type",  # "app_name_destination": "?", get
+            # "app_name_model_destination": "?",get
+            "blank": True,
+            "db_index": True,
+            "null": True,
+            "on_delete": models.SET_NULL,
+            "related_name": CustomStringMaker.ContentType.related_name_gen,
+            "to": "ContentType",
+            # "validators":None,
+            }
+
+        def __init__(self, *args, **kwargs):
+            deleters = None
+            class_attrs = CustomDefaultField.ContentTypes.class_custom_default_attrs
+            kwargs = CustomDefaultField.Base.kwargs_setter(kwargs, class_attrs, deleters)
             super().__init__(*args, **kwargs)
 
     class ManyToManyField(Base, models.ManyToManyField):
         class Meta:
             abstract = True
 
-        class_costum_default_attrs = {
+        class_custom_default_attrs = {
             "class_name": "Model",
             "field_name": "Many To Many Field",
             "blank": True,
@@ -189,31 +190,10 @@ class CustomDefaultField:
             # validators : None
             }
 
-        # class_name = ProductCategory #dynamic
-        # field_name = Category #dynamic/static
-        # app_name = Products #static
-        # class_model = Category #static
-        # class_field_name = Category #static
-        # class_related_name = category #static
-        # class_through_fields = ('?', 'category') #static
         def __init__(self, *args, **kwargs):
-            for key, value in CustomDefaultField.ManyToManyField.class_costum_default_attrs.items():
-                if key == "to":
-                    kwargs[key] = kwargs.get(key, value(kwargs["app_name_destination"], kwargs["app_name_model_destination"]))
-                elif key == "related_name":
-                    kwargs[key] = kwargs.get(key, value(kwargs["class_name"], kwargs["app_name_model_destination"]))
-
-                elif key == "through_fields":
-                    kwargs[key] = kwargs.get(key, None)
-                    if None in kwargs[key] or kwargs[key] is None:
-                        kwargs[key] = value(kwargs["class_name"], kwargs["app_name_model_destination"], kwargs["through_fields"])
-                elif key == "through":
-                    kwargs[key] = kwargs.get(key, None)
-                    if kwargs[key] is None:
-                        kwargs[key] = value(kwargs["class_name"], kwargs["app_name_destination"], kwargs["through_fields"])
-                else:
-                    kwargs[key] = kwargs.get(key, value)
-            del kwargs["app_name_destination"], kwargs["app_name_model_destination"]
+            deleters = ["app_name_destination", "app_name_model_destination", "app_super_model"]
+            class_attrs = CustomDefaultField.ManyToManyField.class_custom_default_attrs
+            kwargs = CustomDefaultField.Base.kwargs_setter(kwargs, class_attrs, deleters)
 
             super().__init__(*args, **kwargs)
 
@@ -231,8 +211,9 @@ class CustomDefaultField:
             }
 
         def __init__(self, *args, **kwargs):
-            for key, value in CustomDefaultField.TextField.class_custom_default_attrs.items():
-                kwargs[key] = kwargs.get(key, value)
+            deleters = None
+            class_attrs = CustomDefaultField.TextField.class_custom_default_attrs
+            kwargs = CustomDefaultField.Base.kwargs_setter(kwargs, class_attrs, deleters)
             super().__init__(*args, **kwargs)
 
     class BooleanField(Base, models.BooleanField):
@@ -249,8 +230,9 @@ class CustomDefaultField:
             }
 
         def __init__(self, *args, **kwargs):
-            for key, value in CustomDefaultField.BooleanField.class_custom_default_attrs.items():
-                kwargs[key] = kwargs.get(key, value)
+            deleters = None
+            class_attrs = CustomDefaultField.BooleanField.class_custom_default_attrs
+            kwargs = CustomDefaultField.Base.kwargs_setter(kwargs, class_attrs, deleters)
 
             super().__init__(*args, **kwargs)
 
@@ -266,9 +248,9 @@ class CustomDefaultField:
             }
 
         def __init__(self, *args, **kwargs):
-            for key, value in CustomDefaultField.DateTimeField.class_custom_default_attrs.items():
-                kwargs[key] = kwargs.get(key, value)
-
+            deleter = None
+            class_attrs = CustomDefaultField.DateTimeField.class_custom_default_attrs
+            kwargs = CustomDefaultField.Base.kwargs_setter(kwargs, class_attrs, deleter)
             super().__init__(*args, **kwargs)
 
     class BigAutoField(Base, models.BigAutoField):
@@ -286,9 +268,9 @@ class CustomDefaultField:
             }
 
         def __init__(self, *args, **kwargs):
-            for key, value in CustomDefaultField.BigAutoField.class_custom_default_attrs.items():
-                kwargs[key] = kwargs.get(key, value)
-
+            deleter = None
+            class_attrs = CustomDefaultField.BigAutoField.class_custom_default_attrs
+            kwargs = CustomDefaultField.Base.kwargs_setter(kwargs, class_attrs, deleter)
             super().__init__(*args, **kwargs)
 
     class Time(Base, models.TimeField):
@@ -305,9 +287,9 @@ class CustomDefaultField:
             }
 
         def __init__(self, *args, **kwargs):
-            for key, value in CustomDefaultField.Time.class_custom_default_attrs.items():
-                kwargs[key] = kwargs.get(key, value)
-
+            deleters = None
+            class_attrs = CustomDefaultField.Time.class_custom_default_attrs
+            kwargs = CustomDefaultField.Base.kwargs_setter(kwargs, class_attrs, deleters)
             super().__init__(*args, **kwargs)
 
     class FilePath(Base, models.FilePathField):
@@ -324,9 +306,9 @@ class CustomDefaultField:
             }
 
         def __init__(self, *args, **kwargs):
-            for key, value in CustomDefaultField.FilePath.class_custom_default_attrs.items():
-                kwargs[key] = kwargs.get(key, value)
-
+            deleters = None
+            class_attrs = CustomDefaultField.FilePath.class_custom_default_attrs
+            kwargs = CustomDefaultField.Base.kwargs_setter(kwargs, class_attrs, deleters)
             super().__init__(*args, **kwargs)
 
     class File(Base, models.FileField):
@@ -343,9 +325,9 @@ class CustomDefaultField:
             }
 
         def __init__(self, *args, **kwargs):
-            for key, value in CustomDefaultField.File.class_custom_default_attrs.items():
-                kwargs[key] = kwargs.get(key, value)
-
+            deleters = None
+            class_attrs = CustomDefaultField.File.class_custom_default_attrs
+            kwargs = CustomDefaultField.Base.kwargs_setter(kwargs, class_attrs, deleters)
             super().__init__(*args, **kwargs)
 
     class Email(Base, models.EmailField):
@@ -361,16 +343,16 @@ class CustomDefaultField:
             }
 
         def __init__(self, *args, **kwargs):
-            for key, value in CustomDefaultField.Email.class_custom_default_attrs.items():
-                kwargs[key] = kwargs.get(key, value)
-
+            deleters = None
+            class_attrs = CustomDefaultField.Email.class_custom_default_attrs
+            kwargs = CustomDefaultField.Base.kwargs_setter(kwargs, class_attrs, deleters)
             super().__init__(*args, **kwargs)
 
     class OneToOne(Base, models.OneToOneField):
         class Meta:
             abstract = True
 
-        class_costum_default_attrs = {
+        class_custom_default_attrs = {
             "class_name": "Model",
             "field_name": "One To One Key",  # "app_name_destination": "?", get
             # "app_name_model_destination": "?",get
@@ -383,22 +365,10 @@ class CustomDefaultField:
             # "validators":None,
             }
 
-        # test CommentField
-        # "kw_class_name" : "Product/User"
-        # "kw_field_name" : "Comment"
-        # "kw_app_name" : "Products"
-        # "kw_class_model" : "Comment"
-        # "kw_related_name" : "comment"
         def __init__(self, *args, **kwargs):
-            for key, value in CustomDefaultField.OneToOne.class_costum_default_attrs.items():
-                if key == "to":
-                    kwargs[key] = kwargs.get(key, value(kwargs["app_name_destination"], kwargs["app_name_model_destination"]))
-                elif key == "related_name":
-                    kwargs[key] = kwargs.get(key, value(kwargs["class_name"], kwargs["app_name_model_destination"]))
-                else:
-                    kwargs[key] = kwargs.get(key, value)
-
-            del kwargs["app_name_destination"], kwargs["app_name_model_destination"]
+            deleters = ["app_name_destination", "app_name_model_destination"]
+            class_attrs = CustomDefaultField.OneToOne.class_custom_default_attrs
+            kwargs = CustomDefaultField.Base.kwargs_setter(kwargs, class_attrs, deleters)
             super().__init__(*args, **kwargs)
 
     class BigInteger(Base, models.BigIntegerField):
@@ -414,9 +384,9 @@ class CustomDefaultField:
             }
 
         def __init__(self, *args, **kwargs):
-            for key, value in CustomDefaultField.BigInteger.class_custom_default_attrs.items():
-                kwargs[key] = kwargs.get(key, value)
-
+            deleters = None
+            class_attrs = CustomDefaultField.BigInteger.class_custom_default_attrs
+            kwargs = CustomDefaultField.Base.kwargs_setter(kwargs, class_attrs, deleters)
             super().__init__(*args, **kwargs)
 
     class GenericForeignKey(Base, fields.GenericForeignKey):
@@ -431,9 +401,9 @@ class CustomDefaultField:
             }
 
         def __init__(self, *args, **kwargs):
-            for key, value in CustomDefaultField.GenericForeignKey.class_custom_default_attrs.items():
-                kwargs[key] = kwargs.get(key, value)
-
+            deleters = None
+            class_attrs = CustomDefaultField.GenericForeignKey.class_custom_default_attrs
+            kwargs = CustomDefaultField.Base.kwargs_setter(kwargs, class_attrs, deleters)
             super().__init__(*args, **kwargs)
 
     class GenericRelation(Base, fields.GenericRelation):
@@ -450,12 +420,30 @@ class CustomDefaultField:
             }
 
         def __init__(self, *args, **kwargs):
-            for key, value in CustomDefaultField.GenericRelation.class_custom_default_attrs.items():
-                if key == "to":
-                    kwargs[key] = kwargs.get(key, value(kwargs["app_name_destination"], kwargs["app_name_model_destination"]))
-                elif key == "related_query_name":
-                    kwargs[key] = kwargs.get(key, value(kwargs["class_name"], kwargs["app_name_model_destination"]))
-                else:
-                    kwargs[key] = kwargs.get(key, value)
+            deleters = None
+            class_attrs = CustomDefaultField.GenericRelation.class_custom_default_attrs
+            kwargs = CustomDefaultField.Base.kwargs_setter(kwargs, class_attrs, deleters)
+            super().__init__(*args, **kwargs)
 
+    class MultiSelect(MultiSelectField):
+        class Meta:
+            abstract = True
+
+        class_custom_default_attrs = {
+            "class_name": "Model",
+            "field_name": "Multi Select Field",  #
+            "choices": None,
+            "max_choices": None,
+            "max_length": None,
+            "min_choices": None,
+            "null": True,
+            "blank": True,
+            "db_index": True,
+            "default": None,
+            }
+
+        def __init__(self, *args, **kwargs):
+            deleters = None
+            class_attrs = CustomDefaultField.MultiSelect.class_custom_default_attrs
+            kwargs = CustomDefaultField.Base.kwargs_setter(kwargs, class_attrs, deleters)
             super().__init__(*args, **kwargs)

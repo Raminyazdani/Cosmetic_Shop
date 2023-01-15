@@ -12,6 +12,7 @@ class ManyToManyABC(CustomDefaultField.ManyToManyField):
         "through": "..." or None, # in this  required ( it depends on where the through table is,if class_name is Child put None )
         "blank": True,  # in super
         "db_index": True,  # in super
+        "app_super_model":None
         # "to": CustomStringMaker.ManyToMany.to_gen,  # generative # No matter
         # "related_name": CustomStringMaker.ManyToMany.related_name_gen,  # generative # No matter
         # "through": CustomStringMaker.ManyToMany.through_gen,  # generative # if through not declare
@@ -28,18 +29,12 @@ class ManyToManyABC(CustomDefaultField.ManyToManyField):
 class ManyToManyCategory(CustomDefaultField.ManyToManyField):
     class Meta:
         abstract=True
-    """
-    Custom Category Field as ManyToMany
-
-    """
-
     class_custom_default_attrs = {
         "class_name": "Model",
         "field_name": "Category",
         "app_name_destination": "Products",
         "app_name_model_destination": "Category",
-        "through_fields": [None, "category_id"],  # in this # required
-        "through": "Products.ProductCategory"
+        "app_super_model": "Product"
         }
 
     def __init__(self, *args, **kwargs):
@@ -50,18 +45,13 @@ class ManyToManyCategory(CustomDefaultField.ManyToManyField):
 class ManyToManyTag(CustomDefaultField.ManyToManyField):
     class Meta:
         abstract=True
-    """
-    Custom Tag Field as ManyToMany
-
-    """
 
     class_custom_default_attrs = {
         "class_name": "Model",
         "field_name": "Tag",
         "app_name_destination": "Products",
         "app_name_model_destination": "Tag",
-        "through_fields": [None, "tag_id"],  # in this # required
-        "through": "Products.ProductTag"
+        "app_super_model": "Product"
         }
 
     def __init__(self, *args, **kwargs):
@@ -73,18 +63,13 @@ class ManyToManyTag(CustomDefaultField.ManyToManyField):
 class ManyToManyBrand(CustomDefaultField.ManyToManyField):
     class Meta:
         abstract=True
-    """
-    Custom Brand Field as ManyToMany
-
-    """
 
     class_custom_default_attrs = {
         "class_name": "Model",
         "field_name": "Brand",
         "app_name_destination": "Products",
         "app_name_model_destination": "Brand",
-        "through_fields": [None, "brand_id"],  # in this # required
-        "through": "Products.ProductBrand"
+        "app_super_model": "Product"
         }
 
     def __init__(self, *args, **kwargs):
@@ -96,18 +81,13 @@ class ManyToManyBrand(CustomDefaultField.ManyToManyField):
 class ManyToManyProduct(CustomDefaultField.ManyToManyField):
     class Meta:
         abstract=True
-    """
-    Custom Product Field as ManyToManyField
-
-    """
 
     class_custom_default_attrs = {
         "class_name": "Model",
         "field_name": "Product",
         "app_name_destination": "Products",
         "app_name_model_destination": "Product",
-        "through_fields": ["product_id", None],  # in this # required
-        "through": None
+        "app_super_model": "Product"
         }
 
     def __init__(self, *args, **kwargs):

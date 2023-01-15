@@ -10,6 +10,7 @@ class CustomRegex:
     name_regex = r'^.{3,30}$'
     title_regex = r'^.{3,20}$'
     email_regex = r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+
 class CustomValidators:
     RatingValidator = [MinValueValidator(0, message = _('Rating must be at least 0')), MaxValueValidator(10, message = _('Rating must be at most 10'))]
     PhoneValidator = [RegexValidator(regex = CustomRegex.phone_regex, message = _('must be a phone number with 10 digits'))]
@@ -24,66 +25,64 @@ class CustomValidators:
 
 class CustomStringMaker:
     class ContentType:
+
         @staticmethod
-        def related_name_gen(class_name):
-            name = class_name
+        def related_name_gen(kwargs):
+            name = kwargs["class_name"]
             name = re.sub(r'(?<!^)(?=[A-Z])', '_', name).lower()
             return name
-    class FilePath:
-        @staticmethod
-        def path_gen(field_name):
-            return f"settings.FILE_PATH_FIELD_DIRECTORY + '{field_name}'"
 
+    class FilePath:
+
+        @staticmethod
+        def path_gen(kwargs):
+            return f"settings.FILE_PATH_FIELD_DIRECTORY + '{kwargs['field_name']}'"
 
     class File:
+
         @staticmethod
-        def path_gen(field_name):
-            return f"settings.{field_name.upper()}_DIRECTORY"
+        def path_gen(kwargs):
+            return f"settings.{kwargs['field_name'].upper()}_DIRECTORY"
 
     class ForeignKey:
 
         @staticmethod
-        def to_gen(app_name, class_model):
+        def to_gen(kwargs):
+            app_name = kwargs["app_name_destination"]
+            class_model = kwargs["app_name_model_destination"]
             return app_name + '.' + class_model
 
         @staticmethod
-        def related_name_gen(class_name, related_name_default):
+        def related_name_gen(kwargs):
             # return class_name.lower()+'_'+related_name_default.lower()
-            return class_name.lower() + "s"
+
+            return kwargs['class_name'].lower() + "s"
 
     class ManyToMany:
 
         @staticmethod
-        def to_gen(app_name, class_model):
-            return app_name + '.' + class_model
+        def to_gen(kwargs):
+            return kwargs['app_name_destination'] + '.' + kwargs['app_name_model_destination']
 
         @staticmethod
-        def related_name_gen(class_name, related_name_default):
-            return class_name.lower() + '_' + related_name_default.lower()
+        def related_name_gen(kwargs):
+            return kwargs['class_name'].lower()+"s"
 
         @staticmethod
-        def through_gen(class_name, app_model_name, through_fields = None):
-            #       "class_name" :                  "Product",              "Category"
-            #       "field_name":                   "Category",             "Product #
-            #       "app_name_destination":         "AdminProperty",             "AdminProperty"
-            #       "app_name_model_destination":   "Category",             "Product"
-            #       "through_fields":               [None, "itemegory_id"]   ["product_id",None]
-            #       "through":                      "ProductCategory",      "ProductCategory"
-            if through_fields is None:
-                raise ValidationError("need through fields . it cant be none")
+        def through_gen(kwargs):
+            app_name_model_destination = kwargs['app_name_model_destination']
+            app_super_model = kwargs["app_super_model"]
+            class_name = kwargs["class_name"]
+            result = app_super_model.capitalize() + class_name.capitalize()
+            if result != app_super_model.capitalize()+app_super_model.capitalize():
+                return result
             else:
-                if through_fields[0] is None:
-                    return app_model_name + "." + class_name.capitalize()[:-1] + app_model_name.capitalize()
-                elif through_fields[1] is None:
-                    return app_model_name + "." + app_model_name.capitalize()[:-1] + class_name.capitalize()
-
+                return app_super_model.capitalize()+app_name_model_destination.capitalize()
         @staticmethod
-        def through_fields_gen(class_name, app_model_name, through_fields = None):
-            #        "through_fields": ["product_id", None],
-            if through_fields is None:
-                return (class_name.lower() + "_id", app_model_name.lower() + "_id")
-            else:
-                return (class_name.lower() + "_id", app_model_name.lower() + "_id")
+        def through_fields_gen(kwargs):
+            class_name = kwargs["class_name"]
+            app_model_name = kwargs["app_name_model_destination"]
+            return (class_name.lower() + "_id", app_model_name.lower() + "_id")
 
 class GetNameSpaceProperty:
 
