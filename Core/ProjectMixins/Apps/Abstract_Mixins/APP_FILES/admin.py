@@ -28,8 +28,8 @@ class MODEL_NAMEAdmin(AdminProperty.MODEL_NAME):
     list_max_show_all = AdminProperty.MODEL_NAME.list_max_show_all
     search_help_text = AdminProperty.MODEL_NAME.search_help_text
 
-    inlines = (Inlines.XInlineAdmin)
-    x_inline = inlines[0].tag_inline
+    # inlines = (Inlines.XInlineAdmin)
+    # x_inline = inlines[0].tag_inline
 
 #### custom query set  # def get_queryset(self, request):  #     # use our manager, rather than the default one  #  #     qs = super().get_queryset(request)  #     qs = qs.annotate(comment_count=Count('comment'))  #     qs = qs.annotate(tag_count=Count('tag'))  #     qs = qs.annotate(brand_count=Count('brand'))  #     qs = qs.annotate(category_count=Count('category'))  #     return qs
 

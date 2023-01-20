@@ -32,7 +32,7 @@ class User(ModelRequiredProperties.UserMixin,AbstractUser, PermissionsMixin):
 
     slug = ProjectFields.Slug(class_name = "User")
 
-    is_delete = ProjectFields.IsDeleted(class_name = "User")
+    is_delete = ProjectFields.IsDelete(class_name = "User")
     created_at = ProjectFields.CreatedAt(class_name = "User")
     modified_at = ProjectFields.ModifiedAt(class_name = "User")
 

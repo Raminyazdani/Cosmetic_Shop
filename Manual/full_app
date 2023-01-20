@@ -1,177 +1,171 @@
 App
     model
         field
-
 Products
     Product
         id
         name
-        comment:f
-        category:m:ProductCategoy
-        tag:m:ProductTag
-        brand:m:ProductBrand
-        gallery:generic()
-        inventory_product_property:m:InventoryProduct
+        description
+        short_description
         is_delete
         created_at
         modified_at
-
+        tag:m:ProductTag:manytomany
+        category:m:ProductCategory:manytomany
+        brand:m:ProductBrand:manytomany
+        comment:f:Comment:onetomany
+        gallery:g:relation:Gallery
+        favorite_itme:f:FavoriteItem
+        wish_list_item:f:WishListItem
+        inventory_item:f:InventoryItem
     Brand
         id
         name
-        product:m:ProductBrand
         slug
-        gallery:generic()
-        is_available
         is_delete
         created_at
         modified_at
-
+        product:m:ProductBrand
+        gallery:g:relation:Gallery
     Category
         id
         name
-        parent:f:self
-        product:m:ProductCategory
         slug
         description
-        gallery:generic()
         is_delete
         created_at
         modified_at
-
+        parent:f:Self
+        gallery:g:relation:Gallery
+        product:m:ProductCategory
     Comment
         id
-        author:f:User
-        product:f:Product
         title
         body
         rating
-        is_active
         is_delete
         created_at
         modified_at
-
+        product:f:Product
+        Customer:f:Customer
     Tags
         id
         name
         slug
-        product:m:ProductTag
-        gallery:generic()
         is_delete
         created_at
         modified_at
-
-    (ProductCategory)
+        product:m:ProductTag
+        gallery:g:relation:Gallery
+    ProductBrand
         id
-        product_id:f:Product
-        category_id:f:Category
-
-    (ProductTag)
+        is_delete
+        created_at
+        modified_at
+        product:f:Product
+        brand:f:Brand
+    ProductCategory
         id
-        product_id:f:Product
-        tag_id:f:Tag
-
-    (ProductBrand)
+        is_delete
+        created_at
+        modified_at
+        product:f:Product
+        category:f:Category
+    ProductTag
         id
-        product_id:f:Product
-        brand_id:f:Brand
-
+        is_delete
+        created_at
+        modified_at
+        product:f:Product
+        tag:f:Tag
 Shops
     Address
         id
-        owner:f:generic(Customer,Market)
         country
         city
         province
-        address_line_1
-        address_line_2
+        address_line
         postal_code
         firstname
         lastname
-        coordination
-        is_default
+        Coordinate
         is_delete
         created_at
         modified_at
-
+        owner:G:f:Customer-Market
     Coupon
         id
         date_from
         date_to
         code
         coupon_type
-        customer:m:CustomerCoupon
         minimum_amount
         maximum_amount
         percentage
-        tax_free
-        shipping_free
-        is_used
-        is_active
+        is_tax_free
+        is_shipping_free
         is_delete
         created_at
         modified_at
-
+        customer:m:CustomerCoupon
     Discount
         id
         discount_type
-        inventory_item:f:InventoryItem
         minimum_amount
         maximum_amount
         percentage
         date_from
         date_to
-        is_active
         is_delete
         created_at
         modified_at
-
+        inventory_item:f:InventoryItem
     Gallery
         id
-        owner:generic(?)
-        image:m:GalleryImage
         is_delete
         created_at
         modified_at
-
+        owner:g:f:Customer-Tag-Market-Category-Brand-Product
+        image:m:GalleryImage
     Image
         id
-        gallery:m:GalleryaImage
         path_original
         path_thumbnail
+        image
         alt_text
         is_delete
         created_at
         modified_at
-
+        gallery:m:GalleryImage
     GalleryImage
         id
-        gallery_id:f:Gallery
-        image_id:f:Image
-
+        is_delete
+        created_at
+        modified_at
+        gallery:f:Gallery
+        image:f:Image
     Order
         id
         status_order
-        customer_order:f:OrderCustomer
-        market_order:f:OrderMarket
-        order_item:m:OrderItem
-        shipment:f:Shipment
-
+        is_delete
+        created_at
+        modified_at
+        order_item:f:OrderItem
+        order_customer:f:OrderCustomer
+        order_market:f:OrderMarket
     OrderItem
         id
-        product:f:Product
-        order_market:f:OrderMarket
-        order_customer:f:OrderCustomer
         quantity
         final_price
         is_delete
         created_at
         modified_at
-
+        order:f:Order
+        inventory_item:f:InventoryItem
+        order_customer:f:OrderCustomer
+        order_market:f:OrderMarket
     Payment
         id
-        owner:generic(?)
-        wallet:f:Wallet
         payment_type
         amount
         description
@@ -179,40 +173,27 @@ Shops
         is_delete
         created_at
         modified_at
-
+        order:g:f:OrderCustomer-OrderMarket
     Wallet
         id
-        payment_history:f:Payment
-        owner:generic(?)
         amount
         sheba
-        card_number
-        deposit_number
+        cardnumber
         firstname
         lastname
-        is_active
         is_delete
         created_at
         modified_at
-
+        owner:g:f:Customer-Market
     Shipment
         id
-        order:f:Order
-        shipment_item:f:ShipmentItem
         shipment_method
         status_shipment
         is_delete
         created_at
         modified_at
-
-    ShipmentItem
-        id
-        shipment:f:Shipment
-        order_item:generic(?)
-        is_delete
-        created_at
-        modified_at
-
+        order_market:f:OrderMarket
+        order_customer:f:OrderCustomer
     ContactUs
         id
         firstname
@@ -223,168 +204,128 @@ Shops
         is_delete
         created_at
         modified_at
-
 Customers
     Customer
         id
         firstname
         lastname
-        order:f:OrderCustomer
-        coupon:M:CustomerCoupon
-        favorite:f:Favorite
-        wishlist:f:Wishlist
-        cart:f:Cart
-        wallet:onetoone:Wallet
-        payment:generic(?)
-        address:f:Address
-        gallery:gemeric(?)
-        comment:f:Comment
-        user:onetoone:User
         user_name
         slug
         gender
         email
         bio
-        is_onine
-        is_active
         is_delete
         created_at
         modified_at
-
+        gallery:g:relation:Gallery
+        comment:f:Comment
+        user:f:User
+        wish_list:f:WishList
+        wallet:g:relation:Wallet
+        address:g:relation:Address
+        favorite:f:Favorite
+        cart:f:Cart
+        copun:m:CustomerCoupon
+        order_customer:f:OrderCustomer
     Cart
         id
-        customer:f:Customer
-        cart_item:f:CartItem
         is_delete
         created_at
         modified_at
-
+        cart_item:f:CartItem
+        Customer:f:Customer
     CartItem
         id
-        cart:f:Cart
-        product:f:Product
         is_delete
         created_at
         modified_at
-
+        cart:f:Cart
+        inventory_item:f:InventoryItem
     CustomerCoupon
         id
-        customer_id:f:Customer
-        coupon_id:f:CouponList
-        customer_order_id:f:OrderCustomer
         is_used
         is_delete
         created_at
         modified_at
-
+        customer:f:Customer
+        order_customer:f:OrderCustomer
+        coupon:f:Coupon
     Favorite
-        id
-        customer:onetoone:Customer
-        favorite_item:f:FavoriteItem
         is_delete
         created_at
         modified_at
-
+        customer:f:Customer
+        favorite_item:f:FavoriteItem
     FavoriteItem
         id
-        product:f:Product
-        favorite:f:Favorite
         is_delete
         created_at
         modified_at
-
+        favorite:f:Favorite
+        product:f:Product
     OrderCustomer
         id
-        customer:f:Customer
-        payment:f:Payment
-        coupon:f:CustomerCoupon
-        order_item:f:OrderItem
         Status_order
         total_price
         tax
-        discount
+        discounted_price
         final_price
-        payment:f:Payment
         is_delete
         created_at
         modified_at
-
+        order:f:Order
+        order_item:f:OrderItem
+        shipment:f:Shipment
+        payment:g:relation:payment
+        CouponCustomerCoupon:f:CustomerCoupon
+        customer:f:Customer
     WishList
         id
-        customer:f:Customer
-        wish_list_item:f:WishListItem
         is_delete
         created_at
         modified_at
-
+        wish_list_item:f:WishListItem
+        customer:f:Customer
     WishlistItem
         id
-        product:f:Product
-        wishlist:f:Wishlist
         is_delete
         created_at
         modified_at
-
+        wish_list:f:WishList
+        product:f:Product
 Markets
     Market
         id
         firstname
         lastname
-        order:f:OrderMarket
-        payment:generic(?)
-        gallery:generic(?)
-        wallet:onetoone:Wallet
-        address:f:Address
-        inventory:onetoone:Inderntory
-        user:onetoone:User
         user_name
         slug
         email
         bio
-
         is_delete
         created_at
         modified_at
-
+        user:f:User
+        gallery:g:relation:Gallery
+        wallet:g:relation:Wallet
+        inventory:f:Inventory
+        address:g:relation:Address
+        order_market:f:OrderMarket
     Inventory
         id
-        market
-        inventory_item
-        inventory_property:f:InventoryProperty
-        is_delete
-        created_at
-        modified_at
-
-    InventoryProperty
-        id
-        inventory
-        discount
-        quantity
         date_open
         date_close
         time_open
         time_close
-        weekday:onetoone:WeekDayInventory
+        weekdays
         is_delete
         created_at
         modified_at
-
-    WeekDayInventory
-        id
-        inventory_property_id:onetoone:InventoryProperty
-        saturday
-        sunday
-        monday
-        tuesday
-        wednesday
-        thursday
-        friday
-
+        market:f:Market
+        inventory_item:f:InventoryItem
     InventoryItem
         id
-        inventory:f:Inventory
-        product:m:InventoryProductProperty
-        inventory_product_property:fProperty
+        Price
         date_from
         date_to
         time_from
@@ -393,54 +334,56 @@ Markets
         is_delete
         created_at
         modified_at
-
-
-
-    InventoryProductProperty:
+        inventory:f:Inventory
+        discount:f:Discount
+        product:f:Product
+        cart_item:f:CartItem
+        order_item:f:OrderItem
+        property:m:InventoryItemProperty
+    InventoryItemProperty
         id
-        inventory_item_id:f:InventoryItem
-        product_id:f:Product
-        property_id:f:Property
-
+        is_delete
+        created_at
+        modified_at
+        inventory_item:f:InventoryItem
+        property:f:Property
     Property
         id
         key
-        inventory_item:m:InventoryProductProperty
         value
         is_delete
         created_at
         modified_at
-
+        inventory_item:m:InventoryItemProperty
     OrderMarket
         id
-        market:f:Market
-        product:f:Product
-        payment:f:Payment
-        inventory_item:f:InventoryItem
-        order_items:f:OrderItem
         status_order
         total_price
-        final_price
         status_payment
         is_delete
         created_at
         modified_at
+        order_item:f:OrderItem
+        order:f:Order
+        shipment:f:Shipment
+        payment:g:relation:payment
+        market:f:Market
 Users
     User
-        id 
+        id
         phone_number
-        is_costumer
-        costumer:onetoone:Customer
-        is_market 
-        market:onetoone:Market
+        is_customer
+        is_market
         is_staff
         is_active
         is_admin
-        is_superuser 
+        is_super_user
         is_verified
         slug
-        is_delete 
-        created_at 
-        modified_at 
+        is_delete
+        created_at
+        modified_at
+        customer:f:Customer
+        market:f:Market
     
     

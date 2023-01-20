@@ -1,201 +1,155 @@
-BooleanABC
-    IsAvailable
+BigAutos
+    Id
+
+BigIntegers
+    ObjectId
+
+Booleans
     IsActive
-    IsDeleted
-    IsCustomer
-    IsMarket
-    IsStaff
     IsAdmin
-    IsSuperUser
-    IsVerified
-    IsCostumer
+    IsAvailable
+    IsCustomer
     IsDefault
     IsDelete
-    IsOnline
-    IsSuperuser
-    IsUsed
+    IsMarket
     IsShippingFree
+    IsStaff
+    IsSuperUser
     IsTaxFree
-    Saturday
-    Sunday
-    Monday
-    Tuesday
-    Wednesday
-    Thursday
-    Friday
+    IsUsed
+    IsVerified
 
-
-TextABC
-    Description
-    Body
-    AddressLine
-    Bio
-
-
-
-SlugABC
-    Slug
-
-
-
-PositiveIntegerABC
-    Gender
-    Rating
-    CouponType
-    DiscountType
-    PaymentType
-    Percentage
-    Quantity
-    ShipmentMethod
-    StatusShipment
-    StatusPayment
-    StatusOrder
-
-CharABC
-    Name
-    Title
-    ShortDescription
-    PhoneNumber
+Chars
     AltText
     CardNumber
     City
     Code
-    Coordination
+    Coordinate
     Country
-    DepositNumber
     Firstname
-    Lastname
     Key
-    Value
+    Lastname
+    Name
+    PhoneNumber
     PostalCode
     Province
     Sheba
+    ShortDescription
+    Title
     UserName
     Value
 
-ManyToManyABC
-    ManyToManyCategory
-    ManyToManyTag
-    ManyToManyBrand
-    ManyToManyProduct
-    ManyToManyCoupon:CustomerCoupon
-    ManyToManyCustomer:CustomerCoupon
-    ManyToManyGallery:GalleryaImage
-    ManyToManyImage:GalleryImage
-    ManyToManyInventoryItem:InventoryProductProperty
-    ManyToManyOrderItem:OrderItem
-    ManyToManyProduct:InventoryProductProperty
+ContentTypes
+    ContentType:related_name_class_model
 
+DateTimes
+    CreatedAt
+    DateClose
+    DateFrom
+    DateOpen
+    DateTo
+    ModifiedAt
 
-
-
-BigAutoABC
-    Id
-
-FileABC
-    Image
-
-
-
-ForeignKeyABC
-    ForeignKeySelf
-    ForeignKeyCategory
-    ForeignKeyTag
-    ForeignKeyBrand
-    ForeignKeyProduct
-    ForeignKeyComment
-    ForeignKeyCategoryParent
-    ForeignKeyUser
-    ForeignKeyAddress
-    ForeignKeyCart
-    ForeignKeyCartItem
-    ForeignKeyComment
-    ForeignKeyCustomerCoupon
-    ForeignKeyCouponList
-    ForeignKeyCustomer
-    ForeignKeyCustomer
-    ForeignKeyOrderCustomer
-    ForeignKeyFavoriteItem
-    ForeignKeyFavorite
-    ForeignKeyGallery
-    ForeignKeyImage
-    ForeignKeyInventory
-    ForeignKeyInventoryItem
-    ForeignKeyInventoryProperty
-    ForeignKeyMarket
-    ForeignKeyOrderMarket
-    ForeignKeyOrder
-    ForeignKeyOrderItem
-    ForeignKeyOwner
-    ForeignKeyPayment
-    ForeignKeyProduct
-    ForeignKeyProperty
-    ForeignKeyShipment
-    ForeignKeyShipmentItem
-    ForeignKeyWallet
-    ForeignKeyWishListItem
-    ForeignKeyWishlist
-    ForeignKeyProperty
-    ForeignKeyContentType
-
-
-DecimalABC
-    PriceDollar
+Decimals
     Amount
-    TotalPrice
     FinalPrice
     MaximumAmount
     MinimumAmount
+    PriceDollar
+    DiscountedPrice
     Tax
+    TotalPrice
 
-
-DateTimeABC
-    CreatedAt
-    ModifiedAt
-    DateOpen
-    DateClose
-    DateFrom
-    DateTo
-
-TimeABC
-    TimeTo
-    TimeFrom
-    TimeOpen
-    TimeClose
-
-
-
-OneToOneABC
-    OneToOneCostumer
-    OneToOneInventory
-    OneToOneInventoryProperty
-    OneToOneMarket
-    OneToOneUser
-    OneToOneWallet
-    OneToOneWeekDayInventory
-
-
-EmailABC
+Emails
     Email
 
-
-GenericRelationABC
-    Gallery
-    OrderItem
-    Owner
-    Payment
-
-GenericForeignKeyABC
-    Object
-
-BigIntegerABC
-    ObjectId
-
-
-
-FilePathABC
+FilePaths
     PathOriginal
     PathThumbnail
 
+Files
+    Image
 
 
+ForeignKeys
+    Brand:Brand
+    Cart:Cart
+    CartItem:CartItem
+    Category:Category
+    Comment:Comment
+    Coupon:Coupon
+    Coupon:CustomerCoupon
+    Customer:Customer
+    Discount:Discount
+    Favorite:Favorite
+    FavoriteItem:FavoriteItem
+    Gallery:Gallery
+    Image:Image
+    Inventory:Inventory
+    InventoryItem:InventoryItem
+    Market:Market
+    Order:Order
+    OrderCustomer:OrderCustomer
+    OrderItem:OrderItem
+    OrderMarket:OrderMarket
+    Parent:Self
+    Product:Product
+    Property:Property
+    Shipment:Shipment
+    Tag:Tag
+    User:User
+    WishList:WishList
+    WishListItem:WishListItem
+
+GenericForeignKeys
+    Object
+
+GenericRelations
+    Gallery:related_class_name
+    Address:related_class_name
+    Payment:related_class_name
+    Wallet:related_class_name
+
+ManyToManys
+    Brand:ProductBrand
+    Category:ProductCategory
+    Copun:CustomerCoupon
+    Customer:CustomerCoupon
+    Gallery:GalleryImage
+    Image:GalleryImage
+    InventoryItem:InventoryItemProperty
+    Product:ProductBrand
+    Property:InventoryItemProperty
+    Tag:ProductTag:Manytomany
+
+MultiSelects
+    WeekDays
+
+
+PositiveIntegers
+    CouponType
+    DiscountType
+    Gender
+    PaymentType
+    Percentage
+    Quantity
+    Rating
+    ShipmentType
+    StatusOrder
+    StatusPayment
+    StatusShipment
+
+Slugs
+    Slug
+
+Texts
+    AddressLine
+    Bio
+    Body
+    Description
+
+Times
+    TimeClose
+    TimeFrom
+    TimeOpen
+    TimeTo

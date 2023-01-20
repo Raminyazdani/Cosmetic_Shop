@@ -1,8 +1,5 @@
 from django.db import models
 
-import Core.fields.BoleanFields
-import Core.fields.DateFields
-import Core.fields.IdFields
 from Core.managers import BaseManager
 from Core.fields import ProjectFields
 from django.db import models
@@ -23,7 +20,7 @@ class CoreModelUniversal(CoreModel):
     """
     Core Model Universal with universal fields and managers
     """
-    is_delete = ProjectFields.IsDeleted()
+    is_delete = ProjectFields.IsDelete()
     created_at = ProjectFields.CreatedAt()
     modified_at = ProjectFields.ModifiedAt()
 

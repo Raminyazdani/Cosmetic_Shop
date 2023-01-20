@@ -1,0 +1,2193 @@
+
+Id= {
+    "header": "",
+    "field_parent": "DefaultFields.BigAutos",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Id",
+    },
+    "deleters": [],
+    "body": r"""
+        kwargs["help_text"] = kwargs.get("help_text", _(f"Id of this {kwargs['class_name']} record"))
+        kwargs["verbose_name"] = kwargs.get("verbose_name", _(kwargs["class_name"] + "`s Id"))
+"""
+    }
+
+ObjectId= {
+    "header": "",
+    "field_parent": "DefaultFields.BigIntegers",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "ObjectId",
+    "default":None,
+    "null":True
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+IsActive= {
+    "header": "",
+    "field_parent": "DefaultFields.Booleans",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "IsActive",
+    "default": True,
+    "db_index": True,
+    },
+    "deleters": [],
+    "body": r"""
+        kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record available ?"))
+        kwargs["verbose_name"] = kwargs.get("verbose_name", _(kwargs['class_name'] + "`s availability"))
+
+"""
+    }
+
+IsAdmin= {
+    "header": "",
+    "field_parent": "DefaultFields.Booleans",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "IsAdmin",
+    "default": False,
+    "db_index": True,
+    },
+    "deleters": [],
+    "body": r"""
+        kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record has admin permissions ?"))
+        kwargs["verbose_name"] = kwargs.get("verbose_name", _("Is Admin"))
+"""
+    }
+
+
+IsAvailable= {
+    "header": "",
+    "field_parent": "DefaultFields.Booleans",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "IsAvailable",
+    "default": True,
+    "db_index": True,
+    },
+    "deleters": [],
+    "body": r"""
+        kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record available ?"))
+        kwargs["verbose_name"] = kwargs.get("verbose_name", _(kwargs['class_name'] + "`s availability"))
+
+"""
+    }
+
+IsCustomer= {
+    "header": "",
+    "field_parent": "DefaultFields.Booleans",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "IsCustomer",
+    "default": False,
+    "db_index": True,
+    },
+    "deleters": [],
+    "body": r"""
+        kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record has costumer profile ?"))
+        kwargs["verbose_name"] = kwargs.get("verbose_name", _("Is Costumer"))
+
+"""
+    }
+
+
+IsDefault= {
+    "header": "",
+    "field_parent": "DefaultFields.Booleans",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "IsDefault",
+    'default': False,
+    'db_index': True,
+    },
+    "deleters": [],
+    "body": r"""
+        kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record default? ?"))
+        kwargs["verbose_name"] = kwargs.get("verbose_name", _("Is Default"))
+
+"""
+    }
+
+IsDelete= {
+    "header": "",
+    "field_parent": "DefaultFields.Booleans",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "IsDelete",
+    'default': False,
+    'db_index': True,
+    },
+    "deleters": [],
+    "body": r"""
+        kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record has deleted ?"))
+        kwargs["verbose_name"] = kwargs.get("verbose_name", _("Is Delete"))
+
+"""
+    }
+
+IsMarket= {
+    "header": "",
+    "field_parent": "DefaultFields.Booleans",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "IsMarket",
+    "default": False,
+    "db_index": True,
+    },
+    "deleters": [],
+    "body": r"""
+        kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record has market profile ?"))
+        kwargs["verbose_name"] = kwargs.get("verbose_name", _("Is Market"))
+
+"""
+    }
+
+IsShippingFree= {
+    "header": "",
+    "field_parent": "DefaultFields.Booleans",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "IsShippingFree",
+    'default': False,
+    'db_index': True,
+    },
+    "deleters": [],
+    "body": r"""
+        kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record shiping free ?"))
+        kwargs["verbose_name"] = kwargs.get("verbose_name", _("Shipping free"))
+"""
+    }
+
+IsStaff= {
+    "header": "",
+    "field_parent": "DefaultFields.Booleans",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "IsStaff",
+    "default": False,
+    "db_index": True,
+    },
+    "deleters": [],
+    "body": r"""
+        kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record has staff permissions ?"))
+        kwargs["verbose_name"] = kwargs.get("verbose_name", _("Is Staff"))
+
+"""
+    }
+
+IsSuperUser= {
+    "header": "",
+    "field_parent": "DefaultFields.Booleans",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "IsSuperUser",
+    "default": False,
+    "db_index": True,
+    },
+    "deleters": [],
+    "body": r"""
+        kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record has super user permissions ?"))
+        kwargs["verbose_name"] = kwargs.get("verbose_name", _("Is Super User"))
+
+"""
+    }
+
+IsTaxFree= {
+    "header": "",
+    "field_parent": "DefaultFields.Booleans",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "IsTaxFree",
+    'default': False,
+    'db_index': True,
+    },
+    "deleters": [],
+    "body": r"""
+        kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record tax free ?"))
+        kwargs["verbose_name"] = kwargs.get("verbose_name", _("Tax Free"))
+"""
+    }
+
+
+IsUsed= {
+    "header": "",
+    "field_parent": "DefaultFields.Booleans",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "IsUsed",
+    'default': False,
+    'db_index': True,
+    },
+    "deleters": [],
+    "body": r"""
+        kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record used ?"))
+        kwargs["verbose_name"] = kwargs.get("verbose_name", _("Used"))
+"""
+    }
+
+IsVerified= {
+    "header": "",
+    "field_parent": "DefaultFields.Booleans",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "IsVerified",
+    'default': False,
+    'db_index': True,
+    },
+    "deleters": [],
+    "body": r"""
+        kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record verified ?"))
+        kwargs["verbose_name"] = kwargs.get("verbose_name", _("Verified"))
+"""
+    }
+
+AltText= {
+    "header": "",
+    "field_parent": "DefaultFields.Chars",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "AltText",
+    "blank": False,
+    "null": False,
+    "validators": CustomValidators.NameValidator,
+    },
+    "deleters": [],
+    "body": r"""
+"""
+    }
+
+CardNumber= {
+    "header": "",
+    "field_parent": "DefaultFields.Chars",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "CardNumber",
+    "max_length": 16,
+    "validators": CustomValidators.CardNumberValidator,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+City= {
+    "header": "",
+    "field_parent": "DefaultFields.Chars",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "City",
+    "validators": CustomValidators.CityValidator,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+Code= {
+    "header": "",
+    "field_parent": "DefaultFields.Chars",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Code",
+    "max_length": 36,
+    "validators": CustomValidators.CodeValidator,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+Coordinate= {
+    "header": "",
+    "field_parent": "DefaultFields.Chars",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Coordination",
+    "max_length":21,
+    "validators": CustomValidators.CoordinateValidator,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+Country= {
+    "header": "",
+    "field_parent": "DefaultFields.Chars",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Country",
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+Firstname= {
+    "header": "",
+    "field_parent": "DefaultFields.Chars",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Firstname",
+    "validators": CustomValidators.NameValidator,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+Key= {
+    "header": "",
+    "field_parent": "DefaultFields.Chars",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Key",
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+Lastname= {
+    "header": "",
+    "field_parent": "DefaultFields.Chars",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Lastname",
+    "validators": CustomValidators.NameValidator,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+Name= {
+    "header": "",
+    "field_parent": "DefaultFields.Chars",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Name",
+    "db_index": True,
+    "blank": False,
+    "null": False,
+    "unique": True,
+    "validators": CustomValidators.NameValidator,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+PhoneNumber= {
+    "header": "",
+    "field_parent": "DefaultFields.Chars",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "PhoneNumber",
+    "blank": False,
+    "db_index": True,
+    "max_length": 15,
+    "null": False,
+    "unique": True,
+    "validators": CustomValidators.PhoneValidator
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+PostalCode= {
+    "header": "",
+    "field_parent": "DefaultFields.Chars",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "PostalCode",
+    "validators": CustomValidators.PostalCodeValidator,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+Province= {
+    "header": "",
+    "field_parent": "DefaultFields.Chars",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Province",
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+Sheba= {
+    "header": "",
+    "field_parent": "DefaultFields.Chars",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Sheba",
+    "max_length": 26,
+    "validators": CustomValidators.ShebaValidator,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+ShortDescription= {
+    "header": "",
+    "field_parent": "DefaultFields.Chars",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "ShortDescription",
+    "blank": False,
+    "max_length": 100,
+    "null": False,
+    "validators": CustomValidators.ShortDescriptionValidator
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+Title= {
+    "header": "",
+    "field_parent": "DefaultFields.Chars",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Title",
+    "blank": False,
+    "null": False,
+    "max_length": 20,
+    "validators": CustomValidators.TitleValidator
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+
+UserName= {
+    "header": "",
+    "field_parent": "DefaultFields.Chars",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "UserName",
+    "unique": True,
+    "validators": CustomValidators.UserNameValidator
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+Value= {
+    "header": "",
+    "field_parent": "DefaultFields.Chars",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Value",
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+ContentType= {
+    "header": "",
+    "field_parent": "DefaultFields.ContentTypes",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "ContentType",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+
+CreatedAt= {
+    "header": "",
+    "field_parent": "DefaultFields.DateTimes",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "CreatedAt",
+    "blank": True,
+    "null": True,
+    "auto_now_add": True,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+DateClose= {
+    "header": "",
+    "field_parent": "DefaultFields.DateTimes",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "DateClose",
+    "blank": True,
+    "null": True,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+DateFrom= {
+    "header": "",
+    "field_parent": "DefaultFields.DateTimes",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "DateFrom",
+    "blank": True,
+    "null": True,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+DateOpen= {
+    "header": "",
+    "field_parent": "DefaultFields.DateTimes",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "DateOpen",
+    "blank": True,
+    "null": True,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+DateTo= {
+    "header": "",
+    "field_parent": "DefaultFields.DateTimes",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "DateTo",
+    "blank": True,
+    "null": True,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+ModifiedAt= {
+    "header": "",
+    "field_parent": "DefaultFields.DateTimes",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "ModifiedAt",
+    "blank": True,
+    "null": True,
+    "auto_now": True,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+Amount= {
+    "header": "",
+    "field_parent": "DefaultFields.Decimals",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Amount",
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+FinalPrice= {
+    "header": "",
+    "field_parent": "DefaultFields.Decimals",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "FinalPrice",
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+MaximumAmount= {
+    "header": "",
+    "field_parent": "DefaultFields.Decimals",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "MaximumAmount",
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+MinimumAmount= {
+    "header": "",
+    "field_parent": "DefaultFields.Decimals",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "MinimumAmount",
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+PriceDollar= {
+    "header": "",
+    "field_parent": "DefaultFields.Decimals",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "PriceDollar",
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+DiscountedPrice= {
+    "header": "",
+    "field_parent": "DefaultFields.Decimals",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "DiscountedPrice",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+Tax= {
+    "header": "",
+    "field_parent": "DefaultFields.Decimals",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Tax",
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+TotalPrice= {
+    "header": "",
+    "field_parent": "DefaultFields.Decimals",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "TotalPrice",
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+BigAutos= {
+    "header": "",
+    "field_parent": "Base,models.BigAutoField",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "BigAutos",
+    "primary_key": True,
+    "db_index": True,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+BigIntegers= {
+    "header": "",
+    "field_parent": "Base,models.BigIntegerField",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "BigIntegers",
+    'default': None,
+    'null': True,
+    'blank': True,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+Booleans= {
+    "header": "",
+    "field_parent": "Base,models.BooleanField",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Booleans",
+    "null": False,
+    "blank": False,
+    "default": False,
+    "db_index": False,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+Chars= {
+    "header": "",
+    "field_parent": "Base,models.CharField",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Chars",
+    "blank": True,
+    "db_index": False,
+    "max_length": 30,
+    "null": True,
+    "unique": False,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+ContentTypes= {
+    "header": "",
+    "field_parent": "Base,models.ForeignKey",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "ContentTypes",
+    "blank": True,
+    "db_index": True,
+    "default":None,
+    "null": True,
+    "on_delete": models.SET_NULL,
+    "related_name": CustomStringMaker.ContentType.related_name_gen,
+    "to": "ContentType",
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+DateTimes= {
+    "header": "",
+    "field_parent": "Base,models.DateTimeField",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "DateTimes",
+    "blank": False,
+    "null": False,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+
+Decimals= {
+    "header": "",
+    "field_parent": "Base,models.DecimalField",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Decimals",
+    "blank": False,
+    "db_index": True,
+    "decimal_places": 2,
+    "default": 0.0,
+    "max_digits": 10,
+    "null": False,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+Emails= {
+    "header": "",
+    "field_parent": "Base,models.EmailField",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Emails",
+    'null': True,
+    'blank': True,  #
+    "validator": CustomValidators.EmailValidator,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+FilePaths= {
+    "header": "",
+    "field_parent": "Base,models.FilePathField",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "FilePaths",
+    "path": CustomStringMaker.FilePath.path_gen,
+    "recursive": True,
+    "match": None,
+    "allow_files": True,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+Files= {
+    "header": "",
+    "field_parent": "Base,models.FileField",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Files",
+    "upload_to": CustomStringMaker.File.upload_to_gen,
+    "recursive": True,
+    "match": None,
+    "allow_files": True,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+ForeignKeys= {
+    "header": "",
+    "field_parent": "Base,models.ForeignKey",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "ForeignKeys",
+    "blank": True,
+    "db_index": True,
+    "null": True,
+    "on_delete": models.SET_NULL,
+    "related_name": CustomStringMaker.ForeignKey.related_name_gen,
+    "to": CustomStringMaker.ForeignKey.to_gen,
+    },
+    "deleters": ["app_name_destination", "app_name_model_destination"],
+    "body": r"""
+
+"""
+    }
+
+GenericForeignKeys= {
+    "header": "",
+    "field_parent": "Base,fields.GenericForeignKey",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "GenericForeignKeys",
+    "ct_field": "content_type",
+    "fk_field": "object_id",
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+GenericRelations= {
+    "header": "",
+    "field_parent": "Base,fields.GenericRelation",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "GenericRelations",
+    "to": CustomStringMaker.ForeignKey.to_gen,
+    "content_type_field": "content_type",
+    "object_id_field": "object_id",
+    "related_query_name": CustomStringMaker.ForeignKey.related_name_gen,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+ManyToManys= {
+    "header": "",
+    "field_parent": "Base,models.ManyToManyField",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "ManyToManys",
+    "blank": True,
+    "db_index": True,
+    "to": CustomStringMaker.ManyToMany.to_gen,
+    "related_name": CustomStringMaker.ManyToMany.related_name_gen,
+    "through": CustomStringMaker.ManyToMany.through_gen,
+    "through_fields": CustomStringMaker.ManyToMany.through_fields_gen,
+    },
+    "deleters":  ["app_name_destination", "app_name_model_destination", "app_super_model"],
+    "body": r"""
+
+"""
+    }
+
+MultiSelects= {
+    "header": "",
+    "field_parent": "Base,MultiSelectField",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "MultiSelects",
+    "choices": None,
+    "max_choices": None,
+    "max_length": None,
+    "min_choices": None,
+    "null": True,
+    "blank": True,
+    "db_index": True,
+    "default": None,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+OneToOnes= {
+    "header": "",
+    "field_parent": "Base,models.OneToOneField",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "OneToOnes",
+    "blank": True,
+    "db_index": True,
+    "null": True,
+    "on_delete": models.SET_NULL,
+    "related_name": CustomStringMaker.ForeignKey.related_name_gen,
+    "to": CustomStringMaker.ForeignKey.to_gen,
+    },
+    "deleters": ["app_name_destination", "app_name_model_destination"],
+    "body": r"""
+
+"""
+    }
+
+PositiveIntegers= {
+    "header": "",
+    "field_parent": "Base,models.PositiveIntegerField",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "PositiveIntegers",
+    "db_index": False,
+    "null": False,
+    "blank": False,
+    "default": 0,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+Slugs= {
+    "header": "",
+    "field_parent": "Base,models.SlugField",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Slugs",
+    "blank": True,
+    "db_index": True,
+    "max_length": 100,
+    "null": True,
+    "unique": True,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+
+Texts= {
+    "header": "",
+    "field_parent": "Base,models.TextField",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Texts",
+    "blank": True,
+    "null": True,
+    "max_length": 1000,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+
+Times= {
+    "header": "",
+    "field_parent": "Base,models.TimeField",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Times",
+    'null': True,
+    "blank": True
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+Email= {
+    "header": "",
+    "field_parent": "DefaultFields.Emails",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Email",
+    'null': True,
+    'blank': True,  #
+    "validator": CustomValidators.EmailValidator,
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+PathOriginal= {
+    "header": "",
+    "field_parent": "DefaultFields.FilePaths",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "PathOriginal",
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+PathThumbnail= {
+    "header": "",
+    "field_parent": "DefaultFields.FilePaths",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "PathThumbnail",
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+Image= {
+    "header": "",
+    "field_parent": "DefaultFields.Files",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Image",
+    },
+    "deleters": [],
+    "body": r"""
+
+"""
+    }
+
+BrandForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Brand",
+    "app_name_destination": "Products",
+    "app_name_model_destination": "Brand",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+CartForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Cart",
+    "app_name_destination": "Customers",
+    "app_name_model_destination": "Cart",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+CartItemForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "CartItem",
+    "app_name_destination": "Customers",
+    "app_name_model_destination": "CartItem",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+CategoryForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Category",
+    "app_name_destination": "Products",
+    "app_name_model_destination": "Category",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+CommentForeignKey {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Comment",
+    "app_name_destination": "Products",
+    "app_name_model_destination": "Comment",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+CouponForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Coupon",
+    "app_name_destination": "Shops",
+    "app_name_model_destination": "Coupon",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+CouponCustomerCouponForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "CouponCustomerCoupon",
+    "app_name_destination": "Customers",
+    "app_name_model_destination": "CustomerCoupon",
+    "to_field": "Coupon",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+CustomerForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Customer",
+    "app_name_destination": "Customers",
+    "app_name_model_destination": "Customer",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+DiscountForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Discount",
+    "app_name_destination": "Shops",
+    "app_name_model_destination": "Discount",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+FavoriteForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Favorite",
+    "app_name_destination": "Customers",
+    "app_name_model_destination": "Favorite",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+FavoriteItemForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "FavoriteItem",
+    "app_name_destination": "Customers",
+    "app_name_model_destination": "FavoriteItem",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+GalleryForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Gallery",
+    "app_name_destination": "Shops",
+    "app_name_model_destination": "Gallery",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+ImageForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Image",
+    "app_name_destination": "Shops",
+    "app_name_model_destination": "Image",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+InventoryForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Inventory",
+    "app_name_destination": "Markets",
+    "app_name_model_destination": "Inventory",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+InventoryItemForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "InventoryItem",
+    "app_name_destination": "Markets",
+    "app_name_model_destination": "InventoryItem",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+MarketForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Market",
+    "app_name_destination": "Markets",
+    "app_name_model_destination": "Market",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+OrderForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Order",
+    "app_name_destination": "Shops",
+    "app_name_model_destination": "Order",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+OrderCustomerForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "OrderCustomer",
+    "app_name_destination": "Customers",
+    "app_name_model_destination": "OrderCustomer",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+OrderItemForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "OrderItem",
+    "app_name_destination": "Shops",
+    "app_name_model_destination": "OrderItem",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+OrderMarketForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "OrderMarket",
+    "app_name_destination": "Markets",
+    "app_name_model_destination": "OrderMarket",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+ParentForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Parent",
+    "related_name": "childes",
+    "to": "self",
+    "app_name_destination": "?",
+    "app_name_model_destination": "?",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+ProductForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Product",
+    "app_name_destination": "Products",
+    "app_name_model_destination": "Product",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+PropertyForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Property",
+    "app_name_destination": "Markets",
+    "app_name_model_destination": "Property",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+ShipmentForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Shipment",
+    "app_name_destination": "Shops",
+    "app_name_model_destination": "Shipment",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+TagForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Tag",
+    "app_name_destination": "Products",
+    "app_name_model_destination": "Tag",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+UserForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "User",
+    "app_name_destination": "Users",
+    "app_name_model_destination": "User",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+WishListForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "WishList",
+    "app_name_destination": "Customers",
+    "app_name_model_destination": "WishList",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+WishListItemForeignKey= {
+    "header": "",
+    "field_parent": "DefaultFields.ForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "WishListItem",
+    "app_name_destination": "Customers",
+    "app_name_model_destination": "WishListItem",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+Object= {
+    "header": "",
+    "field_parent": "DefaultFields.GenericForeignKeys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Object",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+
+AddressGenericRelation= {
+    "header": "",
+    "field_parent": "DefaultFields.GenericRelations",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Address",
+    "related_query_name": "owner",
+    "app_name_destination": "Shops",
+    "app_name_model_destination": "Address",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+GalleryGenericRelation= {
+    "header": "",
+    "field_parent": "DefaultFields.GenericRelations",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Gallery",
+    "related_query_name": "owner",
+    "app_name_destination": "Shops",
+    "app_name_model_destination": "Gallery",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+WalletGenericRelation= {
+    "header": "",
+    "field_parent": "DefaultFields.GenericRelations",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Wallet",
+    "related_query_name": "owner",
+    "app_name_destination": "Shops",
+    "app_name_model_destination": "Wallet",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+PaymentGenericRelation= {
+    "header": "",
+    "field_parent": "DefaultFields.GenericRelations",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Payment",
+    "related_query_name": "order",
+    "app_name_destination": "Shops",
+    "app_name_model_destination": "Payment",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+BrandManyToMany= {
+    "header": "",
+    "field_parent": "DefaultFields.ManyToManys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Brand",
+    "app_name_destination": "Products",
+    "app_name_model_destination": "Brand",
+    "app_super_model": "Product"
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+CategoryManyToMany= {
+    "header": "",
+    "field_parent": "DefaultFields.ManyToManys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Category",
+    "app_name_destination": "Products",
+    "app_name_model_destination": "Category",
+    "app_super_model": "Product"
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+CouponManyToMany= {
+    "header": "",
+    "field_parent": "DefaultFields.ManyToManys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Coupon",
+    "app_name_destination": "Customers",
+    "app_name_model_destination": "Coupon",
+    "app_super_model": "Customer"
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+CustomerManyToMany= {
+    "header": "",
+    "field_parent": "DefaultFields.ManyToManys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Customer",
+    "app_name_destination": "Customers",
+    "app_name_model_destination": "Customer",
+    "app_super_model": "Customer"
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+GalleryManyToMany= {
+    "header": "",
+    "field_parent": "DefaultFields.ManyToManys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Gallery",
+    "app_name_destination": "Shops",
+    "app_name_model_destination": "Gallery",
+    "app_super_model": "Gallery"
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+ImageManyToMany= {
+    "header": "",
+    "field_parent": "DefaultFields.ManyToManys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Image",
+    "app_name_destination": "Shops",
+    "app_name_model_destination": "Image",
+    "app_super_model": "Gallery"
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+InventoryItemManyToMany= {
+    "header": "",
+    "field_parent": "DefaultFields.ManyToManys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "InventoryItem",
+    "app_name_destination": "Markets",
+    "app_name_model_destination": "InventoryItem",
+    "app_super_model": "InventoryItem"
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+ProductManyToMany= {
+    "header": "",
+    "field_parent": "DefaultFields.ManyToManys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Product",
+    "app_name_destination": "Products",
+    "app_name_model_destination": "Product",
+    "app_super_model": "Product"
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+
+PropertyManyToMany= {
+    "header": "",
+    "field_parent": "DefaultFields.ManyToManys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Property",
+    "app_name_destination": "Markets",
+    "app_name_model_destination": "Property",
+    "app_super_model": "InventoryItem"
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+TagManyToMany= {
+    "header": "",
+    "field_parent": "DefaultFields.ManyToManys",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Tag",
+    "app_name_destination": "Products",
+    "app_name_model_destination": "Tag",
+    "app_super_model": "Product"
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+WeekDays= {
+    "header": r"""
+    Saturday = 0
+    Sunday = 1
+    Monday = 2
+    Tuesday = 3
+    Wednesday = 4
+    Thursday = 5
+    Friday = 6
+    WEEKDAYS_CHOICES = (
+        (Saturday, 'Saturday'),
+        (Sunday, 'Sunday'),
+        (Monday, 'Monday'),
+        (Tuesday, 'Tuesday'),
+        (Wednesday, 'Wednesday'),
+        (Thursday, 'Thursday'),
+        (Friday, 'Friday'),
+    )
+    """,
+    "field_parent": "DefaultFields.MultiSelects",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "WeekDays",
+    "choices": "WEEKDAYS_CHOICES",
+    "default": "[]",
+    "null": "True",
+    "blank": "True"
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+CouponType= {
+    "header": r"""
+    PERCENT = 0
+    AMOUNT = 1
+    COUPON_TYPE_CHOICES = (
+        (PERCENT, 'Percent'),
+        (AMOUNT, 'Amount'),
+    )
+    """,
+    "field_parent": "DefaultFields.PositiveIntegers",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "CouponType",
+    "choices": COUPON_TYPE_CHOICES,
+    "db_index": True,
+    "default": PERCENT,
+    "validators": CustomValidators.CouponTypeValidator
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+DiscountType= {
+    "header": r"""
+    PERCENT = 0
+    AMOUNT = 1
+    DISCOUNT_TYPE_CHOICES = (
+        (PERCENT, 'Percent'),
+        (AMOUNT, 'Amount'),
+    )
+    """,
+    "field_parent": "DefaultFields.PositiveIntegers",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "DiscountType",
+    "choices": DISCOUNT_TYPE_CHOICES,
+    "db_index": True,
+    "default": PERCENT,
+    "validators": CustomValidators.DiscountTypeValidator
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+Gender= {
+    "header": r"""
+    UNISEX = 0
+    MALE = 1
+    FEMALE = 2
+    GENDER_CHOICES = ((UNISEX, _("Gender free")), (MALE, _("For men")), (FEMALE, _("For women")),)
+    """,
+    "field_parent": "DefaultFields.PositiveIntegers",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Gender",
+    "choices": GENDER_CHOICES,
+    "db_index": True,
+    "default": UNISEX,
+    "validators": CustomValidators.GenderValidator
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+PaymentType= {
+    "header": r"""
+    ONLINE = 0
+    ATPLACCE = 1
+    PAYMENT_TYPE_CHOICES = (
+        (ONLINE, 'Online'),
+        (ATPLACCE, 'At Place'),
+    )
+    """,
+    "field_parent": "DefaultFields.PositiveIntegers",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "PaymentType",
+    "choices": PAYMENT_TYPE_CHOICES,
+    "db_index": True,
+    "default": ONLINE,
+    "validators": CustomValidators.PaymentTypeValidator
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+Percentage= {
+    "header": "",
+    "field_parent": "DefaultFields.PositiveIntegers",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Percentage",
+    "db_index": True,
+    "validators": CustomValidators.PercentageValidator
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+Quantity= {
+    "header": "",
+    "field_parent": "DefaultFields.PositiveIntegers",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Quantity",
+    "db_index": True,
+    "validators": CustomValidators.QuantityValidator
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+Rating= {
+    "header": "",
+    "field_parent": "DefaultFields.PositiveIntegers",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Rating",
+    "db_index": True,
+    "validators": CustomValidators.RatingValidator
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+ShipmentType= {
+    "header": r"""
+    FAST = 0
+    NORMAL = 1
+    SHIPMENT_TYPE_CHOICES = (
+        (FAST, 'Fast'),
+        (NORMAL, 'Normal'),
+    )
+    """,
+    "field_parent": "DefaultFields.PositiveIntegers",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "ShipmentType",
+    "choices": SHIPMENT_TYPE_CHOICES,
+    "db_index": True,
+    "default": FAST,
+    "validators": CustomValidators.ShipmentTypeValidator
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+StatusOrder= {
+    "header": r"""
+    PENDING = 0
+    CANCEL = 1
+    DONE = 2
+    STATUS_ORDER_CHOICES = (
+        (PENDING, 'Pending'),
+        (CANCEL, 'Cancel'),
+        (DONE, 'Done'),
+    )
+    """,
+    "field_parent": "DefaultFields.PositiveIntegers",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "StatusOrder",
+    "choices": STATUS_ORDER_CHOICES,
+    "db_index": True,
+    "default": PENDING,
+    "validators": CustomValidators.StatusOrderValidator
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+StatusPayment= {
+    "header": r"""
+    PENDING = 0
+    CANCEL = 1
+    PAID = 2
+    STATUS_PAYMENT_CHOICES = (
+        (PENDING, 'Pending'),
+        (CANCEL, 'Cancel'),
+        (PAID, 'Paid'),
+    )
+    """,
+    "field_parent": "DefaultFields.PositiveIntegers",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "StatusPayment",
+    "choices": STATUS_PAYMENT_CHOICES,
+    "db_index": True,
+    "default": PENDING,
+    "validators": CustomValidators.StatusPaymentValidator
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+StatusShipment= {
+    "header": r"""
+    PENDING = 0
+    CANCEL = 1
+    DONE = 2
+    STATUS_SHIPMENT_CHOICES = (
+        (PENDING, 'Pending'),
+        (CANCEL, 'Cancel'),
+        (DONE, 'Done'),
+    )
+    """,
+    "field_parent": "DefaultFields.PositiveIntegers",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "StatusShipment",
+    "choices": STATUS_SHIPMENT_CHOICES,
+    "db_index": True,
+    "default": PENDING,
+    "validators": CustomValidators.StatusShipmentValidator
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+Slug= {
+    "header": "",
+    "field_parent": "DefaultFields.Slugs",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Slug",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+AddressLine= {
+    "header": "",
+    "field_parent": "DefaultFields.Texts",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "AddressLine",
+    "max_length": 500,
+    "validators": CustomValidators.AddressValidator
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+Bio= {
+    "header": "",
+    "field_parent": "DefaultFields.Texts",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "BioField",
+    "default": "My Bio",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+Body= {
+    "header": "",
+    "field_parent": "DefaultFields.Texts",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Body",
+    "blank": False,
+    "max_length": 250,
+    "null": False,
+    "validators": CustomValidators.BodyValidator
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+Description= {
+    "header": "",
+    "field_parent": "DefaultFields.Texts",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "Description",
+    "validators": CustomValidators.DescriptionValidator
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+TimeClose= {
+    "header": "",
+    "field_parent": "DefaultFields.Times",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "TimeClose",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+TimeFrom= {
+    "header": "",
+    "field_parent": "DefaultFields.Times",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "TimeFrom",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+TimeOpen= {
+    "header": "",
+    "field_parent": "DefaultFields.Times",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "TimeOpen",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}
+
+TimeTo= {
+    "header": "",
+    "field_parent": "DefaultFields.Times",
+    "field_class_custom_default_attrs": {
+    "class_name": "Model",
+    "field_name": "TimeTo",
+    },
+    "deleters": [],
+    "body": """
+
+"""
+}

@@ -2,7 +2,6 @@ from django.utils.translation import gettext_lazy as _
 
 from Core.ProjectMixins.Apps.Products_Mixins import ModelRequiredProperties
 # Create your models here.
-from Core.fields import ProjectFields
 
 # Core import
 # Create your models here.
@@ -15,10 +14,10 @@ class Product(ModelRequiredProperties.ProductMixin,CoreModelUniversal ):
     """
     # """ Fields   """
     name = ProjectFields.Name(class_name = "Product")
-    comment = ProjectFields.ForeignKeyComment(class_name = "Product")
-    category = ProjectFields.ManyToManyCategory(class_name = "Product")
-    tag = ProjectFields.ManyToManyTag(class_name = "Product")
-    brand = ProjectFields.ManyToManyBrand(class_name = "Product")
+    comment = ProjectFields.CommentForeignKey(class_name = "Product")
+    category = ProjectFields.CategoryManyToMany(class_name = "Product")
+    tag = ProjectFields.TagManyToMany(class_name = "Product")
+    brand = ProjectFields.BrandManyToMany(class_name = "Product")
 
     # GalleryField
     #   gallery = ProjectField.CustomGalleryField(class_name"Product")
@@ -42,8 +41,8 @@ class Category(ModelRequiredProperties.CategoryMixin,CoreModelUniversal):
     """
     # """ Fields   """
     name = ProjectFields.Name(class_name = "Category")
-    parent = ProjectFields.ForeignKeyCategoryParent(class_name = "Category")
-    product = ProjectFields.ManyToManyProduct(class_name = "Category")
+    parent = ProjectFields.ParentForeignKey(class_name = "Category")
+    product = ProjectFields.ProductManyToMany(class_name = "Category")
 
     # slug field populated by name field of parent and self
     slug = ProjectFields.Slug(class_name = "Category")
@@ -67,7 +66,7 @@ class Brand(ModelRequiredProperties.BrandMixin,CoreModelUniversal):
     """
     # """ Fields   """
     name = ProjectFields.Name(class_name = "Brand")
-    product = ProjectFields.ManyToManyProduct(class_name = "Brand")
+    product = ProjectFields.ProductManyToMany(class_name = "Brand")
 
     # slug field populated by name field
     slug = ProjectFields.Slug(class_name = "Brand")
@@ -89,7 +88,7 @@ class Tag(ModelRequiredProperties.TagMixin,CoreModelUniversal):
     # """ Fields   """
     name = ProjectFields.Name(class_name = "Tag")
     slug = ProjectFields.Slug(class_name = "Tag")
-    product = ProjectFields.ManyToManyProduct(class_name = "Tag")
+    product = ProjectFields.ProductManyToMany(class_name = "Tag")
 
     # GalleryField
     #   gallery = ProjectField.CustomGalleryField("Product")
@@ -104,8 +103,8 @@ class Comment(ModelRequiredProperties.CommentMixin,CoreModelUniversal):
     Comment Model
     """
     # """ Fields   """
-    author = ProjectFields.ForeignKeyUser(class_name = "Comment", verbose_name = _('Author'), help_text = _('Author id'), related_name = 'comments_author')
-    product = ProjectFields.ForeignKeyProduct(class_name = "Comment")
+    author = ProjectFields.UserForeignKey(class_name = "Comment", verbose_name = _('Author'), help_text = _('Author id'), related_name = 'comments_author')
+    product = ProjectFields.ProductForeignKey(class_name = "Comment")
     title = ProjectFields.Title(class_name = "Comment")
     body = ProjectFields.Body(class_name = "Comment")
     rating = ProjectFields.Rating(class_name = "Comment")
@@ -127,8 +126,8 @@ class ProductTag(ModelRequiredProperties.ProductTagMixin,CoreModelUniversal):
     ProductTag Model as a many to many relationship between Product and Tag
     """
     # """ Fields   """
-    product_id = ProjectFields.ForeignKeyProduct(class_name = "ProductTag")
-    tag_id = ProjectFields.ForeignKeyTag(class_name = "ProductTag")
+    product_id = ProjectFields.ProductForeignKey(class_name = "ProductTag")
+    tag_id = ProjectFields.TagForeignKey(class_name = "ProductTag")
 
     class Meta:
         verbose_name = _('Product Tag')
@@ -139,8 +138,8 @@ class ProductCategory(ModelRequiredProperties.ProductCategoryMixin,CoreModelUniv
     ProductCategory Model as a many to many relationship between Product and Category
     """
     # """ Fields   """
-    product_id = ProjectFields.ForeignKeyProduct(class_name = "ProductCategory")
-    category_id = ProjectFields.ForeignKeyCategory(class_name = "ProductCategory")
+    product_id = ProjectFields.ProductForeignKey(class_name = "ProductCategory")
+    category_id = ProjectFields.CategoryForeignKey(class_name = "ProductCategory")
 
     class Meta:
         verbose_name = _('Product Category')
@@ -151,8 +150,8 @@ class ProductBrand(ModelRequiredProperties.ProductBrandMixin,CoreModelUniversal)
     ProductBrand Model as a many to many relationship between Product and Brand
     """
     # """ Fields   """
-    product_id = ProjectFields.ForeignKeyProduct(class_name = "ProductBrand")
-    brand_id = ProjectFields.ForeignKeyBrand(class_name = "ProductBrand")
+    product_id = ProjectFields.ProductForeignKey(class_name = "ProductBrand")
+    brand_id = ProjectFields.BrandForeignKey(class_name = "ProductBrand")
 
     class Meta:
         verbose_name = _('Product Brand')
