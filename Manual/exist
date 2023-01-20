@@ -1,0 +1,217 @@
+BooleanABC
+    IsAvailable
+    IsActive
+    IsDeleted
+    IsCustomer
+    IsMarket
+    IsStaff
+    IsAdmin
+    IsSuperUser
+    IsVerified
+
+    #new
+    IsCostumer
+    IsDefault
+    IsDelete
+    IsOnine
+    IsSuperuser
+    IsUsed
+    IsShippingFree
+    IsTaxFree
+    *Weekday
+        Saturday
+        Sunday
+        Monday
+        Tuesday
+        Wednesday
+        Thursday
+        Friday
+
+
+TextABC
+    Description
+    Body
+
+    #new
+    AddressLine
+    Bio
+
+
+
+SlugABC
+    Slug
+
+    #new
+
+
+
+
+PositiveIntegerABC
+    Gender
+    Rating
+
+    #new
+    CouponType
+    DiscountType
+    PaymentType
+    Percentage
+    Quantity
+    ShipmentMethod
+    StatusShipment
+    StatusPayment
+    StatusOrder
+
+CharABC
+    Name
+    Title
+    ShortDescription
+    PhoneNumber
+
+    #new
+    AltText
+    CardNumber
+    City
+    Code
+    Coordination
+    Country
+    DepositNumber
+    Firstname
+    Lastname
+    Key
+    Value
+    PostalCode
+    Province
+    Sheba
+    UserName
+    Value
+
+ManyToManyABC
+    ManyToManyCategory
+    ManyToManyTag
+    ManyToManyBrand
+    ManyToManyProduct
+
+    #new
+    ManyToManyCoupon            :M:CustomerCoupon:
+    ManyToManyCustomer          :M:CustomerCoupon
+    ManyToManyGallery           :M:GalleryaImage
+    ManyToManyImage             :M:GalleryImage
+    ManyToManyInventoryItem     :M:InventoryProductProperty
+    ManyToManyOrderItem         :M:OrderItem
+    ManyToManyProduct           :M:InventoryProductProperty
+
+
+
+
+BigAutoABC
+    Id
+
+    #new
+
+
+
+
+ForeignKeyABC
+    ForeignKeySelf
+    ForeignKeyCategory
+    ForeignKeyTag
+    ForeignKeyBrand
+    ForeignKeyProduct
+    ForeignKeyComment
+    ForeignKeyCategoryParent
+    ForeignKeyUser
+
+    #new
+    ForeignKeyAddress
+    ForeignKeyCart
+    ForeignKeyCartItem
+    ForeignKeyComment
+    ForeignKeyCustomerCoupon
+    ForeignKeyCouponList
+    ForeignKeyCustomer
+    ForeignKeyCustomer
+    ForeignKeyOrderCustomer
+    ForeignKeyFavoriteItem
+    ForeignKeyFavorite
+    ForeignKeyGallery
+    ForeignKeyImage
+    ForeignKeyInventory
+    ForeignKeyInventoryItem
+    ForeignKeyInventoryProperty
+    ForeignKeyMarket
+    ForeignKeyOrderMarket
+    ForeignKeyOrder
+    ForeignKeyOrderItem
+    ForeignKeyOwner
+    ForeignKeyPayment
+    ForeignKeyProduct
+    ForeignKeyProperty
+    ForeignKeyShipment
+    ForeignKeyShipmentItem
+    ForeignKeyWallet
+    ForeignKeyWishListItem
+    ForeignKeyWishlist
+    ForeignKeyProperty
+  
+
+DecimalABC
+    PriceDollar
+    
+    
+    #new
+    Amount
+    TotalPrice
+    FinalPrice
+    MaximumAmount
+    MinimumAmount
+    Tax
+
+
+DateTimeABC
+    CreatedAt
+    ModifiedAt
+
+    #new
+    DateOpen
+    DateClose
+    DateFrom
+    DateTo
+
+# new TimeABC
+    TimeTo
+    TimeFrom
+    TimeOpen
+    TimeClose
+
+
+
+# new OneToOneABC
+    OneToOneCostumer
+    OneToOneInventory
+    OneToOneInventoryProperty
+    OneToOneMarket
+    OneToOneUser
+    OneToOneWallet
+    OneToOneWeekDayInventory
+
+
+# new EmailABC
+    Email
+
+#foreign key
+    #contenttype
+#Bigintegerfield
+    #objectid
+#GenericForeighKey
+    #object
+
+#GenericRelation
+    #Gallery
+    #OrderItem
+    #Owner
+    #Payment
+
+# new FilePathABC
+    PathOriginal
+    PathThumbnail
+

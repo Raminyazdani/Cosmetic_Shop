@@ -32,7 +32,7 @@ class {Model.capitalize()}(ModelRequiredProperties.{Model.capitalize()}Mixin,Cor
     Product Model.capitalize()
     \"\"\"
     # \"\"\" Fields   \"\"\"
-    name = ProjectFields.CustomNameField(class_name = "{Model.capitalize()}")
+
 
     # required options
 

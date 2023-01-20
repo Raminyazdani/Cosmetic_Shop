@@ -1,0 +1,155 @@
+BigAutos
+    Id
+
+BigIntegers
+    ObjectId
+
+Booleans
+    IsActive
+    IsAdmin
+    IsAvailable
+    IsCustomer
+    IsDefault
+    IsDelete
+    IsMarket
+    IsShippingFree
+    IsStaff
+    IsSuperUser
+    IsTaxFree
+    IsUsed
+    IsVerified
+
+Chars
+    AltText
+    CardNumber
+    City
+    Code
+    Coordinate
+    Country
+    Firstname
+    Key
+    Lastname
+    Name
+    PhoneNumber
+    PostalCode
+    Province
+    Sheba
+    ShortDescription
+    Title
+    UserName
+    Value
+
+ContentTypes
+    ContentType:related_name_class_model
+
+DateTimes
+    CreatedAt
+    DateClose
+    DateFrom
+    DateOpen
+    DateTo
+    ModifiedAt
+
+Decimals
+    Amount
+    FinalPrice
+    MaximumAmount
+    MinimumAmount
+    PriceDollar
+    DiscountedPrice
+    Tax
+    TotalPrice
+
+Emails
+    Email
+
+FilePaths
+    PathOriginal
+    PathThumbnail
+
+Files
+    Image
+
+
+ForeignKeys
+    Brand:Brand
+    Cart:Cart
+    CartItem:CartItem
+    Category:Category
+    Comment:Comment
+    Coupon:Coupon
+    Coupon:CustomerCoupon
+    Customer:Customer
+    Discount:Discount
+    Favorite:Favorite
+    FavoriteItem:FavoriteItem
+    Gallery:Gallery
+    Image:Image
+    Inventory:Inventory
+    InventoryItem:InventoryItem
+    Market:Market
+    Order:Order
+    OrderCustomer:OrderCustomer
+    OrderItem:OrderItem
+    OrderMarket:OrderMarket
+    Parent:Self
+    Product:Product
+    Property:Property
+    Shipment:Shipment
+    Tag:Tag
+    User:User
+    WishList:WishList
+    WishListItem:WishListItem
+
+GenericForeignKeys
+    Object
+
+GenericRelations
+    Gallery:related_class_name
+    Address:related_class_name
+    Payment:related_class_name
+    Wallet:related_class_name
+
+ManyToManys
+    Brand:ProductBrand
+    Category:ProductCategory
+    Copun:CustomerCoupon
+    Customer:CustomerCoupon
+    Gallery:GalleryImage
+    Image:GalleryImage
+    InventoryItem:InventoryItemProperty
+    Product:ProductBrand
+    Property:InventoryItemProperty
+    Tag:ProductTag:Manytomany
+
+MultiSelects
+    WeekDays
+
+
+PositiveIntegers
+    CouponType
+    DiscountType
+    Gender
+    PaymentType
+    Percentage
+    Quantity
+    Rating
+    ShipmentType
+    StatusOrder
+    StatusPayment
+    StatusShipment
+
+Slugs
+    Slug
+
+Texts
+    AddressLine
+    Bio
+    Body
+    Description
+
+Times
+    TimeClose
+    TimeFrom
+    TimeOpen
+    TimeTo
