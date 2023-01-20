@@ -18,7 +18,7 @@ class MODEL_NAME(ModelRequiredProperties.MODEL_NAMEMixin,CoreModelUniversal ):
     Product Model
     """
     # """ Fields   """
-    name = ProjectFields.CustomNameField(class_name = "MODEL_NAME")
+    name = ProjectFields.Name(class_name = "MODEL_NAME")
 
     # required options
 

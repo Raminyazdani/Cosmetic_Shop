@@ -1,9 +1,8 @@
+
 from Core.ProjectMixins import Base
 from Core.models import CoreModel
 from . import ModelForeigns, ModelProperty
 
-# MODELNAME
-# MODELNAMEEXTRA
 
 class AddressMixin(  # METHODS
         Base.Save.SaveName,  # save methods
@@ -12,17 +11,17 @@ class AddressMixin(  # METHODS
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties AddressEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
     class Meta:
         abstract = True
 
     """
-    Products.Tag Mixin
+    Shops.Address Mixin
     """
-    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.Address
-    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.Address
+    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.ADDRESS
+    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.ADDRESS
 
 
 class CouponMixin(  # METHODS
@@ -32,19 +31,18 @@ class CouponMixin(  # METHODS
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties CouponEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
     class Meta:
         abstract = True
 
     """
-    Products.Tag Mixin
+    Shops.Coupon Mixin
     """
-    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.Coupon
-    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.Coupon
+    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.COUPON
+    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.COUPON
 
-# Discount
 
 class DiscountMixin(  # METHODS
         Base.Save.SaveName,  # save methods
@@ -53,19 +51,18 @@ class DiscountMixin(  # METHODS
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties DiscountEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
     class Meta:
         abstract = True
 
     """
-    Products.Tag Mixin
+    Shops.Discount Mixin
     """
-    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.Discount
-    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.Discount
+    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.DISCOUNT
+    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.DISCOUNT
 
-# Gallery
 
 class GalleryMixin(  # METHODS
         Base.Save.SaveName,  # save methods
@@ -74,19 +71,18 @@ class GalleryMixin(  # METHODS
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties GalleryEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
     class Meta:
         abstract = True
 
     """
-    Products.Tag Mixin
+    Shops.Gallery Mixin
     """
-    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.Gallery
-    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.Gallery
+    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.GALLERY
+    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.GALLERY
 
-# Image
 
 class ImageMixin(  # METHODS
         Base.Save.SaveName,  # save methods
@@ -95,19 +91,38 @@ class ImageMixin(  # METHODS
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties ImageEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
     class Meta:
         abstract = True
 
     """
-    Products.Tag Mixin
+    Shops.Image Mixin
     """
-    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.Image
-    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.Image
+    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.IMAGE
+    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.IMAGE
 
-# Order
+
+class GalleryimageMixin(  # METHODS
+        Base.Save.SaveName,  # save methods
+        # def str and get_absolute_url
+        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # property Counts
+        # PROPERTIES
+        # COUNTS
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
+        # NAMES
+        ):
+    class Meta:
+        abstract = True
+
+    """
+    Shops.Galleryimage Mixin
+    """
+    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.GALLERYIMAGE
+    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.GALLERYIMAGE
+
 
 class OrderMixin(  # METHODS
         Base.Save.SaveName,  # save methods
@@ -116,40 +131,38 @@ class OrderMixin(  # METHODS
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties OrderEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
     class Meta:
         abstract = True
 
     """
-    Products.Tag Mixin
+    Shops.Order Mixin
     """
-    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.Order
-    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.Order
+    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.ORDER
+    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.ORDER
 
-# OrderItem
 
-class OrderItemMixin(  # METHODS
+class OrderitemMixin(  # METHODS
         Base.Save.SaveName,  # save methods
         # def str and get_absolute_url
         Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties OrderItemEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
     class Meta:
         abstract = True
 
     """
-    Products.Tag Mixin
+    Shops.Orderitem Mixin
     """
-    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.OrderItem
-    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.OrderItem
+    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.ORDERITEM
+    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.ORDERITEM
 
-# Payment
 
 class PaymentMixin(  # METHODS
         Base.Save.SaveName,  # save methods
@@ -158,19 +171,18 @@ class PaymentMixin(  # METHODS
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties PaymentEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
     class Meta:
         abstract = True
 
     """
-    Products.Tag Mixin
+    Shops.Payment Mixin
     """
-    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.Payment
-    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.Payment
+    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.PAYMENT
+    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.PAYMENT
 
-# Wallet
 
 class WalletMixin(  # METHODS
         Base.Save.SaveName,  # save methods
@@ -179,19 +191,18 @@ class WalletMixin(  # METHODS
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties WalletEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
     class Meta:
         abstract = True
 
     """
-    Products.Tag Mixin
+    Shops.Wallet Mixin
     """
-    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.Wallet
-    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.Wallet
+    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.WALLET
+    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.WALLET
 
-# Shipment
 
 class ShipmentMixin(  # METHODS
         Base.Save.SaveName,  # save methods
@@ -200,58 +211,34 @@ class ShipmentMixin(  # METHODS
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties ShipmentEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
     class Meta:
         abstract = True
 
     """
-    Products.Tag Mixin
+    Shops.Shipment Mixin
     """
-    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.Shipment
-    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.Shipment
+    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.SHIPMENT
+    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.SHIPMENT
 
-# ShipmentItem
 
-class ShipmentItemMixin(  # METHODS
+class ContactusMixin(  # METHODS
         Base.Save.SaveName,  # save methods
         # def str and get_absolute_url
         Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties ShipmentItemEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
     class Meta:
         abstract = True
 
     """
-    Products.Tag Mixin
+    Shops.Contactus Mixin
     """
-    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.ShipmentItem
-    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.ShipmentItem
-
-# ContactUs
-
-class ContactUsMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
-        # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
-        # property Counts
-        # PROPERTIES
-        # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties ContactUsEXTRA
-        # NAMES
-        ):
-    class Meta:
-        abstract = True
-
-    """
-    Products.Tag Mixin
-    """
-    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.ContactUs
-    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.ContactUs
-
-
+    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.CONTACTUS
+    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.CONTACTUS

@@ -12,7 +12,7 @@ class MODEL_NAMEMixin(  # METHODS
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
     class Meta:

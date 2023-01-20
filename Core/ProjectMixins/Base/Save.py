@@ -1,3 +1,5 @@
+import uuid
+
 from django.utils.text import slugify
 
 class SaveNormal:
@@ -79,10 +81,10 @@ class SaveParent:
             for child in childs:
                 child.save()
 
-
 class UpdateChilds:
     class Meta:
-        abstract=True
+        abstract = True
+
     @staticmethod
     def update_childs(object):
         """
@@ -97,6 +99,7 @@ class UpdateChilds:
                 for item in temp:
                     result.append(item)
         return result
+
 class SaveProduct:
     class Meta:
         abstract = True
@@ -122,7 +125,6 @@ class SaveProduct:
                 category_temp = category_temp.parent
                 categories_id.append(category_temp)
         categories_id = list(set(categories_id))
-        print(categories_id)
         self.category.set(categories_id)
         super().save(*args, **kwargs)
 
@@ -134,16 +136,25 @@ class SaveCategory:
     Product Mixin with category parents saving
     """
 
-    def save(self:object, *args, **kwargs):
+    def save(self: object, *args, **kwargs):
         """
         Save product model with categories parents
         :param args:
         :param kwargs:
         :return:
         """
-        if self.id and self.parent :
+        if self.id and self.parent:
             if self.id == self.parent.id:
                 self.parent = None
         if self.pk is None:
             super().save(*args, **kwargs)
+        super().save(*args, **kwargs)
+
+class SaveCoupon:
+    class Meta:
+        abstract = True
+
+    def save(self: object, *args, **kwargs):
+        if self.pk is None:
+            self.code = uuid.uuid4()
         super().save(*args, **kwargs)

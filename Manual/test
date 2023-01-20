@@ -1,0 +1,3 @@
+Shops Address,Coupon,Discount,Gallery,Image,GalleryImage,Order,OrderItem,Payment,Wallet,Shipment,ContactUs soft
+Customers Customer,Cart,CartItem,CustomerCoupon,Favorite,FavoriteItem,OrderCustomer,WishList,WishlistItem soft
+Markets Market,Inventory,InventoryItem,InventoryItemProperty,Property,OrderMarket soft
