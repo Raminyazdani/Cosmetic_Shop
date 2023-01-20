@@ -44,7 +44,7 @@ class CartMixin(  # METHODS
     SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.CART
 
 
-class CartitemMixin(  # METHODS
+class CartItemMixin(  # METHODS
         Base.Save.SaveName,  # save methods
         # def str and get_absolute_url
         Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
@@ -64,7 +64,7 @@ class CartitemMixin(  # METHODS
     SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.CARTITEM
 
 
-class CustomercouponMixin(  # METHODS
+class CustomerCouponMixin(  # METHODS
         Base.Save.SaveName,  # save methods
         # def str and get_absolute_url
         Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
@@ -142,6 +142,24 @@ class OrdercustomerMixin(  # METHODS
     """
     REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.ORDERCUSTOMER
     SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.ORDERCUSTOMER
+class CouponMixin(  # METHODS
+        Base.Save.SaveName,  # save methods
+        # def str and get_absolute_url
+        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # property Counts
+        # PROPERTIES
+        # COUNTS
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
+        # NAMES
+        ):
+    class Meta:
+        abstract = True
+
+    """
+    Shops.Coupon Mixin
+    """
+    REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.COUPON
+    SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.COUPON
 
 
 class WishlistMixin(  # METHODS

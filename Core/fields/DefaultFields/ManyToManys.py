@@ -34,5 +34,9 @@ class ManyToManys(Base,models.ManyToManyField):
 
 
         kwargs = kwargs_setter(kwargs, class_attrs, deleters)
+        # print("from model : ",f"{kwargs['class_name']:10}",end = "\t\t\t")
+        # print("from field : ",f"{kwargs['field_name']:10}",end = "\t\t\t")
+        # print("through  : ",f"{kwargs['through']:20}",end = "\t\t\t")
+        # print("through_fields  : ",f"{kwargs['through_fields']}",end = "\n")
         super().__init__(*args, **kwargs)
     

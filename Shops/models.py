@@ -30,26 +30,6 @@ class Address(ModelRequiredProperties.AddressMixin, CoreModelUniversal):
         verbose_name = _('Address')
         verbose_name_plural = _('Addresses')  # save methods are implemented in ProjectMixins  # save slug field populated by name field and implemented in ProjectMixins  # save Base Product implemented in ProjectMixins  # Properties are implemented in ProjectMixins including :  #   tag_count ,tag_names , category_count , brand_count , tag_names , category_names , brand_names , comment_count
 
-class Coupon(ModelRequiredProperties.CouponMixin, CoreModelUniversal):
-    """
-    Product Model.capitalize()
-    """
-    # """ Fields   """
-    date_from = ProjectFields.DateFrom(class_name = "Coupon")
-    date_to = ProjectFields.DateTo(class_name = "Coupon")
-    code = ProjectFields.Code(class_name = "Coupon")
-    coupon_type = ProjectFields.CouponType(class_name = "Coupon")
-    minimum_amount = ProjectFields.MinimumAmount(class_name = "Coupon")
-    maximum_amount = ProjectFields.MaximumAmount(class_name = "Coupon")
-    percentage = ProjectFields.Percentage(class_name = "Coupon")
-    is_tax_free = ProjectFields.IsTaxFree(class_name = "Coupon")
-    is_shipping_free = ProjectFields.IsShippingFree(class_name = "Coupon")
-    # customer= ProjectFields.CustomerManyToMany(class_name = "Coupon")
-
-    # required options
-    class Meta:
-        verbose_name = _('Coupon')
-        verbose_name_plural = _('Coupons')  # save methods are implemented in ProjectMixins  # save slug field populated by name field and implemented in ProjectMixins  # save Base Product implemented in ProjectMixins  # Properties are implemented in ProjectMixins including :  #   tag_count ,tag_names , category_count , brand_count , tag_names , category_names , brand_names , comment_count
 
 class Discount(ModelRequiredProperties.DiscountMixin, CoreModelUniversal):
     """
@@ -117,9 +97,8 @@ class Order(ModelRequiredProperties.OrderMixin, CoreModelUniversal):
     """
     # """ Fields   """
     status_order = ProjectFields.StatusOrder(class_name = "Order")
-
     order_item = ProjectFields.OrderItemForeignKey(class_name = "Order")
-    # order_customer= ProjectFields.OrderCustomerForeignKey(class_name = "Order")
+    order_customer= ProjectFields.OrderCustomerForeignKey(class_name = "Order")
     # order_market= ProjectFields.OrderMarketForeignKey(class_name = "Order")
 
     # required options
@@ -135,8 +114,8 @@ class OrderItem(ModelRequiredProperties.OrderitemMixin, CoreModelUniversal):
     quantity= ProjectFields.Quantity(class_name = "OrderItem")
     final_price= ProjectFields.FinalPrice(class_name = "OrderItem")
     order= ProjectFields.OrderForeignKey(class_name = "OrderItem")
+    order_customer= ProjectFields.OrderCustomerForeignKey(class_name = "OrderItem")
     # inventory_item= ProjectFields.InventoryItemForeignKey(class_name = "OrderItem")
-    # order_customer= ProjectFields.OrderCustomerForeignKey(class_name = "OrderItem")
     # order_market= ProjectFields.OrderMarketForeignKey(class_name = "OrderItem")
 
     # required options
@@ -189,9 +168,9 @@ class Shipment(ModelRequiredProperties.ShipmentMixin, CoreModelUniversal):
     # """ Fields   """
     shipment_type = ProjectFields.ShipmentType(class_name = "Shipment")
     status_shipment = ProjectFields.StatusShipment(class_name = "Shipment")
+    order_customer= ProjectFields.OrderCustomerForeignKey(class_name = "Shipment")
 
     # order_market= ProjectFields.OrderMarketForeignKey(class_name = "Shipment")
-    # order_customer= ProjectFields.OrderCustomerForeignKey(class_name = "Shipment")
 
     # required options
     class Meta:

@@ -26,7 +26,7 @@ class GenericRelations(Base,fields.GenericRelation):
     }
     
     def __init__(self, *args, **kwargs):
-        deleters = []
+        deleters = ['app_name_destination','app_name_model_destination']
         class_attrs = GenericRelations.class_custom_default_attrs
     
 

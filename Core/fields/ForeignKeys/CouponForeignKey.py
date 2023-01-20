@@ -19,7 +19,7 @@ class CouponForeignKey(DefaultFields.ForeignKeys):
     class_custom_default_attrs = {
     "class_name": "Model",
     "field_name": "Coupon",
-    "app_name_destination": "Shops",
+    "app_name_destination": "Customers",
     "app_name_model_destination": "Coupon",
     }
     

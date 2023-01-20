@@ -21,7 +21,6 @@ class CouponCustomerCouponForeignKey(DefaultFields.ForeignKeys):
     "field_name": "CouponCustomerCoupon",
     "app_name_destination": "Customers",
     "app_name_model_destination": "CustomerCoupon",
-    "to_field": "Coupon",
     }
     
     def __init__(self, *args, **kwargs):

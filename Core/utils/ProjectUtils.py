@@ -92,6 +92,7 @@ class CustomStringMaker:
         def to_gen(kwargs):
             app_name = kwargs["app_name_destination"]
             class_model = kwargs["app_name_model_destination"]
+
             return app_name + '.' + class_model
 
         @staticmethod
@@ -111,14 +112,15 @@ class CustomStringMaker:
 
         @staticmethod
         def through_gen(kwargs):
+            app_name_destination= kwargs['app_name_destination']
             app_name_model_destination = kwargs['app_name_model_destination']
             app_super_model = kwargs["app_super_model"]
             class_name = kwargs["class_name"]
             result = app_super_model.capitalize() + class_name.capitalize()
             if result != app_super_model.capitalize() + app_super_model.capitalize():
-                return result
+                return app_name_destination+"."+result
             else:
-                return app_super_model.capitalize() + app_name_model_destination.capitalize()
+                return app_name_destination+"."+app_super_model.capitalize() + app_name_model_destination.capitalize()
 
         @staticmethod
         def through_fields_gen(kwargs):

@@ -60,10 +60,10 @@ class CartAdmin(AdminProperty.Cart):
 
 
 
-@admin.register(Cartitem)
+@admin.register(CartItem)
 class CartitemAdmin(AdminProperty.Cartitem):
-    model = Cartitem
-    search_fields = Cartitem.SEARCH_FIELDS
+    model = CartItem
+    search_fields = CartItem.SEARCH_FIELDS
     list_display = AdminProperty.Cartitem.list_display
     list_filter = AdminProperty.Cartitem.list_filter
     list_editable = AdminProperty.Cartitem.list_editable
@@ -84,22 +84,22 @@ class CartitemAdmin(AdminProperty.Cartitem):
 
 
 
-@admin.register(Customercoupon)
-class CustomercouponAdmin(AdminProperty.Customercoupon):
-    model = Customercoupon
-    search_fields = Customercoupon.SEARCH_FIELDS
-    list_display = AdminProperty.Customercoupon.list_display
-    list_filter = AdminProperty.Customercoupon.list_filter
-    list_editable = AdminProperty.Customercoupon.list_editable
-    ordering = AdminProperty.Customercoupon.ordering
-    filter_horizontal = AdminProperty.Customercoupon.filter_horizontal
-    fieldsets = AdminProperty.Customercoupon.fieldsets
-    add_fieldsets = AdminProperty.Customercoupon.add_fieldsets
-    prepopulated_fields = AdminProperty.Customercoupon.prepopulated_fields
-    readonly_fields = AdminProperty.Customercoupon.readonly_fields
-    list_per_page = AdminProperty.Customercoupon.list_per_page
-    list_max_show_all = AdminProperty.Customercoupon.list_max_show_all
-    search_help_text = AdminProperty.Customercoupon.search_help_text
+@admin.register(CustomerCoupon)
+class CustomerCouponAdmin(AdminProperty.CustomerCoupon):
+    model = CustomerCoupon
+    search_fields = CustomerCoupon.SEARCH_FIELDS
+    list_display = AdminProperty.CustomerCoupon.list_display
+    list_filter = AdminProperty.CustomerCoupon.list_filter
+    list_editable = AdminProperty.CustomerCoupon.list_editable
+    ordering = AdminProperty.CustomerCoupon.ordering
+    filter_horizontal = AdminProperty.CustomerCoupon.filter_horizontal
+    fieldsets = AdminProperty.CustomerCoupon.fieldsets
+    add_fieldsets = AdminProperty.CustomerCoupon.add_fieldsets
+    prepopulated_fields = AdminProperty.CustomerCoupon.prepopulated_fields
+    readonly_fields = AdminProperty.CustomerCoupon.readonly_fields
+    list_per_page = AdminProperty.CustomerCoupon.list_per_page
+    list_max_show_all = AdminProperty.CustomerCoupon.list_max_show_all
+    search_help_text = AdminProperty.CustomerCoupon.search_help_text
 
     # inlines = (Inlines.XInlineAdmin)
     # x_inline = inlines[0].tag_inline
@@ -132,10 +132,10 @@ class FavoriteAdmin(AdminProperty.Favorite):
 
 
 
-@admin.register(Favoriteitem)
+@admin.register(FavoriteItem)
 class FavoriteitemAdmin(AdminProperty.Favoriteitem):
-    model = Favoriteitem
-    search_fields = Favoriteitem.SEARCH_FIELDS
+    model = FavoriteItem
+    search_fields = FavoriteItem.SEARCH_FIELDS
     list_display = AdminProperty.Favoriteitem.list_display
     list_filter = AdminProperty.Favoriteitem.list_filter
     list_editable = AdminProperty.Favoriteitem.list_editable
@@ -152,14 +152,34 @@ class FavoriteitemAdmin(AdminProperty.Favoriteitem):
     # inlines = (Inlines.XInlineAdmin)
     # x_inline = inlines[0].tag_inline
 
+@admin.register(Coupon)
+class CouponAdmin(AdminProperty.Coupon):
+    model = Coupon
+    search_fields = Coupon.SEARCH_FIELDS
+    list_display = AdminProperty.Coupon.list_display
+    list_filter = AdminProperty.Coupon.list_filter
+    list_editable = AdminProperty.Coupon.list_editable
+    ordering = AdminProperty.Coupon.ordering
+    filter_horizontal = AdminProperty.Coupon.filter_horizontal
+    fieldsets = AdminProperty.Coupon.fieldsets
+    add_fieldsets = AdminProperty.Coupon.add_fieldsets
+    prepopulated_fields = AdminProperty.Coupon.prepopulated_fields
+    readonly_fields = AdminProperty.Coupon.readonly_fields
+    list_per_page = AdminProperty.Coupon.list_per_page
+    list_max_show_all = AdminProperty.Coupon.list_max_show_all
+    search_help_text = AdminProperty.Coupon.search_help_text
+
+    # inlines = (Inlines.XInlineAdmin)
+    # x_inline = inlines[0].tag_inline
 
 
 
 
-@admin.register(Ordercustomer)
-class OrdercustomerAdmin(AdminProperty.Ordercustomer):
-    model = Ordercustomer
-    search_fields = Ordercustomer.SEARCH_FIELDS
+
+@admin.register(OrderCustomer)
+class OrderCustomerAdmin(AdminProperty.Ordercustomer):
+    model = OrderCustomer
+    search_fields = OrderCustomer.SEARCH_FIELDS
     list_display = AdminProperty.Ordercustomer.list_display
     list_filter = AdminProperty.Ordercustomer.list_filter
     list_editable = AdminProperty.Ordercustomer.list_editable

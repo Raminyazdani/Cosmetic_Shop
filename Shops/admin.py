@@ -36,26 +36,6 @@ class AddressAdmin(AdminProperty.Address):
 
 
 
-@admin.register(Coupon)
-class CouponAdmin(AdminProperty.Coupon):
-    model = Coupon
-    search_fields = Coupon.SEARCH_FIELDS
-    list_display = AdminProperty.Coupon.list_display
-    list_filter = AdminProperty.Coupon.list_filter
-    list_editable = AdminProperty.Coupon.list_editable
-    ordering = AdminProperty.Coupon.ordering
-    filter_horizontal = AdminProperty.Coupon.filter_horizontal
-    fieldsets = AdminProperty.Coupon.fieldsets
-    add_fieldsets = AdminProperty.Coupon.add_fieldsets
-    prepopulated_fields = AdminProperty.Coupon.prepopulated_fields
-    readonly_fields = AdminProperty.Coupon.readonly_fields
-    list_per_page = AdminProperty.Coupon.list_per_page
-    list_max_show_all = AdminProperty.Coupon.list_max_show_all
-    search_help_text = AdminProperty.Coupon.search_help_text
-
-    # inlines = (Inlines.XInlineAdmin)
-    # x_inline = inlines[0].tag_inline
-
 
 
 

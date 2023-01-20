@@ -251,6 +251,7 @@ Customers
         order_customer:f:OrderCustomer
         coupon:f:Coupon
     Favorite
+        id
         is_delete
         created_at
         modified_at

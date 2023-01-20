@@ -34,5 +34,6 @@ class ForeignKeys(Base,models.ForeignKey):
 
 
         kwargs = kwargs_setter(kwargs, class_attrs, deleters)
+
         super().__init__(*args, **kwargs)
     

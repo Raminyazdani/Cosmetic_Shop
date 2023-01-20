@@ -19,8 +19,8 @@ class Product(ModelRequiredProperties.ProductMixin,CoreModelUniversal ):
     tag = ProjectFields.TagManyToMany(class_name = "Product")
     brand = ProjectFields.BrandManyToMany(class_name = "Product")
 
-    # GalleryField
-    #   gallery = ProjectField.CustomGalleryField(class_name"Product")
+    gallery = ProjectFields.GalleryGenericRelation(class_name = "Customer")
+
     # slug field populated by name field
     slug = ProjectFields.Slug(class_name = "Product")
     short_description = ProjectFields.ShortDescription(class_name = "Product")
@@ -47,10 +47,10 @@ class Category(ModelRequiredProperties.CategoryMixin,CoreModelUniversal):
     # slug field populated by name field of parent and self
     slug = ProjectFields.Slug(class_name = "Category")
     description = ProjectFields.Description(class_name = "Category")
+    gallery = ProjectFields.GalleryGenericRelation(class_name = "Customer")
 
     REQUIRED_FIELDS = ['name']
-    # GalleryField
-    #   gallery = ProjectField.CustomGalleryField("Product")
+
     # required options
 
 
@@ -72,9 +72,8 @@ class Brand(ModelRequiredProperties.BrandMixin,CoreModelUniversal):
     slug = ProjectFields.Slug(class_name = "Brand")
     is_available = ProjectFields.IsAvailable(class_name = "Brand")
     description = ProjectFields.Description(class_name = "Brand")
+    gallery = ProjectFields.GalleryGenericRelation(class_name = "Customer")
 
-    # GalleryField
-    #   gallery = ProjectField.CustomGalleryField("Product")
     # required options
 
     class Meta:
@@ -89,9 +88,8 @@ class Tag(ModelRequiredProperties.TagMixin,CoreModelUniversal):
     name = ProjectFields.Name(class_name = "Tag")
     slug = ProjectFields.Slug(class_name = "Tag")
     product = ProjectFields.ProductManyToMany(class_name = "Tag")
+    gallery = ProjectFields.GalleryGenericRelation(class_name = "Customer")
 
-    # GalleryField
-    #   gallery = ProjectField.CustomGalleryField("Product")
     # required options
 
     class Meta:
@@ -109,9 +107,8 @@ class Comment(ModelRequiredProperties.CommentMixin,CoreModelUniversal):
     body = ProjectFields.Body(class_name = "Comment")
     rating = ProjectFields.Rating(class_name = "Comment")
     is_active = ProjectFields.IsActive(class_name = "Comment")
+    gallery = ProjectFields.GalleryGenericRelation(class_name = "Customer")
 
-    # GalleryField
-    #   gallery = ProjectField.CustomGalleryField("Product")
     # slug field populated by id field
     slug = ProjectFields.Slug(class_name = "Comment")
 
