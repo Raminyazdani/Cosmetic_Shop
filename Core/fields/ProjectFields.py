@@ -19,9 +19,9 @@ from .Chars.City import City
 from .Chars.Code import Code
 from .Chars.Coordinate import Coordinate
 from .Chars.Country import Country
-from .Chars.Firstname import Firstname
+from .Chars.FirstName import FirstName
 from .Chars.Key import Key
-from .Chars.Lastname import Lastname
+from .Chars.LastName import LastName
 from .Chars.Name import Name
 from .Chars.PhoneNumber import PhoneNumber
 from .Chars.PostalCode import PostalCode

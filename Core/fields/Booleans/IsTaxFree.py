@@ -26,7 +26,8 @@ class IsTaxFree(DefaultFields.Booleans):
     def __init__(self, *args, **kwargs):
         deleters = []
         class_attrs = IsTaxFree.class_custom_default_attrs
-    
+        kwargs = kwargs_setter(kwargs, class_attrs, deleters)
+
         kwargs["help_text"] = kwargs.get("help_text", _(f"Is this {kwargs['class_name']} record tax free ?"))
         kwargs["verbose_name"] = kwargs.get("verbose_name", _("Tax Free"))
 

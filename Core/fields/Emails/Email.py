@@ -21,7 +21,7 @@ class Email(Base,models.EmailField):
     "field_name": "Emails",
     'null': True,
     'blank': True,  #
-    "validator": CustomValidators.EmailValidator,
+    "validators": CustomValidators.EmailValidator,
     }
     
     def __init__(self, *args, **kwargs):

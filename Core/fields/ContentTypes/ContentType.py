@@ -9,6 +9,7 @@ from Core.utils.ProjectUtils import CustomStringMaker, CustomValidators, kwargs_
 from Core.fields import DefaultFields
 from Core.fields.FieldClassBases import Base, DelClassName
 
+
 class ContentType(DefaultFields.ContentTypes):
 
     class Meta:

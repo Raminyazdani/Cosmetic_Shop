@@ -20,9 +20,6 @@ class Files(Base,models.FileField):
     "class_name": "Model",
     "field_name": "Files",
     "upload_to": CustomStringMaker.File.upload_to_gen,
-    "recursive": True,
-    "match": None,
-    "allow_files": True,
     }
     
     def __init__(self, *args, **kwargs):

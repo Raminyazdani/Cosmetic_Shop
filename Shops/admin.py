@@ -132,10 +132,10 @@ class ImageAdmin(AdminProperty.Image):
 
 
 
-@admin.register(Galleryimage)
+@admin.register(GalleryImage)
 class GalleryimageAdmin(AdminProperty.Galleryimage):
-    model = Galleryimage
-    search_fields = Galleryimage.SEARCH_FIELDS
+    model = GalleryImage
+    search_fields = GalleryImage.SEARCH_FIELDS
     list_display = AdminProperty.Galleryimage.list_display
     list_filter = AdminProperty.Galleryimage.list_filter
     list_editable = AdminProperty.Galleryimage.list_editable
@@ -180,10 +180,10 @@ class OrderAdmin(AdminProperty.Order):
 
 
 
-@admin.register(Orderitem)
-class OrderitemAdmin(AdminProperty.Orderitem):
-    model = Orderitem
-    search_fields = Orderitem.SEARCH_FIELDS
+@admin.register(OrderItem)
+class OrderItemAdmin(AdminProperty.Orderitem):
+    model = OrderItem
+    search_fields = OrderItem.SEARCH_FIELDS
     list_display = AdminProperty.Orderitem.list_display
     list_filter = AdminProperty.Orderitem.list_filter
     list_editable = AdminProperty.Orderitem.list_editable
