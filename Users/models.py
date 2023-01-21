@@ -13,14 +13,10 @@ class User(ModelRequiredProperties.UserMixin,AbstractUser, PermissionsMixin):
     id = ProjectFields.Id(class_name = "User")
     phone_number = ProjectFields.PhoneNumber(class_name = "User")
 
-    is_costumer = ProjectFields.IsCustomer(class_name = "User")
-    # costumer_profile_id = models.ForeignKey('CostumerProfile', on_delete=models.SET_NULL, null=True, blank=True,
-    #                                         verbose_name=_('Costumer Profile ID'), help_text=_('Costumer Profile ID'),
-    #                                         db_index=True)
+    is_customer = ProjectFields.IsCustomer(class_name = "User")
+    customer = ProjectFields.CustomerForeignKey(class_name = "User")
     is_market = ProjectFields.IsMarket(class_name = "User")
-    # market_profile_id = models.ForeignKey('MarketProfile', on_delete=models.SET_NULL, null=True, blank=True,
-    #                                       verbose_name=_('Market Profile ID'), help_text=_('Market Profile ID'),
-    #                                       db_index=True)
+    market = ProjectFields.MarketForeignKey(class_name = "User")
     is_staff = ProjectFields.IsStaff(class_name = "User")
 
     is_active = ProjectFields.IsActive(class_name = "User")

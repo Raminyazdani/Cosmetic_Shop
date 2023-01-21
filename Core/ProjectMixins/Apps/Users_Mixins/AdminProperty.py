@@ -4,15 +4,15 @@ class User(BaseAdminSlugUser):
     class Meta:
         abstract = True
 
-    list_display = ['id', 'phone_number', 'is_costumer', 'is_market', 'is_staff', 'is_active', 'is_admin', 'is_superuser', 'is_verified', 'slug', 'is_delete', 'created_at', 'modified_at']
-    list_filter = ['is_costumer', 'is_market', 'is_staff', 'is_active', 'is_admin', 'is_superuser', 'is_verified', 'is_delete', 'created_at']
-    list_editable = ['is_costumer', 'is_market', 'is_staff', 'is_active', 'is_admin', 'is_superuser', 'is_verified', 'is_delete']
+    list_display = ['id', 'phone_number', 'is_customer', 'is_market', 'is_staff', 'is_active', 'is_admin', 'is_superuser', 'is_verified', 'slug', 'is_delete', 'created_at', 'modified_at']
+    list_filter = ['is_customer', 'is_market', 'is_staff', 'is_active', 'is_admin', 'is_superuser', 'is_verified', 'is_delete', 'created_at']
+    list_editable = ['is_customer', 'is_market', 'is_staff', 'is_active', 'is_admin', 'is_superuser', 'is_verified', 'is_delete']
 
     search_fields = ['phone_number']
     ordering = ['phone_number']
     filter_horizontal = []
     fieldsets = (("Profiling", {
-        'fields': (('phone_number', 'slug'), ('is_costumer', 'is_market')),
+        'fields': (('phone_number', 'slug'), ('is_customer', 'is_market')),
         'classes': ('extrapretty')
         }), ("Conditions", {
         'fields': (('is_staff', 'is_active', 'is_admin', 'is_superuser', 'is_verified', 'is_delete'),),

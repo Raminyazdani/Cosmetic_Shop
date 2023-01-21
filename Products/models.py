@@ -25,7 +25,6 @@ class Product(ModelRequiredProperties.ProductMixin,CoreModelUniversal ):
     slug = ProjectFields.Slug(class_name = "Product")
     short_description = ProjectFields.ShortDescription(class_name = "Product")
     description = ProjectFields.Description(class_name = "Product")
-    price = ProjectFields.PriceDollar(class_name = "Product")
     is_available = ProjectFields.IsAvailable(class_name = "Product")
     gender = ProjectFields.Gender(class_name = "Product")
 
@@ -101,12 +100,11 @@ class Comment(ModelRequiredProperties.CommentMixin,CoreModelUniversal):
     Comment Model
     """
     # """ Fields   """
-    author = ProjectFields.UserForeignKey(class_name = "Comment", verbose_name = _('Author'), help_text = _('Author id'), related_name = 'comments_author')
+    author = ProjectFields.CustomerForeignKey(class_name = "Comment", verbose_name = _('Author'), help_text = _('Author id'), related_name = 'comments_author')
     product = ProjectFields.ProductForeignKey(class_name = "Comment")
     title = ProjectFields.Title(class_name = "Comment")
     body = ProjectFields.Body(class_name = "Comment")
     rating = ProjectFields.Rating(class_name = "Comment")
-    is_active = ProjectFields.IsActive(class_name = "Comment")
     gallery = ProjectFields.GalleryGenericRelation(class_name = "Customer")
 
     # slug field populated by id field

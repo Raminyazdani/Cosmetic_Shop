@@ -60,10 +60,10 @@ class InventoryAdmin(AdminProperty.Inventory):
 
 
 
-@admin.register(Inventoryitem)
+@admin.register(InventoryItem)
 class InventoryitemAdmin(AdminProperty.Inventoryitem):
-    model = Inventoryitem
-    search_fields = Inventoryitem.SEARCH_FIELDS
+    model = InventoryItem
+    search_fields = InventoryItem.SEARCH_FIELDS
     list_display = AdminProperty.Inventoryitem.list_display
     list_filter = AdminProperty.Inventoryitem.list_filter
     list_editable = AdminProperty.Inventoryitem.list_editable

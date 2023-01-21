@@ -42,7 +42,7 @@ class Discount(ModelRequiredProperties.DiscountMixin, CoreModelUniversal):
     percentage= ProjectFields.Percentage(class_name = "Discount")
     date_from= ProjectFields.DateFrom(class_name = "Discount")
     date_to= ProjectFields.DateTo(class_name = "Discount")
-    # inventory_item= ProjectFields.InventoryItemForeignKey(class_name = "Discount")
+    inventory_item= ProjectFields.InventoryItemForeignKey(class_name = "Discount")
 
     # required options
     class Meta:
@@ -99,7 +99,7 @@ class Order(ModelRequiredProperties.OrderMixin, CoreModelUniversal):
     status_order = ProjectFields.StatusOrder(class_name = "Order")
     order_item = ProjectFields.OrderItemForeignKey(class_name = "Order")
     order_customer= ProjectFields.OrderCustomerForeignKey(class_name = "Order")
-    # order_market= ProjectFields.OrderMarketForeignKey(class_name = "Order")
+    order_market= ProjectFields.OrderMarketForeignKey(class_name = "Order")
 
     # required options
     class Meta:
@@ -115,8 +115,8 @@ class OrderItem(ModelRequiredProperties.OrderitemMixin, CoreModelUniversal):
     final_price= ProjectFields.FinalPrice(class_name = "OrderItem")
     order= ProjectFields.OrderForeignKey(class_name = "OrderItem")
     order_customer= ProjectFields.OrderCustomerForeignKey(class_name = "OrderItem")
-    # inventory_item= ProjectFields.InventoryItemForeignKey(class_name = "OrderItem")
-    # order_market= ProjectFields.OrderMarketForeignKey(class_name = "OrderItem")
+    inventory_item= ProjectFields.InventoryItemForeignKey(class_name = "OrderItem")
+    order_market= ProjectFields.OrderMarketForeignKey(class_name = "OrderItem")
 
     # required options
     class Meta:
@@ -169,8 +169,7 @@ class Shipment(ModelRequiredProperties.ShipmentMixin, CoreModelUniversal):
     shipment_type = ProjectFields.ShipmentType(class_name = "Shipment")
     status_shipment = ProjectFields.StatusShipment(class_name = "Shipment")
     order_customer= ProjectFields.OrderCustomerForeignKey(class_name = "Shipment")
-
-    # order_market= ProjectFields.OrderMarketForeignKey(class_name = "Shipment")
+    order_market= ProjectFields.OrderMarketForeignKey(class_name = "Shipment")
 
     # required options
     class Meta:

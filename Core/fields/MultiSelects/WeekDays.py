@@ -36,8 +36,8 @@ class WeekDays(DefaultFields.MultiSelects):
     class_custom_default_attrs = {
     "class_name": "Model",
     "field_name": "WeekDays",
-    "choices": "WEEKDAYS_CHOICES",
-    "default": "[]",
+    "choices": WEEKDAYS_CHOICES,
+    "default": [],
     "null": "True",
     "blank": "True"
     }

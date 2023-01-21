@@ -67,9 +67,9 @@ class Comment(BaseAdminInlineRender, BaseAdminSlug):
     class Meta:
         abstract = True
 
-    list_display = ['author', 'rating', 'product', 'title', 'is_delete', 'is_active', 'modified_at', 'tag_name', 'category_name', 'brand_name']
+    list_display = ['author', 'rating', 'product', 'title', 'is_delete', 'modified_at', 'tag_name', 'category_name', 'brand_name']
     list_filter = ['is_delete', 'product__brand', 'product__category', 'product__tag']
-    list_editable = ['is_delete', 'rating', 'is_active']
+    list_editable = ['is_delete', 'rating']
     ordering = ['product']
     filter_horizontal = []
     fieldsets = (("Profiling", {
@@ -98,14 +98,14 @@ class Product(BaseAdminInlineRender, BaseAdminSlug):
     class Meta:
         abstract = True
 
-    list_display = ('id', 'name', 'gender', 'price', 'is_available', 'is_delete', 'comment_count', 'tag_count', 'category_count', 'brand_count', 'modified_at')
+    list_display = ('id', 'name', 'gender', 'is_available', 'is_delete', 'comment_count', 'tag_count', 'category_count', 'brand_count', 'modified_at')
     list_filter = ['gender', 'is_available', 'is_delete', 'tag', 'category', 'brand']
-    list_editable = ('price', 'is_available', 'is_delete', 'gender')
+    list_editable = ( 'is_available', 'is_delete', 'gender')
     ordering = ['name']
     filter_horizontal = ["tag", "category", "brand"]
     fieldsets = (("Profiling", {
         'classes': ('extrapretty',),
-        'fields': (('name', 'slug',), ('price', 'gender'), 'short_description', 'description',)
+        'fields': (('name', 'slug', 'gender'), 'short_description', 'description',)
         }), ("Extras", {
         'fields': ('tag_inline', 'category_inline', 'brand_inline', 'comment_inline'),
         'classes': ('collapse', 'extrapretty',),

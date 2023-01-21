@@ -10,6 +10,7 @@ Products
         is_delete
         created_at
         modified_at
+        gender
         tag:m:ProductTag:manytomany
         category:m:ProductCategory:manytomany
         brand:m:ProductBrand:manytomany
@@ -93,21 +94,7 @@ Shops
         created_at
         modified_at
         owner:G:f:Customer-Market
-    Coupon
-        id
-        date_from
-        date_to
-        code
-        coupon_type
-        minimum_amount
-        maximum_amount
-        percentage
-        is_tax_free
-        is_shipping_free
-        is_delete
-        created_at
-        modified_at
-        customer:m:CustomerCoupon
+
     Discount
         id
         discount_type
@@ -227,6 +214,22 @@ Customers
         cart:f:Cart
         copun:m:CustomerCoupon
         order_customer:f:OrderCustomer
+
+    Coupon
+        id
+        date_from
+        date_to
+        code
+        coupon_type
+        minimum_amount
+        maximum_amount
+        percentage
+        is_tax_free
+        is_shipping_free
+        is_delete
+        created_at
+        modified_at
+        customer:m:CustomerCoupon
     Cart
         id
         is_delete

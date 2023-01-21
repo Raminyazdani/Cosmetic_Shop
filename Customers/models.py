@@ -61,7 +61,7 @@ class CartItem(ModelRequiredProperties.CartItemMixin, CoreModelUniversal):
     """
     # """ Fields   """
     cart = ProjectFields.CartForeignKey(class_name = "CartItem")
-    # inventory_item = ProjectFields.InventoryItemForeignKey(class_name = "CartItem")
+    inventory_item = ProjectFields.InventoryItemForeignKey(class_name = "CartItem")
     # required options
 
     class Meta:
