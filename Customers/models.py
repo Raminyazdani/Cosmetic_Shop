@@ -1,4 +1,4 @@
-
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 from Core.ProjectMixins.Apps.Customers_Mixins import ModelRequiredProperties
 from Core.fields import ProjectFields
@@ -22,10 +22,9 @@ class Customer(ModelRequiredProperties.CustomerMixin,CoreModelUniversal ):
     gender = ProjectFields.Gender(class_name = "Customer")
     email = ProjectFields.Email(class_name = "Customer")
     bio = ProjectFields.Bio(class_name = "Customer")
-
     gallery = ProjectFields.GalleryGenericRelation(class_name = "Customer")
     comments = ProjectFields.CommentForeignKey(class_name = "Customer")
-    user = ProjectFields.UserForeignKey(class_name = "Customer")
+    user = ProjectFields.MarketOneToOne(class_name = "Customer")
     wish_list = ProjectFields.WishListForeignKey(class_name = "Customer")
     wallet = ProjectFields.WalletGenericRelation(class_name = "Customer")
     address = ProjectFields.AddressGenericRelation(class_name = "Customer")
@@ -47,7 +46,7 @@ class Cart(ModelRequiredProperties.CartMixin,CoreModelUniversal ):
     """
     # """ Fields   """
     cart_item = ProjectFields.CartItemForeignKey(class_name = "Cart")
-    customer = ProjectFields.CustomerForeignKey(class_name = "Cart")
+    customer = ProjectFields.CustomerOneToOne(class_name = "Cart")
     # required options
 
     class Meta:
@@ -76,7 +75,7 @@ class CustomerCoupon(ModelRequiredProperties.CustomerCouponMixin, CoreModelUnive
     # """ Fields   """
     is_used = ProjectFields.IsUsed(class_name = "CustomerCoupon")
 
-    customer_id = ProjectFields.CustomerForeignKey(class_name = "CustomerCoupon")
+    customer_id = ProjectFields.CustomerOneToOne(class_name = "CustomerCoupon")
     coupon_id = ProjectFields.CouponForeignKey(class_name = "CustomerCoupon")
     # required options
 
@@ -110,7 +109,7 @@ class Favorite(ModelRequiredProperties.FavoriteMixin,CoreModelUniversal ):
     Product Model.capitalize()
     """
     # """ Fields   """
-    customer = ProjectFields.CustomerForeignKey(class_name = "Favorite")
+    customer = ProjectFields.CustomerOneToOne(class_name = "Favorite")
     favorite_item = ProjectFields.FavoriteItemForeignKey(class_name = "Favorite")
     # required options
 
@@ -165,7 +164,7 @@ class Wishlist(ModelRequiredProperties.WishlistMixin,CoreModelUniversal ):
     # """ Fields   """
 
     wish_list_item = ProjectFields.WishListItemForeignKey(class_name = "Wishlist")
-    customer = ProjectFields.CustomerForeignKey(class_name = "Wishlist")
+    customer = ProjectFields.CustomerOneToOne(class_name = "Wishlist")
     # required options
 
     class Meta:

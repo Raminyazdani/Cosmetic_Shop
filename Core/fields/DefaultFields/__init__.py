@@ -17,5 +17,6 @@ from .PositiveIntegers import *
 from .Slugs import *
 from .Texts import *
 from .Times import *
+from .OneToOnes import *
 
 

@@ -14,9 +14,9 @@ class User(ModelRequiredProperties.UserMixin,AbstractUser, PermissionsMixin):
     phone_number = ProjectFields.PhoneNumber(class_name = "User")
 
     is_customer = ProjectFields.IsCustomer(class_name = "User")
-    customer = ProjectFields.CustomerForeignKey(class_name = "User")
+    customer = ProjectFields.CustomerOneToOne(class_name = "User")
     is_market = ProjectFields.IsMarket(class_name = "User")
-    market = ProjectFields.MarketForeignKey(class_name = "User")
+    market = ProjectFields.MarketOneToOne(class_name = "User")
     is_staff = ProjectFields.IsStaff(class_name = "User")
 
     is_active = ProjectFields.IsActive(class_name = "User")

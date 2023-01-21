@@ -21,7 +21,7 @@ class Market(ModelRequiredProperties.MarketMixin,CoreModelUniversal ):
     slug = ProjectFields.Slug(class_name = "Market")
     email = ProjectFields.Email(class_name = "Market")
     bio = ProjectFields.Bio(class_name = "Market")
-    user = ProjectFields.UserForeignKey(class_name = "Market")
+    user = ProjectFields.UserOneToOne(class_name = "Market")
     gallery = ProjectFields.GalleryGenericRelation(class_name = "Market")
     wallet = ProjectFields.WalletGenericRelation(class_name = "Market")
     inventory= ProjectFields.InventoryForeignKey(class_name = "Market")
@@ -44,7 +44,7 @@ class Inventory(ModelRequiredProperties.InventoryMixin,CoreModelUniversal ):
     time_open = ProjectFields.TimeOpen(class_name = "Inventory")
     time_close = ProjectFields.TimeClose(class_name = "Inventory")
     weekdays = ProjectFields.WeekDays(class_name = "Inventory")
-    market = ProjectFields.MarketForeignKey(class_name = "Inventory")
+    market = ProjectFields.MarketOneToOne(class_name = "Inventory")
     inventory_item = ProjectFields.InventoryItemForeignKey(class_name = "Inventory")
     # required options
 

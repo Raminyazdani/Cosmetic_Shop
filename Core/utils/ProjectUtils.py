@@ -66,6 +66,17 @@ class CustomValidators:
     CodeValidator = [RegexValidator(regex = CustomRegex.uuid4_regex, message = _("Must be a valid uuid4)"))]
 
 class CustomStringMaker:
+    class OneToOne:
+
+        @staticmethod
+        def related_name_gen(kwargs):
+            return kwargs['class_name'].lower()+"s"
+
+        @staticmethod
+        def to_gen(kwargs):
+
+            return f'{kwargs["app_name_destination"].capitalize()}.{kwargs["app_name_model_destination"].capitalize()}'
+
     class ContentType:
 
         @staticmethod
