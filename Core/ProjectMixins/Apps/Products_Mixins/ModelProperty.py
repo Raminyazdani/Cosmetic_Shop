@@ -1,4 +1,6 @@
+from Core.managers import BaseManager
 
+# todo do this
 
 class REQUIREDFIELDS:
 
@@ -14,3 +16,18 @@ class SEARCHFIELDS:
     COMMENT = ['title', 'body', 'author__username', 'product__name', 'product__category__name', 'product__tag__name', 'product__brand__name']
     PRODUCT = ['name', 'short_description', 'category__name', 'tag__name', 'brand__name']
     TAG = ['name', 'product__name', 'product__category__name', 'product__tag__name', 'product__brand__name']
+
+class Manager:
+    class OBJECTS:
+        BRAND = BaseManager()
+        CATEGORY = BaseManager()
+        COMMENT = BaseManager()
+        PRODUCT = BaseManager()
+        TAG = BaseManager()
+
+    class SUBSETS:
+        BRAND = BaseManager()
+        CATEGORY = BaseManager()
+        COMMENT = BaseManager()
+        PRODUCT = BaseManager()
+        TAG = BaseManager()

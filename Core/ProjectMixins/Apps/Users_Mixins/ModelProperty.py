@@ -1,5 +1,7 @@
 from Users.managers import CustomBaseUserManager
 
+# todo do this
+
 class REQUIREDFIELDS:
     USER = ["password"]
 

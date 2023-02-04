@@ -5,15 +5,18 @@ from . import ModelForeigns, ModelProperty
 
 
 class CustomerMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
+        Base.ImageMixin
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
@@ -25,15 +28,17 @@ class CustomerMixin(  # METHODS
 
 
 class CartMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
@@ -45,15 +50,17 @@ class CartMixin(  # METHODS
 
 
 class CartItemMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
@@ -65,15 +72,17 @@ class CartItemMixin(  # METHODS
 
 
 class CustomerCouponMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
@@ -85,15 +94,17 @@ class CustomerCouponMixin(  # METHODS
 
 
 class FavoriteMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
@@ -105,15 +116,17 @@ class FavoriteMixin(  # METHODS
 
 
 class FavoriteitemMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
@@ -125,15 +138,17 @@ class FavoriteitemMixin(  # METHODS
 
 
 class OrdercustomerMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
@@ -143,15 +158,17 @@ class OrdercustomerMixin(  # METHODS
     REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.ORDERCUSTOMER
     SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.ORDERCUSTOMER
 class CouponMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
@@ -163,40 +180,44 @@ class CouponMixin(  # METHODS
 
 
 class WishlistMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
     """
-    Customers.Wishlist Mixin
+    Customers.WishList Mixin
     """
     REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.WISHLIST
     SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.WISHLIST
 
 
 class WishlistitemMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
     """
-    Customers.Wishlistitem Mixin
+    Customers.WishListItem Mixin
     """
     REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.WISHLISTITEM
     SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.WISHLISTITEM

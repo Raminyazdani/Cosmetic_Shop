@@ -5,15 +5,17 @@ from . import ModelForeigns, ModelProperty
 
 
 class AddressMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
@@ -27,15 +29,17 @@ class AddressMixin(  # METHODS
 
 
 class DiscountMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
@@ -47,15 +51,17 @@ class DiscountMixin(  # METHODS
 
 
 class GalleryMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
@@ -67,15 +73,17 @@ class GalleryMixin(  # METHODS
 
 
 class ImageMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
@@ -87,15 +95,17 @@ class ImageMixin(  # METHODS
 
 
 class GalleryimageMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
@@ -107,15 +117,17 @@ class GalleryimageMixin(  # METHODS
 
 
 class OrderMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
@@ -127,15 +139,17 @@ class OrderMixin(  # METHODS
 
 
 class OrderitemMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
@@ -147,15 +161,17 @@ class OrderitemMixin(  # METHODS
 
 
 class PaymentMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
@@ -167,15 +183,17 @@ class PaymentMixin(  # METHODS
 
 
 class WalletMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
@@ -187,15 +205,17 @@ class WalletMixin(  # METHODS
 
 
 class ShipmentMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
@@ -207,20 +227,22 @@ class ShipmentMixin(  # METHODS
 
 
 class ContactusMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
     """
-    Shops.Contactus Mixin
+    Shops.ContactUs Mixin
     """
     REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.CONTACTUS
     SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.CONTACTUS

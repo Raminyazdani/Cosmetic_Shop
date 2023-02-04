@@ -10,12 +10,15 @@ class UserMixin(
         # Base Model
         AbstractBaseUser, PermissionsMixin,
         # METHODS
-        Base.Save.SaveName, Base.Save.SaveNormal,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.PhoneNumber, Base.AbsoluteUrl.UrlId,  # str and absolute url methods
+        # str and absolute url methods
         # PROPERTIES
+
         # MANAGERS
         ):
+    #todo do this
+
     """
     Users.User Model Mixin
     """

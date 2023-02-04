@@ -5,15 +5,18 @@ from . import ModelForeigns, ModelProperty
 
 
 class MarketMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
+        Base.ImageMixin
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
@@ -25,15 +28,17 @@ class MarketMixin(  # METHODS
 
 
 class InventoryMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
@@ -45,35 +50,39 @@ class InventoryMixin(  # METHODS
 
 
 class InventoryitemMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
     """
-    Markets.Inventoryitem Mixin
+    Markets.InventoryItem Mixin
     """
     REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.INVENTORYITEM
     SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.INVENTORYITEM
 
 
 class InventoryitempropertyMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
@@ -84,41 +93,45 @@ class InventoryitempropertyMixin(  # METHODS
     SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.INVENTORYITEMPROPERTY
 
 
-class PropertyMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+class PropertyItemMixin(  # METHODS
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
     """
-    Markets.Property Mixin
+    Markets.PropertyItem Mixin
     """
     REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.PROPERTY
     SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.PROPERTY
 
 
 class OrdermarketMixin(  # METHODS
-        Base.Save.SaveName,  # save methods
+        Base.Save.SaveNormal,  # save methods
         # def str and get_absolute_url
-        Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
+        # Base.Str.Name, Base.AbsoluteUrl.UrlName,  # str and absolute url methods
         # property Counts
         # PROPERTIES
         # COUNTS
         # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties MODELNAMEEXTRA
         # NAMES
         ):
+    #todo do this
+
     class Meta:
         abstract = True
 
     """
-    Markets.Ordermarket Mixin
+    Markets.OrderMarket Mixin
     """
     REQUIRED_FIELDS = ModelProperty.REQUIREDFIELDS.ORDERMARKET
     SEARCH_FIELDS = ModelProperty.SEARCHFIELDS.ORDERMARKET
