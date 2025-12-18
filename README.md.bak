@@ -34,51 +34,16 @@ This repo is organized as a multi-app Django project (products, users, shops, et
 
 ---
 
-## ✨ New Features (Integrated Branch Consolidation)
-
-This repository has been consolidated from multiple branches to provide a complete e-commerce experience:
-
-### 🛍️ Product Catalog
-- **Product Listing** (`/products/`) - Browse all available products
-- **Product Details** - View detailed product information
-- **Search & Filters** - Find products by category, brand, or search term
-- **Pagination** - Easy navigation through large catalogs
-
-### 🛒 Shopping Cart
-- **Add to Cart** - Add products from detail pages
-- **Manage Cart** (`/cart/`) - View, update quantities, or remove items
-- **Cart Summary** - Real-time total calculation
-- **Persistent Cart** - Cart saved per user account
-
-### 💳 Checkout & Orders
-- **Checkout Process** (`/cart/checkout/`) - Complete order placement
-- **Order Confirmation** - Success page after checkout
-- **Order Models** - OrderItem, Payment, Shipment tracking
-- **Admin Management** - Full order management in Django admin
-
-### 👥 User Features
-- **Authentication** - Login required for cart/checkout
-- **Custom User Model** - Extended with phone, role flags
-- **Admin Access** - Full Django admin panel
-
-### 🎨 UI/UX
-- **Responsive Design** - Bootstrap 5 templates
-- **Navigation** - Consistent navbar across all pages
-- **Messages** - User feedback for cart actions
-- **Clean Layout** - Professional cosmetics shop appearance
-
----
-
 ## Apps & responsibilities
 
 | App | What it’s for | Notes |
 |---|---|---|
 | `Core` | Base models, managers, reusable field definitions, mixins, code generators | `CoreModelUniversal` provides `id`, timestamps, and soft-delete fields. |
 | `Users` | Custom user model | Extends `AbstractUser` and adds `phone_number`, flags like `is_costumer` / `is_market`, and a `slug`. |
-| `Products` | Product catalog with views | Product/Category/Brand/Tag models + list/detail views with filtering/search |
-| `Shops` | Shop models & pages | Order, OrderItem, Payment, Shipment, Address, Coupon, Discount models + home page |
-| `Costumers` | Shopping cart & checkout | Cart, CartItem models + cart views + checkout flow |
-| `Markets` | Marketplace seller-side (placeholder) | Reserved for future marketplace features |
+| `Products` | Product catalog domain | Uses `ProjectFields` heavily and `CoreModelUniversal` as base. |
+| `Shops` | Site pages & URLs | `/` → `Home` view → `templates/Shops/home.html`. |
+| `Markets` | Marketplace seller-side domain (placeholder) | Models file exists but is currently empty/minimal. |
+| `Costumers` | Customer-side domain (placeholder) | Models file exists but is currently empty/minimal. |
 | `APIs` | Future API endpoints (placeholder) | Not currently wired into root `urls.py`. |
 
 ---

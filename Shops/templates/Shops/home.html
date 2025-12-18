@@ -1,5 +1,36 @@
 {% extends "Base/base.html"%}
 
 {% block Title %}
-    <title>Home</title>
+    <title>Home - Cosmetic Shop</title>
+{% endblock %}
+
+{% block main %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1 class="display-4 mb-4">Welcome to Cosmetic Shop</h1>
+            <p class="lead mb-4">Discover our wide range of quality cosmetic products</p>
+            <a href="/products/" class="btn btn-primary btn-lg me-2">Browse Products</a>
+            <a href="/admin/" class="btn btn-outline-secondary btn-lg">Admin Panel</a>
+        </div>
+    </div>
+    
+    <div class="row mt-5">
+        <div class="col-md-4 text-center mb-4">
+            <div class="display-1 text-primary">🛍️</div>
+            <h3>Shop Products</h3>
+            <p>Browse our complete catalog of cosmetic products</p>
+        </div>
+        <div class="col-md-4 text-center mb-4">
+            <div class="display-1 text-primary">🛒</div>
+            <h3>Shopping Cart</h3>
+            <p>Easy checkout process for your convenience</p>
+        </div>
+        <div class="col-md-4 text-center mb-4">
+            <div class="display-1 text-primary">📦</div>
+            <h3>Order Tracking</h3>
+            <p>Track your orders from purchase to delivery</p>
+        </div>
+    </div>
+</div>
 {% endblock %}
