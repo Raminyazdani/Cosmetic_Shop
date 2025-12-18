@@ -32,6 +32,9 @@ class SaveId:
         :param kwargs:
         :return:
         """
+        if self.pk is None:
+            super().save(*args, **kwargs)
+            kwargs.pop('force_insert', None)
         slug = slugify(self.id)
         self.slug = slug
         super().save(*args, **kwargs)
@@ -114,6 +117,7 @@ class SaveProduct:
         """
         if self.pk is None:
             super().save(*args, **kwargs)
+            kwargs.pop('force_insert', None)
         categories = self.category.all()
         categories_id = [x for x in categories.values_list('id', flat = True)]
         for category in categories:
@@ -146,4 +150,5 @@ class SaveCategory:
                 self.parent = None
         if self.pk is None:
             super().save(*args, **kwargs)
+            kwargs.pop('force_insert', None)
         super().save(*args, **kwargs)

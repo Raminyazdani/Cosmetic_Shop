@@ -290,3 +290,35 @@ class CustomBrandFieldForeignKey(CustomDefaultField.ForeignKey):
         for key, value in CustomBrandFieldForeignKey.class_custom_default_attrs.items():
             kwargs[key] = kwargs.get(key, value)
         super().__init__(*args, **kwargs)
+
+class CustomOrderFieldForeignKey(CustomDefaultField.ForeignKey):
+    class Meta:
+        abstract = True
+
+    class_custom_default_attrs = {
+        "class_name": "Model",
+        "field_name": "Order",
+        "app_name_destination": "Shops",
+        "app_name_model_destination": "Order",
+        }
+
+    def __init__(self, *args, **kwargs):
+        for key, value in CustomOrderFieldForeignKey.class_custom_default_attrs.items():
+            kwargs[key] = kwargs.get(key, value)
+        super().__init__(*args, **kwargs)
+
+class CustomAddressFieldForeignKey(CustomDefaultField.ForeignKey):
+    class Meta:
+        abstract = True
+
+    class_custom_default_attrs = {
+        "class_name": "Model",
+        "field_name": "Address",
+        "app_name_destination": "Shops",
+        "app_name_model_destination": "Address",
+        }
+
+    def __init__(self, *args, **kwargs):
+        for key, value in CustomAddressFieldForeignKey.class_custom_default_attrs.items():
+            kwargs[key] = kwargs.get(key, value)
+        super().__init__(*args, **kwargs)

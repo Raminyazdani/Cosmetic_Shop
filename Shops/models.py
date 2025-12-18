@@ -1,3 +1,4 @@
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from Core.ProjectMixins.Apps.Shops_Mixins import ModelRequiredProperties
@@ -16,6 +17,7 @@ class Address(ModelRequiredProperties.AddressMixin, CoreModelUniversal):
     """
     # """ Fields   """
     name = ProjectFields.CustomNameField(class_name = "Address")
+    slug = ProjectFields.CustomSlugField(class_name = "Address")
 
     # required options
     class Meta:
@@ -28,6 +30,7 @@ class Coupon(ModelRequiredProperties.CouponMixin, CoreModelUniversal):
     """
     # """ Fields   """
     name = ProjectFields.CustomNameField(class_name = "Coupon")
+    slug = ProjectFields.CustomSlugField(class_name = "Coupon")
 
     # required options
     class Meta:
@@ -40,6 +43,7 @@ class Discount(ModelRequiredProperties.DiscountMixin, CoreModelUniversal):
     """
     # """ Fields   """
     name = ProjectFields.CustomNameField(class_name = "Discount")
+    slug = ProjectFields.CustomSlugField(class_name = "Discount")
 
     # required options
     class Meta:
@@ -52,6 +56,7 @@ class Gallery(ModelRequiredProperties.GalleryMixin, CoreModelUniversal):
     """
     # """ Fields   """
     name = ProjectFields.CustomNameField(class_name = "Gallery")
+    slug = ProjectFields.CustomSlugField(class_name = "Gallery")
 
     # required options
     class Meta:
@@ -64,6 +69,7 @@ class Image(ModelRequiredProperties.ImageMixin, CoreModelUniversal):
     """
     # """ Fields   """
     name = ProjectFields.CustomNameField(class_name = "Image")
+    slug = ProjectFields.CustomSlugField(class_name = "Image")
 
     # required options
     class Meta:
@@ -74,27 +80,35 @@ class Image(ModelRequiredProperties.ImageMixin, CoreModelUniversal):
 
 class Order(ModelRequiredProperties.OrderMixin, CoreModelUniversal):
     """
-    Product Model
+    Order Model
     """
     # """ Fields   """
-    name = ProjectFields.CustomNameField(class_name = "Order")
+    user = ProjectFields.CustomUserFieldForeignKey(class_name = "Order")
+    name = ProjectFields.CustomNameField(class_name = "Order", unique = False)
+    slug = ProjectFields.CustomSlugField(class_name = "Order")
+    total_price = ProjectFields.CustomPriceDollarField(class_name = "Order")
+    address = ProjectFields.CustomAddressFieldForeignKey(class_name = "Order")
 
     # required options
     class Meta:
         verbose_name = _('Order')
-        verbose_name_plural = _('Orders')  # save methods are implemented in ProjectMixins  # save slug field populated by name field and implemented in ProjectMixins  # save Base Product implemented in ProjectMixins  # Properties are implemented in ProjectMixins including :  #   tag_count ,tag_names , category_count , brand_count , tag_names , category_names , brand_names , comment_count
+        verbose_name_plural = _('Orders')
 
 class OrderItem(ModelRequiredProperties.OrderItemMixin, CoreModelUniversal):
     """
-    Product Model
+    OrderItem Model
     """
     # """ Fields   """
-    name = ProjectFields.CustomNameField(class_name = "OrderItem")
+    order = ProjectFields.CustomOrderFieldForeignKey(class_name = "OrderItem")
+    product = ProjectFields.CustomProductFieldForeignKey(class_name = "OrderItem")
+    name = ProjectFields.CustomNameField(class_name = "OrderItem", unique = False)
+    slug = ProjectFields.CustomSlugField(class_name = "OrderItem")
+    quantity = models.PositiveIntegerField(default = 1)
+    price = ProjectFields.CustomPriceDollarField(class_name = "OrderItem")
 
-    # required options
     class Meta:
         verbose_name = _('OrderItem')
-        verbose_name_plural = _('OrderItems')  # save methods are implemented in ProjectMixins  # save slug field populated by name field and implemented in ProjectMixins  # save Base Product implemented in ProjectMixins  # Properties are implemented in ProjectMixins including :  #   tag_count ,tag_names , category_count , brand_count , tag_names , category_names , brand_names , comment_count
+        verbose_name_plural = _('OrderItems')
 
 class Payment(ModelRequiredProperties.PaymentMixin, CoreModelUniversal):
     """
@@ -102,6 +116,7 @@ class Payment(ModelRequiredProperties.PaymentMixin, CoreModelUniversal):
     """
     # """ Fields   """
     name = ProjectFields.CustomNameField(class_name = "Payment")
+    slug = ProjectFields.CustomSlugField(class_name = "Payment")
 
     # required options
     class Meta:
@@ -114,6 +129,7 @@ class Wallet(ModelRequiredProperties.WalletMixin, CoreModelUniversal):
     """
     # """ Fields   """
     name = ProjectFields.CustomNameField(class_name = "Wallet")
+    slug = ProjectFields.CustomSlugField(class_name = "Wallet")
 
     # required options
     class Meta:
@@ -126,6 +142,7 @@ class Shipment(ModelRequiredProperties.ShipmentMixin, CoreModelUniversal):
     """
     # """ Fields   """
     name = ProjectFields.CustomNameField(class_name = "Shipment")
+    slug = ProjectFields.CustomSlugField(class_name = "Shipment")
 
     # required options
     class Meta:
@@ -139,6 +156,7 @@ class ShipmentItem(ModelRequiredProperties.ShipmentItemMixin, CoreModelUniversal
     """
     # """ Fields   """
     name = ProjectFields.CustomNameField(class_name = "ShipmentItem")
+    slug = ProjectFields.CustomSlugField(class_name = "ShipmentItem")
 
     # required options
     class Meta:
@@ -153,6 +171,7 @@ class ContactUs(ModelRequiredProperties.ContactUsMixin,CoreModelUniversal ):
     """
     # """ Fields   """
     name = ProjectFields.CustomNameField(class_name = "ContactUs")
+    slug = ProjectFields.CustomSlugField(class_name = "ContactUs")
 
     # required options
 

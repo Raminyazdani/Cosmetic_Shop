@@ -144,41 +144,49 @@ For example:
 
 ---
 
-## Local development setup
+## 🚀 Quick Start
 
-### Prerequisites
+To get the shop up and running with demo data:
 
-- Python installed and on PATH
-- Recommended: create a virtual environment
+1. **Setup:**
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # Windows: .venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
 
-### Install dependencies
+2. **Initialize Database:**
+   ```bash
+   python manage.py migrate
+   python manage.py seed_demo
+   ```
 
-This repo ships with a minimal `requirements.txt` (Django only). If you add packages later, pin them there.
+3. **Run Server:**
+   ```bash
+   python manage.py runserver
+   ```
 
-```bash
-python -m venv .venv
-.\.venv\Scripts\activate
-pip install -r requirements.txt
-```
+Visit `http://127.0.0.1:8000/` to explore the shop.
 
-### Run migrations + create admin user
+---
 
-```bash
-python manage.py migrate
-python manage.py createsuperuser
-# Note: Custom user model requires phone_number field (e.g., 1234567890)
-```
+## ✨ MVP Features (v1.0)
 
-### Start the server
+This project is now a fully functional MVP with the following features:
 
-```bash
-python manage.py runserver
-```
+- **Auth:** Complete registration, login, and logout flows.
+- **Catalog:** Browse products with category/brand filtering and search.
+- **Cart:** Persistent shopping cart with add/remove/update capabilities.
+- **Checkout:** Order creation flow with order item tracking and summary.
+- **Admin:** Comprehensive admin panel for managing all entities.
+- **Demo Data:** `seed_demo` command to instantly populate the catalog and users.
+- **Tests:** Integrated test suite for core user journeys.
 
-Open:
+---
 
-- Home: http://127.0.0.1:8000/
-- Admin: http://127.0.0.1:8000/admin/
+## 🛠️ Developer Tools
+
+See [docs/RUNBOOK.md](docs/RUNBOOK.md) for detailed development instructions, credentials, and project structure.
 
 ---
 

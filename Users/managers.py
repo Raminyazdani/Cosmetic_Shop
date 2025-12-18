@@ -14,7 +14,8 @@ class CustomBaseUserManager(BaseUserManager, BaseManager):
         if not phone_number:
             raise ValueError(_('The given phone number must be set'))
         phone_number = phone_number[-10:]
-        extra_fields["slug"]=phone_number
+        extra_fields.setdefault('username', phone_number)
+        extra_fields["slug"] = phone_number
         user = self.model(phone_number=phone_number, **extra_fields)
 
         # Call this method for password hashing

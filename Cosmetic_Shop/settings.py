@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -19,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-vo&#taylzz%tm(qh*bcv*h$^xu!)4!_u8q%m#*#=)(&0hqd(f-'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-vo&#taylzz%tm(qh*bcv*h$^xu!)4!_u8q%m#*#=)(&0hqd(f-')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['mysite.com:8000','mysite.com','192.168.8.120',"127.0.0.1","192,168.8.120","localhost"]
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '127.0.0.1,localhost,192.168.8.120').split(',')
 
 # Application definition
 
@@ -88,8 +89,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'statics/'
-TEMPLATES_URL = 'templates/'
 STATICFILES_DIRS = [BASE_DIR / 'statics/']
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+TEMPLATES_URL = 'templates/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
