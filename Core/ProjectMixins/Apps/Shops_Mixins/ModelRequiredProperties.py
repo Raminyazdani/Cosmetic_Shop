@@ -12,7 +12,7 @@ class AddressMixin(  # METHODS
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties AddressEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties AddressEXTRA
         # NAMES
         ):
     class Meta:
@@ -32,7 +32,7 @@ class CouponMixin(  # METHODS
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties CouponEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties CouponEXTRA
         # NAMES
         ):
     class Meta:
@@ -53,7 +53,7 @@ class DiscountMixin(  # METHODS
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties DiscountEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties DiscountEXTRA
         # NAMES
         ):
     class Meta:
@@ -74,7 +74,7 @@ class GalleryMixin(  # METHODS
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties GalleryEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties GalleryEXTRA
         # NAMES
         ):
     class Meta:
@@ -95,7 +95,7 @@ class ImageMixin(  # METHODS
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties ImageEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties ImageEXTRA
         # NAMES
         ):
     class Meta:
@@ -116,7 +116,7 @@ class OrderMixin(  # METHODS
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties OrderEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties OrderEXTRA
         # NAMES
         ):
     class Meta:
@@ -137,7 +137,7 @@ class OrderItemMixin(  # METHODS
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties OrderItemEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties OrderItemEXTRA
         # NAMES
         ):
     class Meta:
@@ -158,7 +158,7 @@ class PaymentMixin(  # METHODS
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties PaymentEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties PaymentEXTRA
         # NAMES
         ):
     class Meta:
@@ -179,7 +179,7 @@ class WalletMixin(  # METHODS
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties WalletEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties WalletEXTRA
         # NAMES
         ):
     class Meta:
@@ -200,7 +200,7 @@ class ShipmentMixin(  # METHODS
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties ShipmentEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties ShipmentEXTRA
         # NAMES
         ):
     class Meta:
@@ -221,7 +221,7 @@ class ShipmentItemMixin(  # METHODS
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties ShipmentItemEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties ShipmentItemEXTRA
         # NAMES
         ):
     class Meta:
@@ -242,7 +242,7 @@ class ContactUsMixin(  # METHODS
         # property Counts
         # PROPERTIES
         # COUNTS
-        ModelForeigns.MODELNAMEEXTRA,  # foreign count properties ContactUsEXTRA
+        # ModelForeigns.MODELNAMEEXTRA,  # foreign count properties ContactUsEXTRA
         # NAMES
         ):
     class Meta:
