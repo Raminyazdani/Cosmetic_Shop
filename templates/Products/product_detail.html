@@ -22,6 +22,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'products:list' %}">Products</a>
                     </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'cart:view' %}">Cart 🛒</a>
+                    </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="/admin/">Admin</a>
                     </li>
@@ -103,9 +108,18 @@
 
                 {% if product.is_available %}
                 <div class="d-grid gap-2">
-                    <button class="btn btn-primary btn-lg" onclick="alert('Cart functionality will be implemented soon!')">
-                        Add to Cart
-                    </button>
+                    {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'cart:add' product.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary btn-lg w-100">
+                            Add to Cart
+                        </button>
+                    </form>
+                    {% else %}
+                    <a href="/admin/login/?next={{ request.path }}" class="btn btn-primary btn-lg">
+                        Login to Add to Cart
+                    </a>
+                    {% endif %}
                 </div>
                 {% endif %}
             </div>

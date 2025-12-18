@@ -22,6 +22,11 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="{% url 'products:list' %}">Products</a>
                     </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'cart:view' %}">Cart 🛒</a>
+                    </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="/admin/">Admin</a>
                     </li>
