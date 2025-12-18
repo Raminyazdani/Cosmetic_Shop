@@ -94,7 +94,7 @@ def checkout(request):
         cart.items.all().delete()
         
         messages.success(request, f'Order placed successfully!')
-        return redirect('checkout_success')
+        return redirect('cart:checkout_success')
     
     context = {
         'cart': cart,

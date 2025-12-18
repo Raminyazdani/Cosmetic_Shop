@@ -20,7 +20,7 @@ class Address(ModelRequiredProperties.AddressMixin, CoreModelUniversal):
     # required options
     class Meta:
         verbose_name = _('Address')
-        verbose_name_plural = _('Addresss')  # save methods are implemented in ProjectMixins  # save slug field populated by name field and implemented in ProjectMixins  # save Base Product implemented in ProjectMixins  # Properties are implemented in ProjectMixins including :  #   tag_count ,tag_names , category_count , brand_count , tag_names , category_names , brand_names , comment_count
+        verbose_name_plural = _('Addresses')  # save methods are implemented in ProjectMixins  # save slug field populated by name field and implemented in ProjectMixins  # save Base Product implemented in ProjectMixins  # Properties are implemented in ProjectMixins including :  #   tag_count ,tag_names , category_count , brand_count , tag_names , category_names , brand_names , comment_count
 
 class Coupon(ModelRequiredProperties.CouponMixin, CoreModelUniversal):
     """
@@ -56,7 +56,7 @@ class Gallery(ModelRequiredProperties.GalleryMixin, CoreModelUniversal):
     # required options
     class Meta:
         verbose_name = _('Gallery')
-        verbose_name_plural = _('Gallerys')  # save methods are implemented in ProjectMixins  # save slug field populated by name field and implemented in ProjectMixins  # save Base Product implemented in ProjectMixins  # Properties are implemented in ProjectMixins including :  #   tag_count ,tag_names , category_count , brand_count , tag_names , category_names , brand_names , comment_count
+        verbose_name_plural = _('Galleries')  # save methods are implemented in ProjectMixins  # save slug field populated by name field and implemented in ProjectMixins  # save Base Product implemented in ProjectMixins  # Properties are implemented in ProjectMixins including :  #   tag_count ,tag_names , category_count , brand_count , tag_names , category_names , brand_names , comment_count
 
 class Image(ModelRequiredProperties.ImageMixin, CoreModelUniversal):
     """
@@ -158,4 +158,4 @@ class ContactUs(ModelRequiredProperties.ContactUsMixin,CoreModelUniversal ):
 
     class Meta:
         verbose_name = _('ContactUs')
-        verbose_name_plural = _('ContactUss')  # save methods are implemented in ProjectMixins  # save slug field populated by name field and implemented in ProjectMixins  # save Base Product implemented in ProjectMixins  # Properties are implemented in ProjectMixins including :  #   tag_count ,tag_names , category_count , brand_count , tag_names , category_names , brand_names , comment_count
+        verbose_name_plural = _('Contact Inquiries')  # save methods are implemented in ProjectMixins  # save slug field populated by name field and implemented in ProjectMixins  # save Base Product implemented in ProjectMixins  # Properties are implemented in ProjectMixins including :  #   tag_count ,tag_names , category_count , brand_count , tag_names , category_names , brand_names , comment_count
