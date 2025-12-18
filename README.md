@@ -2,6 +2,8 @@
 
 A Django-based marketplace template for a cosmetics shop.
 
+> **📋 See [REPORT.md](REPORT.md) for detailed setup audit, branch analysis, and verification results.**
+
 This repo is organized as a multi-app Django project (products, users, shops, etc.) with a small “Core” framework that provides:
 
 - **Reusable model fields** (`Core/fields/*`) via `Core.fields.ProjectFields`
@@ -164,6 +166,7 @@ pip install -r requirements.txt
 ```bash
 python manage.py migrate
 python manage.py createsuperuser
+# Note: Custom user model requires phone_number field (e.g., 1234567890)
 ```
 
 ### Start the server
