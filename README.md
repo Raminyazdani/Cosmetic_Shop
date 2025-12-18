@@ -1,56 +1,231 @@
-# Cosmetic-Shop
+# Cosmetic Shop — Django Marketplace Template
 
-This is my first django project from zero to hero . wish me luck ...
+A Django-based marketplace template for a cosmetics shop.
 
-## this design is a template for cosmetic shop featuring as a market place
+This repo is organized as a multi-app Django project (products, users, shops, etc.) with a small “Core” framework that provides:
 
-## APPs indents -> Models:
+- **Reusable model fields** (`Core/fields/*`) via `Core.fields.ProjectFields`
+- **Shared base models + soft-delete** (`Core.models.CoreModelUniversal` + `Core.managers.BaseManager`)
+- **Model mixins** for common behavior (slug generation, `__str__`, save rules) under `Core/ProjectMixins/`
+- A **custom management command** to scaffold apps and boilerplate mixins (`customstartapp`)
 
-* ### Core
+> Current UI entry point: `/` renders `templates/Shops/home.html` via `Shops.views.Home`.
 
-* ### Users
-    1. User
+---
 
-* ### Products
-    1. Product
-    2. Brand
-    3. Category
-    4. Comments
-    5. Tags
-    6. ProductCategory
-    7. ProductTag
-    8. ProductBrand
+## Tech stack
 
-* ### Shops
-    1. Address
-    2. Coupon
-    3. Discount
-    4. Gallery
-    5. Image
-    6. Order
-    7. OrderItem
-    8. Payment
-    9. Wallet
-    10. Shipment
-    11. ShipmentItem
-    12. ContactUs
+- Python (3.10+ recommended)
+- Django 4.1.4
+- Default database: SQLite (`db.sqlite3`)
 
-* ### Costumers
-    1. ProfileCostumer
-    2. Cart
-    3. CartItem
-    4. CostumerCouponList
-    5. Favorite
-    6. FavoriteItem
-    7. OrderCostumer
-    8. WishList
-    9. WishlistItem
+---
 
-* ### Markets
-    1. ProfileMarket
-    2. Inventory
-    3. InventoryProperty
-    4. OrderMarket
-    5. InventoryCriteria
-    6. Property
+## Project structure (high level)
 
+- `Cosmetic_Shop/` — Django project (settings/urls/asgi/wsgi)
+- `Core/` — shared framework utilities (fields, base models, mixins, generators)
+- `Users/` — custom user model (`AUTH_USER_MODEL = 'Users.User'`)
+- `Products/` — product catalog models (Product/Category/Brand/Tag/Comment + through models)
+- `Shops/` — template-based pages (currently home)
+- `Markets/`, `Costumers/`, `APIs/` — placeholder apps (present in `INSTALLED_APPS`, currently minimal models)
+- `templates/` — global templates
+- `statics/` — static assets (CSS/JS/Bootstrap)
+
+---
+
+## Apps & responsibilities
+
+| App | What it’s for | Notes |
+|---|---|---|
+| `Core` | Base models, managers, reusable field definitions, mixins, code generators | `CoreModelUniversal` provides `id`, timestamps, and soft-delete fields. |
+| `Users` | Custom user model | Extends `AbstractUser` and adds `phone_number`, flags like `is_costumer` / `is_market`, and a `slug`. |
+| `Products` | Product catalog domain | Uses `ProjectFields` heavily and `CoreModelUniversal` as base. |
+| `Shops` | Site pages & URLs | `/` → `Home` view → `templates/Shops/home.html`. |
+| `Markets` | Marketplace seller-side domain (placeholder) | Models file exists but is currently empty/minimal. |
+| `Costumers` | Customer-side domain (placeholder) | Models file exists but is currently empty/minimal. |
+| `APIs` | Future API endpoints (placeholder) | Not currently wired into root `urls.py`. |
+
+---
+
+## Key design concepts
+
+### 1) Custom user model
+
+This project sets:
+
+- `AUTH_USER_MODEL = 'Users.User'`
+
+The user model is defined in `Users/models.py` and adds a `phone_number` field plus role flags.
+
+### 2) Centralized field definitions (`ProjectFields`)
+
+You’ll see patterns like:
+
+- `ProjectFields.CustomNameField(class_name="Product")`
+
+Those field factories are aggregated in `Core/fields/ProjectFields.py` and implemented in the various modules inside `Core/fields/`.
+
+This design keeps field options (verbose names, validators, indexes, defaults) centralized.
+
+### 3) Base model + soft delete
+
+Most domain models inherit from `Core.models.CoreModelUniversal`, which provides:
+
+- `id`
+- `created_at`, `modified_at`
+- `is_delete` (soft-delete flag)
+- `objects` / `subset` managers (`Core.managers.BaseManager`)
+
+`BaseManager` includes helpers like:
+
+- `get_deleted()`
+- `restore()`
+- `hard_delete()`
+
+### 4) Mixins for behavior (slug/save/str)
+
+Common behavior is implemented as mixins under `Core/ProjectMixins/`.
+For example:
+
+- `Core/ProjectMixins/Base/Save.py` contains save mixins like `SaveName` and `SaveId` (for slug generation)
+- `Core/ProjectMixins/Base/Str.py` contains `__str__` mixins like `Name`, `ID`, etc.
+
+---
+
+## URL routing (request flow)
+
+- Root URLConf: `Cosmetic_Shop/urls.py`
+  - `/admin/` → Django Admin
+  - `/` → `include('Shops.urls')`
+
+- `Shops/urls.py`
+  - `/` → `Shops.views.Home` (class-based view)
+
+- `Shops/views.py`
+  - Renders `templates/Shops/home.html`
+
+---
+
+## Local development setup
+
+### Prerequisites
+
+- Python installed and on PATH
+- Recommended: create a virtual environment
+
+### Install dependencies
+
+This repo ships with a minimal `requirements.txt` (Django only). If you add packages later, pin them there.
+
+```bash
+python -m venv .venv
+.\.venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+### Run migrations + create admin user
+
+```bash
+python manage.py migrate
+python manage.py createsuperuser
+```
+
+### Start the server
+
+```bash
+python manage.py runserver
+```
+
+Open:
+
+- Home: http://127.0.0.1:8000/
+- Admin: http://127.0.0.1:8000/admin/
+
+---
+
+## Static files & templates
+
+- Templates live in:
+  - `templates/` (project-level)
+  - `*/templates/` (app-level, if present)
+
+- Static assets live in `statics/` and are configured in `Cosmetic_Shop/settings.py`:
+  - `STATICFILES_DIRS = [BASE_DIR / 'statics/']`
+  - `STATIC_URL = 'statics/'`
+
+> Note: Django convention is usually `STATIC_URL = '/static/'`. This project currently uses `statics/`.
+
+---
+
+## Custom scaffolding command: `customstartapp`
+
+There’s a custom management command at:
+
+- `Core/management/commands/customstartapp.py`
+
+It wraps `startapp` and can also generate boilerplate for mixins and model scaffolding.
+
+Examples:
+
+```bash
+# Create an app and generate scaffolding
+python manage.py customstartapp --a MyApp --p Cosmetic_Shop --m ModelA ModelB --s SomeScopeParent --o soft
+
+# Batch mode: read definitions from Core/management/AppMaker/making.txt
+python manage.py customstartapp --o from --f making.txt
+```
+
+Options:
+
+- `--o soft` (default): only add missing files/classes
+- `--o hard`: overwrite
+- `--o delete`: remove generated files
+- `--o from`: batch create from a text file
+
+---
+
+## Database
+
+Default database is SQLite:
+
+- `db.sqlite3` in project root
+
+To switch to Postgres/MySQL later, update the `DATABASES` setting.
+
+---
+
+## Admin
+
+Django admin is enabled at `/admin/`.
+
+If you customize admin registrations, you’ll do it in each app’s `admin.py`.
+
+---
+
+## Known config notes / quick checklist
+
+These are worth reviewing before deploying:
+
+- `SECRET_KEY` is hard-coded in `Cosmetic_Shop/settings.py` (move to environment variable for production)
+- `DEBUG = True` (must be `False` in production)
+- `ALLOWED_HOSTS` contains a likely typo: `"192,168.8.120"` (comma vs dot)
+- No `MEDIA_ROOT` / `MEDIA_URL` configured yet (needed for user uploads)
+
+---
+
+## Tests
+
+Automated tests aren’t implemented yet (each app has a `tests.py` placeholder).
+
+To run Django tests:
+
+```bash
+python manage.py test
+```
+
+---
+
+## License
+
+See `LICENSE`.
